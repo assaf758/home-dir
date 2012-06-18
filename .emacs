@@ -9,6 +9,14 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/icicles"))
 
+; Disable non-emacs stuff:
+;(menu-bar-mode -1)       ;hide menu-bar
+(scroll-bar-mode -1)     ;hide scroll-bar
+(tool-bar-mode -1)       ;hide tool-bar
+
+; do not wrap long lines
+(setq-default truncate-lines t)
+
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
