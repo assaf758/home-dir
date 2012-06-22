@@ -22,8 +22,10 @@
 (setq ido-everywhere t)
 (require 'isearchb)
 
+; key bindings
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;You should add any customization code to your ~/.emacs. If you're doing any C customization at all, add:
 (require 'cc-mode)
@@ -54,7 +56,7 @@
 (setq initial-scratch-message nil)                                              
 (setq inhibit-splash-screen t)                                                  
 (setq inhibit-startup-message t)
-
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
 
 
 (custom-set-variables
