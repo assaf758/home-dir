@@ -188,4 +188,5 @@
 # }
 # 
 # alias cd=cd_func
-PS1=('\033[33m$ ')
+# PS1=('\033[33m$ ')
+export PS1="\e[0;31m[\u@\h \W]\$ \e[m "

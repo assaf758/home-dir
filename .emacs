@@ -26,6 +26,11 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+;; Use regex searches by default.
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;You should add any customization code to your ~/.emacs. If you're doing any C customization at all, add:
 (require 'cc-mode)
@@ -43,9 +48,52 @@
 ; just answer y/n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun cygwin-shell ()
+  "Run cygwin bash in shell mode."
+  (interactive)
+  (let ((explicit-shell-file-name "C:/cygwin/bin/bash"))
+    (setq explicit-bash-args '("--login" "-i"))
+    (call-interactively 'shell)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; ibuffer config
+(setq ibuffer-saved-filter-groups
+      '(("home"
+	 ("emacs-config" (or (filename . ".emacs.d")
+			     (filename . "emacs-config")))
+         ("martinowen.net" (filename . "martinowen.net"))
+	 ("Org" (or (mode . org-mode)
+		    (filename . "OrgMode")))
+         ("code" (filename . "code"))
+	 ("Web Dev" (or (mode . html-mode)
+			(mode . css-mode)))
+	 ("Subversion" (name . "\*svn"))
+	 ("Magit" (name . "\*magit"))
+	 ("ERC" (mode . erc-mode))
+	 ("Help" (or (name . "\*Help\*")
+		     (name . "\*Apropos\*")
+		     (name . "\*info\*"))))))
+; activate the 'home' filter
+(add-hook 'ibuffer-mode-hook 
+	  '(lambda ()
+	     (ibuffer-switch-to-saved-filter-groups "home")))
+(setq ibuffer-expert t) ; don't confirm killing of buffers
+(setq ibuffer-show-empty-filter-groups nil) ; don't show empty groups
+; automatically keep buffer-list window up to date
+(add-hook 'ibuffer-mode-hook 
+	  '(lambda ()
+	     (ibuffer-auto-mode 1)
+	     (ibuffer-switch-to-saved-filter-groups "home")))
+
+(require 'ibuf-ext)
+    (add-to-list 'ibuffer-never-show-predicates "^\\*")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; always end a file with a newline
 ;(setq require-final-newline 'query)
-
 
 ; instead use .Xdefualt config:
 ;  .Xresources "Emacs.menuBar:          off"
@@ -56,7 +104,7 @@
 (setq initial-scratch-message nil)                                              
 (setq inhibit-splash-screen t)                                                  
 (setq inhibit-startup-message t)
-(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit) ; make 'esc' x 3 => 'esc' x 1
 
 
 (custom-set-variables
