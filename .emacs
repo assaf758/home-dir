@@ -1,4 +1,5 @@
 ;; .emacs
+
 ; tell me if there's something wrong
 (setq debug-on-error t)
 
@@ -17,6 +18,11 @@
 ; do not wrap long lines
 (setq-default truncate-lines t)
 
+; Multi-term support
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+
+; buffer switching: isearchb+ido
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -37,6 +43,29 @@
 ;If you'd like syntax colorization, add a
 (global-font-lock-mode 1)
 
+(defun iswitchb-local-keys ()
+    (mapc (lambda (K) 
+	      (let* ((key (car K)) (fun (cdr K)))
+    	        (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
+	    '(("<right>" . iswitchb-next-match)
+	      ("<left>"  . iswitchb-prev-match)
+	      ("<up>"    . ignore             )
+	      ("<down>"  . ignore             ))))
+(add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
+
+;; vertical line at 80chars
+(require 'column-marker)
+(add-hook 'c-mode-hook (lambda () (interactive) (column-marker-1 80)))
+
+;;; uncomment this line to disable loading of "default.el" at startup
+;; (setq inhibit-default-init t)
+
+;; turn on font-lock mode
+(when (fboundp 'global-font-lock-mode)
+  (global-font-lock-mode t))
+
+;; enable visual feedback on selections
+;(setq transient-mark-mode t)
 
 ;; default to better frame titles
 (setq frame-title-format
