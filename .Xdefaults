@@ -1,0 +1,107 @@
+! This is a sample .Xdefaults file.  The resources below are the
+! actual resources used as defaults for XEmacs, although the
+! form of these resources in the XEmacs app-defaults file is
+! slightly different.
+! 
+! You can use the examples below as a basis for your own customizations:
+! copy and modify any of the resources below into your own ~/.Xdefaults file.
+! .Xdefaults specifies defaults for all applications, not just XEmacs; it is
+! normally used to customize fonts, colors, and the like, while ~/.emacs is
+! used to change other sorts of (XEmacs-specific) behavior.
+! 
+! In general, changes to your .Xdefaults file will not take effect until the
+! next time you restart the window system.  To reload your resources
+! explicitly, use the shell command
+! 
+! 	xrdb -load ~/.Xdefaults
+! 
+! The resources will take effect the next time you restart XEmacs.  (Simply
+! creating a new xemacs frame is not enough - you must restart the editor
+! for the changes to take effect.)
+! 
+
+
+*foreground: 		black
+*cursorcolor: 		black
+*background: 		#d0f0e0
+
+emacs*foreground:       black
+emacs*cursorcolor:      black
+emacs*background:       #d0e0f0
+Emacs.menuBar:          off"
+Emacs.verticalScrollBars:       off"
+Emacs.toolBar:          off"
+
+
+
+xterm*cursorColor:	red
+xterm*foreground:	yellow
+xterm*background:	black
+xterm*savelines:        4000
+xterm*saveLines:        4000
+xterm*geometry:		80x50
+XTerm*rightScrollBar: True
+XTerm*scrollBar:  true
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey:	true
+XTerm*visualBell:	false
+                                                                
+! Makes xterm work with CLIPBOARD with ctrl-insert (copy), shift-insert (paste)
+! Also fix home, end, and backspace. delete still does not work.
+XTerm*VT100.Translations:    #override \
+	Shift<Btn1Down>:		select-start()\n\
+	Shift<Btn1Up>:			select-end(CLIPBOARD)\n\
+	Shift<Btn2Up>:			insert-selection(CLIPBOARD)\n\
+        Shift<Btn3Down>:		start-extend()\n\
+	Shift<Btn3Motion>:		select-extend()\n\
+	Shift<BtnUp>:			select-end(CLIPBOARD)\n\
+	Shift <KeyPress> Insert:	insert-selection(CLIPBOARD)\n\
+	Ctrl  <KeyPress> Insert:	select-set(CLIPBOARD)\n\
+	<Key>BackSpace: string(0x7F)\n\
+        <Key>Delete:    string("\033[3~")\n\
+        <Key>Home:      string("\033[1~")\n\
+        <Key>End:       string("\033[4~")
+
+
+!# Scrolling on wheel mouse: half a page normally, line per line with shift
+XTerm.vt100.translations: #override\n\
+      Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+      Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n\
+      Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+      Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+      <Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+      <Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)
+
+!# In the scrollbar we map buttons 5 & 4 to 1 and 2 otherwise, core dump
+!# This will move proportionnaly to cursor position but we dont know how to
+!# program the same exact behavior as in the text widget.
+XTerm.vt100.Scrollbar.translations: #override\n\
+      <Btn5Down>: StartScroll(Forward)\n\
+      <Btn4Down>: StartScroll(Backward)
+
+xterm*font:		9x15bold
+xterm*font1:		9x15bold
+xterm*font2:		8x13bold
+xterm*font3:		5x7
+xterm*font4:		10x20
+xterm*font5:		12x24
+xterm*font6:		-sony-fixed-medium-r-normal--24-170-100-100-c-120-jisx0201.1976-0
+
+XTerm*openIm: false
+
+
+Rxvt.background:	black
+Rxvt.foreground:	yellow
+Rxvt.cursorColor:	red
+Rxvt.font:		9x15bold
+Rxvt.scrollBar_right:	True
+Rxvt.saveLines:		2048
+Rxvt.geometry:		80x50
+
+
+SWT*spacing:0
+SWT*XmForm.background:white
+SWT*XmList.background:white
+SWT*XmTextField.background:white
+SWT*background:ivory3
+SWT*fontList:-adobe-helvetica-medium-r-normal-*-12-120-75-75-p-67-iso8859-1
