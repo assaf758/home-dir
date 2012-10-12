@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Needed for Slickedit 
+xmodmap -e "keysym KP_End = 1"
+xmodmap -e "keysym KP_Down = 2"
+xmodmap -e "keysym KP_Next = 3"
+xmodmap -e "keysym KP_Left = 4"
+xmodmap -e "keysym KP_Begin = 5"
+xmodmap -e "keysym KP_Right = 6"
+xmodmap -e "keysym KP_Home = 7"
+xmodmap -e "keysym KP_Up = 8"
+xmodmap -e "keysym KP_Prior = 9"
+xmodmap -e "keysym KP_Insert = 0"
+xmodmap -e "keysym KP_Decimal = period"
+
+# Uncomment the following two lines for normal desktop:
+vncconfig -nowin &
+ unset SESSION_MANAGER
+ exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+
+xclipboard &
+
+#allow all host to send xapps to this xserver
+xhost +
+
+xsetroot -solid grey
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+twm &
+
+#/usr/bin/gnome-session &
+# startkde &
+
+gnome-session &
+
+# for some reason this needs to be run manually 
+# klipper &
+
+
