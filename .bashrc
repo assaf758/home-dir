@@ -16,12 +16,15 @@ fi
 export EDITOR=vim
 
 # export PS1="$ "
-PS1='[\w$(__git_ps1 " (%s)")]\$ '
+if [ "`hostname`" != 'hlinux' ]
+then
+    PS1='[\w$(__git_ps1 " (%s)")]\$ '
+fi
 
 unalias ls &>/dev/null
 alias lsl="ls -lah"
 
-unalias vs
+unalias vs 2>/dev/null
 
 alias sss="ssh -X cmp-sft-srv1"
 alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && tools/create_files_list.sh )'
@@ -29,6 +32,7 @@ alias eclipse_indigo='/auto/software/tools/indigo/eclipse/eclipse'
 alias eclipse_helios='/auto/software/tools/helios/eclipse/eclipse'
 
 #force ignoredups and ignorespace
+
 export HISTCONTORL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend

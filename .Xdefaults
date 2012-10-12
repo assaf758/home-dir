@@ -28,9 +28,9 @@
 emacs*foreground:       black
 emacs*cursorcolor:      black
 emacs*background:       #d0e0f0
-Emacs.menuBar:          off"
-Emacs.verticalScrollBars:       off"
-Emacs.toolBar:          off"
+Emacs.menuBar:          "off"
+Emacs.verticalScrollBars:       "off"
+Emacs.toolBar:          "off"
 
 
 
