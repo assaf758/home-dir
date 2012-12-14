@@ -19,6 +19,9 @@ export EDITOR=vim
 if [ "`hostname`" != 'hlinux' ]
 then
     PS1='[\w$(__git_ps1 " (%s)")]\$ '
+else
+    export GOROOT=$HOME/Tools/go
+    export PATH=$PATH:$GOROOT/bin
 fi
 
 unalias ls &>/dev/null
