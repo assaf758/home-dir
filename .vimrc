@@ -1,6 +1,7 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -12,6 +13,8 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'mattn/gist-vim'
 " Bundle 'tpope/vim-fugitive'
 " Bundle 'Lokaltog/vim-easymotion'
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -39,7 +42,7 @@ filetype plugin indent on     " required!
 set autoindent
 set smartindent
 
-set vb t_vb=
+"set vb t_vb=
 
 syntax enable
 if has('gui_running')
@@ -60,9 +63,8 @@ set smartcase  " Ignore case when searching lowercase
 "set number " turn on line numbers
 "set numberwidth=5 " We are good up to 99999 lines
 
-set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+"set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 
 :imap jk <Esc>
 :imap kj <Esc>
-
 
