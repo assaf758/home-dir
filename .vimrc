@@ -21,7 +21,7 @@ Bundle 'mattn/gist-vim'
 " Bundle 'tpope/vim-rails.git'
 " vim-scripts repos
 " Bundle 'L9'
-" Bundle 'FuzzyFinder'
+Bundle 'bufexplorer'
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
 " ...
