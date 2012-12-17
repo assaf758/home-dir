@@ -1,0 +1,34 @@
+# tell screen there is no 'alernate screen' - 
+# so it uses main screen (and xterm scrollback will work)
+termcapinfo xterm ti@:te@   
+termcap xterm|xterms|xs ti=\E7\E[?47l
+terminfo xterm|xterms|xs ti=\E7\E[?47l
+
+#backtick 1 5 5 pwd
+#hardstatus alwaysmessage "%1`"
+
+# Add info to the xterm window title
+#termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+#defhstatus "screen ^E (^Et) | $PWD@^EH"
+#hardstatus off
+
+# no need, done from /etc/screenrc
+#hardstatus lastline  "[screen %n%?: %t%?] %h" 
+
+caption always "%w"
+
+# disable xon-off binding (for safety)
+bind s
+
+#0 CPM1  1 bash  2 bash  3 bash  4 R1  5 R2  6 R3  7 dynagen  8 dynamips1  9 pc-18  10* bash   
+
+defscrollback 100000
+
+# issue a visual bell after 4 seconds
+#vbellwait 4
+vbell off
+
+# start copy with 'enter'. end copy with alt-w. wait 1sec before paste
+bindkey -m \033w eval "stuff ' '" writebuf "exec sh -c 'xsel -b < /tmp/screen-exchange; xsel -c' 'stuff ^C'"
+
+
