@@ -1,0 +1,3 @@
+[submodule "scripts/mate-terminal"]
+	path = scripts/mate-terminal
+	url = git://github.com/michelefoga/mate-terminal-colors-solarized.git

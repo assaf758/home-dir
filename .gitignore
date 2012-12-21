@@ -55,7 +55,6 @@ Pictures
 Public
 .pulse
 .pulse-cookie
-scripts
 se_17000100_linux64
 .slickedit
 .ssh
@@ -229,7 +228,6 @@ prelude
 releases
 restore_functions.txt
 .scopetools
-scripts
 se_16000300_linux32.tar.gz
 se_16000300_linux64.tar.gz
 SE_WL460405_1500_Lukov.lic
