@@ -1,3 +1,7 @@
+.TrueCrypt/
+.Xdefaults1
+.rssowl2/
+N7_Documents/
 .tmux.conf.swp
 .vimrc.swp
 .Xauthority
@@ -125,12 +129,6 @@ emacs-24.1
 .emacs.d.manual
 .emacs.d.pre-prelude.tar
 emacs.ps
-emacs-rocks-06.mov?dl=1
-emacs-rocks-07.mov?dl=1
-emacs-rocks-08.mov?dl=1
-emacs-rocks-09.mov?dl=1
-emacs-rocks-10.mov?dl=1
-emacs-rocks-11.mov?dl=1
 .esd_auth
 .eshell
 eval

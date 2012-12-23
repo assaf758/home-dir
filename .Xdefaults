@@ -107,32 +107,10 @@
 
 
 
-
-
-
-
-
-
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-!*foreground: 		black
-!*cursorcolor: 		black
-!*background: 		#d0f0e0
 
-emacs*foreground:       black
-emacs*cursorcolor:      black
-emacs*background:       #d0e0f0
-Emacs.menuBar:          "off"
-Emacs.verticalScrollBars:       "off"
-Emacs.toolBar:          "off"
-
-
-
-xterm*cursorColor:	S_base1
-xterm*foreground:	S_base0
-xterm*background:	S_base03
 xterm*savelines:        4000
 xterm*saveLines:        4000
 xterm*vt100*geometry:	80x50
@@ -176,36 +154,12 @@ XTerm.vt100.Scrollbar.translations: #override\n\
       <Btn5Down>: StartScroll(Forward)\n\
       <Btn4Down>: StartScroll(Backward)
 
-XTerm*faceName:Inconsolata:style=Medium 
 !xterm*font:		9x15bold
-xterm*font:		
+xterm*faceName:         Inconsolata-12
 xterm*font1:		9x15bold
 xterm*font2:		8x13bold
 xterm*font3:		5x7
 xterm*font4:		10x20
 xterm*font5:		12x24
-xterm*font6:		-sony-fixed-medium-r-normal--24-170-100-100-c-120-jisx0201.1976-0
-
-XTerm*openIm: false
-
-
-Rxvt.background:	black
-Rxvt.foreground:	yellow
-Rxvt.cursorColor:	red
-Rxvt.font:		9x15bold
-Rxvt.scrollBar_right:	True
-Rxvt.saveLines:		2048
-Rxvt.geometry:		80x50
-
-
-SWT*spacing:0
-SWT*XmForm.background:white
-SWT*XmList.background:white
-SWT*XmTextField.background:white
-SWT*background:ivory3
-SWT*fontList:-adobe-helvetica-medium-r-normal-*-12-120-75-75-p-67-iso8859-1
-
-
-
-
+!xterm*font6:		-sony-fixed-medium-r-normal--24-170-100-100-c-120-jisx0201.1976-0
 

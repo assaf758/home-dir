@@ -48,7 +48,7 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  call vam#ActivateAddons(['Powerline','Solarized','ctrlp'], {'auto_install' : -1})
+  call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
   " Addons are put into plugin_root_dir/plugin-name directory
