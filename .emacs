@@ -8,7 +8,6 @@
 
 (add-to-list 'load-path (expand-file-name "~/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/icicles"))
 
 ; Disable non-emacs stuff:
 ;(menu-bar-mode -1)       ;hide menu-bar
@@ -17,6 +16,9 @@
 
 ; do not wrap long lines
 (setq-default truncate-lines t)
+; show column number in status line
+(column-number-mode 1)
+
 
 ; Multi-term support
 (require 'multi-term)
@@ -88,6 +90,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ibuffer config
+
 (setq ibuffer-saved-filter-groups
       '(("home"
 	 ("emacs-config" (or (filename . ".emacs.d")
@@ -101,9 +104,12 @@
 	 ("Subversion" (name . "\*svn"))
 	 ("Magit" (name . "\*magit"))
 	 ("ERC" (mode . erc-mode))
+	 ("Shell" (mode . Shell))
 	 ("Help" (or (name . "\*Help\*")
 		     (name . "\*Apropos\*")
-		     (name . "\*info\*"))))))
+		     (name . "\*info\*")))
+	 ("Emacs-stuff" (name . "\*.*\*"))
+          )))
 ; activate the 'home' filter
 (add-hook 'ibuffer-mode-hook 
 	  '(lambda ()
@@ -116,8 +122,10 @@
 	     (ibuffer-auto-mode 1)
 	     (ibuffer-switch-to-saved-filter-groups "home")))
 
-(require 'ibuf-ext)
-    (add-to-list 'ibuffer-never-show-predicates "^\\*")
+; hide some of the files
+;(require 'ibuf-ext)
+;    (add-to-list 'ibuffer-never-show-predicates "^\\*")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -135,16 +143,27 @@
 (setq inhibit-startup-message t)
 (global-set-key (kbd "<escape>")      'keyboard-escape-quit) ; make 'esc' x 3 => 'esc' x 1
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;MACROS
+
+(fset 'load-file-\.emacs
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([24 13 108 111 97 100 45 99 111 110 102 105 103 backspace backspace backspace backspace backspace backspace 102 105 108 101 return 46 101 109 97 99 115 return] 0 "%d")) arg)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(make-backup-files nil))
+ '(column-number-mode t)
+ '(make-backup-files nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#242424" :foreground "#ffff00" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Courier New")))))

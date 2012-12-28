@@ -63,3 +63,8 @@
   # a history expansion in the line
   #Space: magic-space
 #$endif
+
+$if mode=emacs
+"\ep": history-search-backward
+"\en": history-search-forward
+$endif

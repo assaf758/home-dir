@@ -190,3 +190,5 @@
 # alias cd=cd_func
 # PS1=('\033[33m$ ')
 export PS1="\e[0;31m[\u@\h \W]\$ \e[m "
+alias find=/usr/bin/find
+export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
