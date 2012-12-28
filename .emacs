@@ -19,7 +19,6 @@
 ; show column number in status line
 (column-number-mode 1)
 
-
 ; Multi-term support
 (require 'multi-term)
 (setq multi-term-program "/bin/bash")
@@ -90,7 +89,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ibuffer config
-
 (setq ibuffer-saved-filter-groups
       '(("home"
 	 ("emacs-config" (or (filename . ".emacs.d")
@@ -125,7 +123,6 @@
 ; hide some of the files
 ;(require 'ibuf-ext)
 ;    (add-to-list 'ibuffer-never-show-predicates "^\\*")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
