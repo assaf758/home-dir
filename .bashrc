@@ -18,14 +18,18 @@ fi
 
 export EDITOR=vim
 
-# export PS1="$ "
-if [ "`hostname`" != 'hlinux' ]
-then
-    PS1='[\w$(__git_ps1 " (%s)")]\$ '
-else
-    export GOROOT=$HOME/Tools/go
-    export PATH=$PATH:$GOROOT/bin
-fi
+case "`hostname`" in 
+    'hlinux' )
+        export GOROOT=$HOME/Tools/go
+	export PATH=$PATH:$GOROOT/bin
+	;;
+    'assaf-lap' )
+	export PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
+        ;;
+    * )	    
+        PS1='[\w$(__git_ps1 " (%s)")]\$ '
+        ;;
+esac
 
 unalias ls &>/dev/null
 alias lsl="ls -lah"
@@ -45,7 +49,6 @@ shopt -s histappend
 
 export PATH=~/bin:~/scripts:$PATH
 
-export PS1="\e[0;31m[\u@\h \W]\$ \e[m "
 alias find=/usr/bin/find
 export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 

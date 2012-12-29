@@ -81,7 +81,6 @@ call SetupVAM()
 
 "******************************************************************************
 
-
 "set vb t_vb=
 
 "**** Solorized config **************
@@ -117,6 +116,7 @@ set numberwidth=5 " We are good up to 99999 lines
 :imap jk <Esc>
 :imap kj <Esc>
 
+" Solve backspace ignored issue
 func Backspace()
   if col('.') == 1
     if line('.')  != 1
@@ -129,5 +129,9 @@ func Backspace()
   endif
 endfunc
 
+inoremap <BS> <c-r>=Backspace()<CR>
+
+" Solve paste issue
 set pastetoggle=<F2>
+
 
