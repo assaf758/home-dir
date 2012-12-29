@@ -17,6 +17,7 @@ fi
 # User specific aliases and functions
 
 export EDITOR=vim
+set -o vi # make bash readline behave as vi
 
 #################### ssh-agent config
 SSH_ENV="$HOME/.ssh/environment"
