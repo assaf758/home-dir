@@ -481,7 +481,7 @@
 				</key>
 			</key>
 		</key>
-		<key name=".Vanilla" modified="2012-12-30 22:53:23">
+		<key name=".Vanilla" modified="2012-12-30 23:02:08">
 			<value name="ColorTable00" type="dword" data="00423607"/>
 			<value name="ColorTable01" type="dword" data="002f32dc"/>
 			<value name="ColorTable02" type="dword" data="00009985"/>
@@ -597,13 +597,13 @@
 			<value name="UserScreenTransparent" type="hex" data="00"/>
 			<value name="ColorKeyTransparent" type="hex" data="00"/>
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
-			<value name="UseCurrentSizePos" type="hex" data="01"/>
-			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd Width" type="dword" data="00000064"/>
-			<value name="ConWnd Height" type="dword" data="00000032"/>
+			<value name="UseCurrentSizePos" type="hex" data="00"/>
+			<value name="WindowMode" type="dword" data="0000051f"/>
+			<value name="ConWnd Width" type="dword" data="00000051"/>
+			<value name="ConWnd Height" type="dword" data="00000028"/>
 			<value name="Cascaded" type="hex" data="00"/>
-			<value name="ConWnd X" type="dword" data="0000011f"/>
-			<value name="ConWnd Y" type="dword" data="000001a1"/>
+			<value name="ConWnd X" type="dword" data="00000064"/>
+			<value name="ConWnd Y" type="dword" data="00000064"/>
 			<value name="16bit Height" type="dword" data="00000000"/>
 			<value name="AutoSaveSizePos" type="hex" data="00"/>
 			<value name="QuakeStyle" type="hex" data="00"/>
@@ -727,7 +727,7 @@
 			<value name="TabsOnTaskBar" type="hex" data="00"/>
 			<value name="TaskBarOverlay" type="hex" data="01"/>
 			<value name="TabCloseMacro" type="string" data=""/>
-			<value name="TabFontFace" type="string" data="Tahoma"/>
+			<value name="TabFontFace" type="string" data="Inconsolata"/>
 			<value name="TabFontCharSet" type="dword" data="00000000"/>
 			<value name="TabFontHeight" type="dword" data="0000000e"/>
 			<value name="SaveAllEditors" type="string" data=""/>
@@ -743,7 +743,7 @@
 			<value name="AdminShowShield" type="hex" data="01"/>
 			<value name="HideInactiveConsoleTabs" type="hex" data="00"/>
 			<value name="ShowFarWindows" type="hex" data="01"/>
-			<value name="TryToCenter" type="hex" data="01"/>
+			<value name="TryToCenter" type="hex" data="00"/>
 			<value name="CenterConsolePad" type="dword" data="00000000"/>
 			<value name="ShowScrollbar" type="hex" data="01"/>
 			<value name="ScrollBarAppearDelay" type="dword" data="00000064"/>
@@ -942,13 +942,13 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2012-12-30 22:53:23">
+				<key name="Tasks" modified="2012-12-30 23:02:08">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Apps" modified="2012-12-30 22:53:23">
+				<key name="Apps" modified="2012-12-30 23:02:08">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2012-12-30 22:53:23">
+				<key name="Colors" modified="2012-12-30 23:02:08">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
 			<value name="CmdLineHistory" type="multi"><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
