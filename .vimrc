@@ -48,7 +48,7 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  if $EMULATOR == "console2"
+  if $EMULATOR == "msys"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
   else
 	call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})

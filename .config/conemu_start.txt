@@ -1,0 +1,2 @@
+>c:\Users\assaf\.config\conemu_bash_start.bat
+
