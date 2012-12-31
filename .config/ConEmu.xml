@@ -481,9 +481,9 @@
 				</key>
 			</key>
 		</key>
-		<key name=".Vanilla" modified="2012-12-30 23:30:31">
+		<key name=".Vanilla" modified="2012-12-31 16:39:31">
 			<value name="ColorTable00" type="dword" data="00423607"/>
-			<value name="ColorTable01" type="dword" data="002f32dc"/>
+			<value name="ColorTable01" type="dword" data="003d2064"/>
 			<value name="ColorTable02" type="dword" data="00009985"/>
 			<value name="ColorTable03" type="dword" data="000089b5"/>
 			<value name="ColorTable04" type="dword" data="00d28b26"/>
@@ -492,8 +492,8 @@
 			<value name="ColorTable07" type="dword" data="00d5e8ee"/>
 			<value name="ColorTable08" type="dword" data="00362b00"/>
 			<value name="ColorTable09" type="dword" data="00164bcb"/>
-			<value name="ColorTable10" type="dword" data="00756e58"/>
-			<value name="ColorTable11" type="dword" data="00837b65"/>
+			<value name="ColorTable10" type="dword" data="00759658"/>
+			<value name="ColorTable11" type="dword" data="00837b97"/>
 			<value name="ColorTable12" type="dword" data="00969483"/>
 			<value name="ColorTable13" type="dword" data="00c4716c"/>
 			<value name="ColorTable14" type="dword" data="00a1a193"/>
@@ -574,7 +574,7 @@
 			<value name="Multi.SplitHeight" type="hex" data="04"/>
 			<value name="KeyboardHooks" type="hex" data="01"/>
 			<value name="FontName" type="string" data="Inconsolata"/>
-			<value name="FontName2" type="string" data="Inconsolata"/>
+			<value name="FontName2" type="string" data="Lucida Console"/>
 			<value name="FontAutoSize" type="hex" data="00"/>
 			<value name="FontSize" type="dword" data="00000010"/>
 			<value name="FontSizeX" type="dword" data="00000000"/>
@@ -598,12 +598,12 @@
 			<value name="ColorKeyTransparent" type="hex" data="00"/>
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
-			<value name="WindowMode" type="dword" data="0000051f"/>
-			<value name="ConWnd Width" type="dword" data="00000078"/>
-			<value name="ConWnd Height" type="dword" data="00000059"/>
+			<value name="WindowMode" type="dword" data="00000520"/>
+			<value name="ConWnd Width" type="dword" data="00000082"/>
+			<value name="ConWnd Height" type="dword" data="0000002a"/>
 			<value name="Cascaded" type="hex" data="00"/>
-			<value name="ConWnd X" type="dword" data="000000a9"/>
-			<value name="ConWnd Y" type="dword" data="00000080"/>
+			<value name="ConWnd X" type="dword" data="00000008"/>
+			<value name="ConWnd Y" type="dword" data="00000000"/>
 			<value name="16bit Height" type="dword" data="00000000"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="QuakeStyle" type="hex" data="00"/>
@@ -764,7 +764,7 @@
 			<value name="FindMatchCase" type="hex" data="00"/>
 			<value name="FindMatchWholeWords" type="hex" data="00"/>
 			<value name="FindTransparent" type="hex" data="01"/>
-			<value name="PanView.BackColor" type="dword" data="30ffffff"/>
+			<value name="PanView.BackColor" type="dword" data="20ffffff"/>
 			<value name="PanView.PFrame" type="dword" data="00000001"/>
 			<value name="PanView.PFrameColor" type="dword" data="28808080"/>
 			<value name="PanView.SFrame" type="dword" data="00000001"/>
@@ -942,16 +942,16 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2012-12-30 23:30:29">
+				<key name="Tasks" modified="2012-12-31 16:39:31">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Apps" modified="2012-12-30 23:30:29">
+				<key name="Apps" modified="2012-12-31 16:39:31">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2012-12-30 23:30:29">
+				<key name="Colors" modified="2012-12-31 16:39:31">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-			<value name="CmdLineHistory" type="multi"><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
+			<value name="CmdLineHistory" type="multi"><line data="C:\Program Files\Far Manager\Far.exe"/><line data="&quot;C:\Windows\system32\cmd.exe&quot; /C c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
 		</key>
 	</key>
 </key>
