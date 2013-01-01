@@ -1,0 +1,34 @@
+
+
+
+
+
+;; disabled - replaced by ndroid. #Esc:: Run C:\Documents and Settings\assaf\My Documents\My Scripts\320mph.ahk
+
+#c::Run calc.exe				
+
+browser_back::LWin   ; For laptop keyboard - access 'Windows' key from browser_back
+
+browser_forward::MButton
+
+;On mozila - !F1 will run the Tab menu. 
+;Note - might clash with F1::alt-tab script based on race-condition
+#IfWinActive, ahk_class MozillaUIWindowClass
+#Tab::   
+ send {!m}
+ sleep 30     ; sleep 30 ms
+ send a
+ return
+#s::   
+ send {Alt}
+ sleep 30     ; sleep 30 ms
+ send {v}
+ sleep 30     ; sleep 30 ms
+ send {e}
+ return
++Insert:: Send {^v}
+^Insert:: Send {^c}   ; does not work. for some reason ^Insert is not captured.
+return
+
+
+
