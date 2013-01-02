@@ -1,15 +1,11 @@
+.config/
 NTUSER.DAT*
 AppData/
 .TrueCrypt/
 .Xdefaults1
 .rssowl2/
 N7_Documents/
-.tmux.conf.swp
-.vimrc.swp
-.Xauthority
 .bash_logout
-.vim/
-.viminfo
 .xsession-errors
 workspace/
 wspace/
@@ -21,7 +17,6 @@ bin
 .cache
 .calibre_calibre GUI.lock
 Calibre Library
-.config
 .dbus
 Desktop
 .dmrc
@@ -89,7 +84,6 @@ cantata_env.txt
 COMPASS_EOS_K9_Temp_Host-kwdb.cmpsys_Dec21_2010_SDR_2916_Opp_Num-15694.lic
 compass_kw.override.h
 confd_crash
-.config
 cores
 cpm18_config.txt
 cps
@@ -145,8 +139,6 @@ fib_temp_double_recursion.txt
 .fullcircle
 .gconf
 .gconfd
-.git
-.gitconfig~
 .gitk
 global-6.2.4
 .gnome
