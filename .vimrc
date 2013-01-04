@@ -91,7 +91,13 @@ endfun
 "******************************************************************************
 
 " set gui_font for gvim:
-set guifont=Inconsolata\ for\ Powerline
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ for\ Powerline\ 11
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
 
 "**** Powerline config ************
 "using the python installer, not the vim-plugin manager
