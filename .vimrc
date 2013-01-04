@@ -56,8 +56,10 @@ fun! SetupVAM()
   " Tell VAM which plugins to fetch & load:
   if $EMULATOR == "msys"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
-  else
-	call vam#ActivateAddons(['Conque_Shell',"github:Lokaltog/powerline",'Solarized','ctrlp'], {'auto_install' : -1})
+  elseif hostname() == "assaf-lap-debian64"
+ 	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
+  else 
+	call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})
   endif
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
@@ -74,6 +76,8 @@ fun! SetupVAM()
   "    ..ActivateAddons(["github:user/repo", .. => github://user/repo
   " Also see section "2.2. names of addons and addon sources" in VAM's documentation
 endfun
+
+" echo hostname() 
 
 call SetupVAM()
 " experimental [E1]: load plugins lazily depending on filetype, See
