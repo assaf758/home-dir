@@ -53,10 +53,13 @@ fun! SetupVAM()
   if hostname() == "ASSAF-LAP"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
   elseif hostname() == "assaf-lap-debian64"
- 	call vam#ActivateAddons(['Conque_Shell','github:Lokaltog/powerline','Solarized','ctrlp'], {'auto_install' : -1})
+ 	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
         python from powerline.ext.vim import source_plugin; source_plugin()
+  elseif hostname() == "hlinux" 
+	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})        
+	python from powerline.ext.vim import source_plugin; source_plugin()
   else 
-	call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})
+        call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
   endif
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
@@ -87,11 +90,8 @@ endfun
 "              Main
 "******************************************************************************
 
-" run package manger
-call SetupVAM()
-
-" No beeps
-set vb t_vb=
+" set gui_font for gvim:
+set guifont=Inconsolata\ for\ Powerline
 
 "**** Powerline config ************
 "using the python installer, not the vim-plugin manager
@@ -99,6 +99,13 @@ set vb t_vb=
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
+
+" run package manger
+call SetupVAM()
+
+" No beeps
+set vb t_vb=
 
 "**** Solorized config **************
 syntax enable
