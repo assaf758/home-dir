@@ -53,7 +53,8 @@ fun! SetupVAM()
   if hostname() == "ASSAF-LAP"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
   elseif hostname() == "assaf-lap-debian64"
- 	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
+ 	call vam#ActivateAddons(['Conque_Shell','github:Lokaltog/powerline','Solarized','ctrlp'], {'auto_install' : -1})
+        python from powerline.ext.vim import source_plugin; source_plugin()
   else 
 	call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})
   endif
@@ -93,6 +94,8 @@ call SetupVAM()
 set vb t_vb=
 
 "**** Powerline config ************
+"using the python installer, not the vim-plugin manager
+"source ~/.vim/vim-addons/github-Lokaltog-powerline/powerline/ext/vim/source_plugin.vim
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors

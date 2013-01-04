@@ -7,6 +7,7 @@
 .config/
 NTUSER.DAT*
 AppData/
+.pip/
 .TrueCrypt/
 .Xdefaults1
 .rssowl2/
@@ -139,7 +140,6 @@ exclude
 fib_temp_double_recursion.txt
 .flexlmrc
 .fontconfig
-.fonts
 .fonts.cache-1
 .fonts.conf
 .fullcircle
@@ -167,7 +167,6 @@ hw.git
 images
 im_confd_validation.c
 include
-Inconsolata.otf
 info
 .InstallAnywhere
 installs
