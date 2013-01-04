@@ -1,3 +1,9 @@
+.Xauthority
+.gtk-bookmarks
+.vboxclient-clipboard.pid
+.vboxclient-display.pid
+.vboxclient-draganddrop.pid
+.vboxclient-seamless.pid
 .config/
 NTUSER.DAT*
 AppData/
