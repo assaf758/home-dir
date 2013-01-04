@@ -29,7 +29,6 @@ return
 ; activate/minimize/run control key assignments
 ; Chrome	  #F2
 ; MS Note         #F3
-; ConEmu	  #F4
 ; TotalCommander  #F6
 ; process-exp 	  #F7
 ; NX 	      	  #F8

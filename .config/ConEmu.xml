@@ -481,7 +481,7 @@
 				</key>
 			</key>
 		</key>
-		<key name=".Vanilla" modified="2013-01-01 09:20:54">
+		<key name=".Vanilla" modified="2013-01-04 18:07:17">
 			<value name="ColorTable00" type="dword" data="00423607"/>
 			<value name="ColorTable01" type="dword" data="003d2064"/>
 			<value name="ColorTable02" type="dword" data="00009985"/>
@@ -599,11 +599,11 @@
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd Width" type="dword" data="00000093"/>
+			<value name="ConWnd Width" type="dword" data="00000082"/>
 			<value name="ConWnd Height" type="dword" data="0000005d"/>
 			<value name="Cascaded" type="hex" data="00"/>
-			<value name="ConWnd X" type="dword" data="fffffff8"/>
-			<value name="ConWnd Y" type="dword" data="fffffff8"/>
+			<value name="ConWnd X" type="dword" data="00000000"/>
+			<value name="ConWnd Y" type="dword" data="00000000"/>
 			<value name="16bit Height" type="dword" data="00000000"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="QuakeStyle" type="hex" data="00"/>
@@ -810,7 +810,7 @@
 			<value name="Multi.Modifier" type="dword" data="0000005b"/>
 			<value name="Multi.ArrowsModifier" type="dword" data="0000005b"/>
 			<value name="KeyMacroVersion" type="hex" data="02"/>
-			<value name="MinimizeRestore" type="dword" data="000011c0"/>
+			<value name="MinimizeRestore" type="dword" data="00005bc0"/>
 			<value name="MinimizeRestore2" type="dword" data="00000000"/>
 			<value name="GlobalRestore" type="dword" data="00000000"/>
 			<value name="ForcedFullScreen" type="dword" data="12115b0d"/>
@@ -823,7 +823,7 @@
 			<value name="Multi.NewAttach" type="dword" data="00005b47"/>
 			<value name="Multi.Next" type="dword" data="00005b51"/>
 			<value name="Multi.NextShift" type="dword" data="00105b51"/>
-			<value name="Multi.Recreate" type="dword" data="00005bc0"/>
+			<value name="Multi.Recreate" type="dword" data="00005b00"/>
 			<value name="Multi.AltCon" type="dword" data="00005b41"/>
 			<value name="Multi.Scroll" type="dword" data="00005b53"/>
 			<value name="Multi.Close" type="dword" data="00005b2e"/>
@@ -942,16 +942,19 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2013-01-01 00:57:20">
+				<key name="Tasks" modified="2013-01-02 19:13:19">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Apps" modified="2013-01-01 00:57:20">
+				<key name="Apps" modified="2013-01-02 19:13:19">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2013-01-01 00:57:20">
+				<key name="Colors" modified="2013-01-02 19:13:19">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
 			<value name="CmdLineHistory" type="multi"><line data="C:\Program Files\Far Manager\Far.exe"/><line data="&quot;C:\Windows\system32\cmd.exe&quot; /C c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
+			<value name="Multi.MinByEsc" type="hex" data="02"/>
+			<value name="MapShiftEscToEsc" type="hex" data="01"/>
+			<value name="HideChildCaption" type="hex" data="00"/>
 		</key>
 	</key>
 </key>
