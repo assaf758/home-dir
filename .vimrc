@@ -1,5 +1,11 @@
 set nocompatible | filetype indent plugin on | syn on
 
+"**** Powerline config ************
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
+
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   " windows users may want to use http://mawercer.de/~marc/vam/index.php
   " to fetch VAM, VAM-known-repositories and the listed plugins
@@ -51,7 +57,7 @@ fun! SetupVAM()
   if $EMULATOR == "msys"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
   else
-	call vam#ActivateAddons(['Conque_Shell','Powerline','Solarized','ctrlp'], {'auto_install' : -1})
+	call vam#ActivateAddons(['Conque_Shell',"github:Lokaltog/powerline",'Solarized','ctrlp'], {'auto_install' : -1})
   endif
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
@@ -93,11 +99,6 @@ let g:solarized_termtrans = 1
 "endif
 colorscheme solarized
 
-"**** Powerline config ************
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
-
 " Ctrlp config **********************
 let g:ctrlp_cmd = 'CtrlPBuffer'
 
@@ -132,6 +133,8 @@ endfunc
 inoremap <BS> <c-r>=Backspace()<CR>
 
 " Solve paste issue
-set pastetoggle=<F2>
 
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 
