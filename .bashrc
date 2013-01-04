@@ -1,6 +1,3 @@
-export PS1="\e[0;31m[\u@\h \W]\$ \e[m "
-alias find=/usr/bin/find
-export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 #  .bashrc
 
 # Source global definitions
@@ -15,6 +12,24 @@ then
 fi
 
 # User specific aliases and functions
+
+case "`hostname`" in 
+    'hlinux' )
+        export GOROOT=$HOME/Tools/go
+	export PATH=$PATH:$GOROOT/bin
+	;;
+    'assaf-lap-debian64' )
+	export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
+        ;;
+    'assaf-lap' )
+	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
+        PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
+        ;;
+    * )	    
+        PS1='[\w$(__git_ps1 " (%s)")]\$ '
+        ;;
+esac
+
 
 export EDITOR=vim
 set -o vi # make bash readline behave as vi
@@ -38,7 +53,8 @@ function test_identities {
     # test whether standard identities have been added to the agent already
     ssh-add -l | grep "The agent has no identities" > /dev/null
     if [ $? -eq 0 ]; then
-        ssh-add /c/Users/assaf/.ssh/id_assaf758_rsa
+	
+        ssh-add $SSH_KEY_FILE 
         # $SSH_AUTH_SOCK broken so we start a new proper agent
         if [ $? -eq 2 ];then
             start_agent
@@ -67,19 +83,6 @@ else
 fi
 #################### ssh-agent config
 
-
-case "`hostname`" in 
-    'hlinux' )
-        export GOROOT=$HOME/Tools/go
-	export PATH=$PATH:$GOROOT/bin
-	;;
-    'assaf-lap' )
-	export PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
-        ;;
-    * )	    
-        PS1='[\w$(__git_ps1 " (%s)")]\$ '
-        ;;
-esac
 
 unalias ls &>/dev/null
 alias lsl="ls -lah"
