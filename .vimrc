@@ -128,6 +128,11 @@ call SetupVAM()
 " No beeps
 set vb t_vb=
 
+" save swp files in designated dir
+set backupdir=~/.vim/tmp,.
+set directory=~/.vim/tmp,.
+
+
 "**** Solorized config **************
 syntax enable
 let g:solarized_termtrans = 1 
