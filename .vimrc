@@ -1,10 +1,5 @@
 set nocompatible | filetype indent plugin on | syn on
-
-"**** Powerline config ************
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
-
+" echo hostname() 
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   " windows users may want to use http://mawercer.de/~marc/vam/index.php
@@ -54,7 +49,8 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  if $EMULATOR == "msys"
+  "if $EMULATOR == "msys"
+  if hostname() == "ASSAF-LAP"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
   elseif hostname() == "assaf-lap-debian64"
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
@@ -77,9 +73,6 @@ fun! SetupVAM()
   " Also see section "2.2. names of addons and addon sources" in VAM's documentation
 endfun
 
-" echo hostname() 
-
-call SetupVAM()
 " experimental [E1]: load plugins lazily depending on filetype, See
 " NOTES
 " experimental [E2]: run after gui has been started (gvim) [3]
@@ -90,8 +83,19 @@ call SetupVAM()
 
 
 "******************************************************************************
+              Main
+"******************************************************************************
 
-"set vb t_vb=
+" run package manger
+call SetupVAM()
+
+" No beeps
+set vb t_vb=
+
+"**** Powerline config ************
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
 "**** Solorized config **************
 syntax enable
