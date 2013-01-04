@@ -1,6 +1,19 @@
 set nocompatible | filetype indent plugin on | syn on
 " echo hostname() 
 
+" Solve backspace ignored issue
+func Backspace()
+  if col('.') == 1
+    if line('.')  != 1
+      return  "\<ESC>kA\<Del>"
+    else
+      return ""
+    endif
+  else
+    return "\<Left>\<Del>"
+  endif
+endfunc
+
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   " windows users may want to use http://mawercer.de/~marc/vam/index.php
   " to fetch VAM, VAM-known-repositories and the listed plugins
@@ -52,6 +65,7 @@ fun! SetupVAM()
   "if $EMULATOR == "msys"
   if hostname() == "ASSAF-LAP"
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
+        inoremap <BS> <c-r>=Backspace()<CR>
   elseif hostname() == "assaf-lap-debian64"
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
         python from powerline.ext.vim import source_plugin; source_plugin()
@@ -92,6 +106,7 @@ endfun
 
 " set gui_font for gvim:
 if has("gui_running")
+  set guioptions-=T  "remove toolbar
   if has("gui_gtk2")
     set guifont=Inconsolata\ for\ Powerline\ 11
   elseif has("gui_win32")
@@ -140,21 +155,6 @@ set numberwidth=5 " We are good up to 99999 lines
 
 :imap jk <Esc>
 :imap kj <Esc>
-
-" Solve backspace ignored issue
-func Backspace()
-  if col('.') == 1
-    if line('.')  != 1
-      return  "\<ESC>kA\<Del>"
-    else
-      return ""
-    endif
-  else
-    return "\<Left>\<Del>"
-  endif
-endfunc
-
-inoremap <BS> <c-r>=Backspace()<CR>
 
 " Solve paste issue
 
