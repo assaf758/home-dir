@@ -1,0 +1,12 @@
+mount -t vboxsf -o uid=1000,gid=1000 assaf-laptop-homedir /media/assafb-laptop-homedir/
+
+vim powerline install needs to install the follwing python packages as explained here:
+http://lokaltog.github.com/powerline/
+
+pip
+ - importlib
+ - pip install https://github.com/Lokaltog/powerline/tarball/develop
+
+apt-get install python-fontforge
+or use the patched inconsolata
+https://github.com/Lokaltog/powerline-fonts/tree/master/Inconsolata
