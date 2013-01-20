@@ -24,6 +24,8 @@ case "`hostname`" in
     'assaf-lap' )
 	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
+        export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
+	alias find=/usr/bin/find
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     * )	    
@@ -103,6 +105,4 @@ shopt -s histappend
 
 export PATH=~/bin:~/scripts:$PATH
 
-alias find=/usr/bin/find
-export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 
