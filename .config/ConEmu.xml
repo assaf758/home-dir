@@ -481,7 +481,7 @@
 				</key>
 			</key>
 		</key>
-		<key name=".Vanilla" modified="2013-01-04 23:38:48">
+		<key name=".Vanilla" modified="2013-01-10 13:35:28">
 			<value name="ColorTable00" type="dword" data="00423607"/>
 			<value name="ColorTable01" type="dword" data="003d2064"/>
 			<value name="ColorTable02" type="dword" data="00009985"/>

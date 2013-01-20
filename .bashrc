@@ -23,6 +23,7 @@ case "`hostname`" in
         ;;
     'assaf-lap' )
 	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
+	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     * )	    
