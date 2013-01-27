@@ -1,0 +1,12 @@
+#!/bin/bash
+echo date=`date`
+echo pwd=`pwd`
+echo hostname=`hostname`
+echo whoami=`whoami`
+echo \$WS=$WS
+echo \$PC=$PC
+echo \$HOSTNAME=$HOSTNAME
+echo \$USER=$USER
+echo \$DISPLAY=$DISPLAY
+echo \$EDITOR=$EDITOR
+

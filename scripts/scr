@@ -1,0 +1,28 @@
+#!/bin/sh
+# scr - Runs a command in a fresh screen
+#
+# Get the current directory and the name of command
+
+wd=`pwd`
+cmd=$1
+shift
+
+# We can tell if we are running inside screen by looking
+# for the STY environment variable.  If it is not set we
+# only need to run the command, but if it is set then
+# we need to use screen.
+
+if [ -z "$STY" ]; then
+        $cmd $*
+else
+        # Screen needs to change directory so that
+        # relative file names are resolved correctly.
+        screen -X chdir $wd
+
+        # Ask screen to run the command
+        if [ $cmd == "ssh" ]; then
+                screen -X screen -t ""${1##*@}"" $cmd $*
+        else
+                screen -X screen -t "$cmd $*" $cmd $*
+        fi
+fi

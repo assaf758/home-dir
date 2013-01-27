@@ -1,3 +1,7 @@
+scripts/*.ex
+.fonts/fonts.dir
+.fonts/fonts.scale
+doc/
 Saved\ Games/
 VirtualBox\ VMs/
 Google\ Drive/

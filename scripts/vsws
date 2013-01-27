@@ -1,0 +1,24 @@
+#!/bin/bash
+
+export VSLICKALIAS=~/scripts/se.aliases.als:aliases.als
+#export LM_LICENSE_FILE=9050@ls-csi;
+export TMP=`pwd`/my_slick;
+export wspath=`pwd`;
+
+if [ "$OSTYPE" = "linux-gnu" ]; then
+#VS="/home/assaf/slickedit/bin"
+VS="/auto/software/tools/slickedit-15.0.1.3/bin"
+#VS="/auto/software/tools/slickedit/bin"
+else 
+export VS="/"
+fi
+
+#echo "$VS/vs_sharedxft +new $1 &"
+
+#$VS/vs +new $1
+
+#echo `pwd`
+
+$VS/vs +new -sul -r "ws_init"
+#$VS/vs +new -r "workspace-close"
+

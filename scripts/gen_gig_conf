@@ -1,0 +1,67 @@
+#!/bin/csh -f
+#
+# Generate config files for X-blade scale testing.
+ 
+# Usage: gen_cfg <num_of_context/num_of_vlans> <slot_num> <port_num> 
+#
+set max = $1
+set slot = $2
+set port = $3
+
+#@ max ++;
+
+set iox = gig_iox_{$1}.cfg
+set no_iox = gig_no_iox_{$1}.cfg
+set sanos = sanos.txt
+set no_sanos = no_sanos.txt
+#
+# $iox
+#
+#set i = 1
+#while ($i <  $max)
+#echo interface GigabitEthernet0/$2/0/$3.$i >> $iox
+#echo "  dot1q vlan $i" >> $iox
+#echo "  firewall ctx$i firewall-interface ctx_in" >> $iox
+#echo "  ipv4 address 20.20.$i.163 255.255.255.0"  >> $iox
+#echo "  no shut"  >> $iox
+#echo exit >> $iox
+#@ i++;
+#end
+
+#
+# $no_iox
+#
+#set i = 1
+#while ($i <  $max)
+#echo no interface GigabitEthernet0/$2/0/$3.$i >> $no_iox
+#echo exit >> $iox
+#@ i++;
+#end
+
+#set i = 1
+#rm $sanos > /dev/null
+#while ($i <=  $max)
+#echo "ft group $i" >> $sanos
+#echo "  peer 1" >> $sanos
+#echo "  associate-context ctx$i" >> $sanos
+#echo "  inservice" >> $sanos
+#@ i++;
+#end
+
+#set i = 1
+#rm $iox > /dev/null
+#while ($i <=  $max)
+#echo "router static address-family ipv4 unicast 54.1.$i.0/24 VASIRight$i" >> $iox
+#@ i++;
+#end
+
+set i = 1                                                                        
+rm $sanos > /dev/null                                                              
+while ($i <=  $max)                                                              
+
+echo "ft group $i" >> $sanos
+echo "  peer 1" >> $sanos
+echo "  associate-context ctx$i" >> $sanos
+echo "inservice" >> $sanos
+@ i++;                                                                           
+end                                                                              

@@ -1,0 +1,29 @@
+#!/usr/local/bin/perl
+use POSIX qw(ceil);
+
+#--------------------------------------------------------------------------
+# Calc number of lines for commit
+#
+# Author :   Nir Ben-Dvora
+#
+#--------------------------------------------------------------------------
+
+# `cc_diff > tmp_diff.txt`;
+$ncf = `grep -c "^Index:" tmp_diff.txt`;
+$nnf = `eval grep -c "@@.*/0" tmp_diff.txt` / 2;
+$ncl = `(grep -c "^! " tmp_diff.txt)`;
+$nal = `grep -c "^+ " tmp_diff.txt`;
+$ndl = `grep -c "^- " tmp_diff.txt`;
+print "\n    Number of Changed files : ";
+print(ceil($ncf-$nnf));
+print "\n    Number of New files     : ";
+print(ceil($nnf));
+print "\n    Number of changed lines : ";
+print(ceil($ncl));
+print "\n    Number of added lines   : ";
+print($nal);
+print "    Number of deleted lines : ";
+print($ndl);
+printf "\n";
+
+

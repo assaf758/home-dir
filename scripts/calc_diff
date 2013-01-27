@@ -1,0 +1,91 @@
+#!/usr/local/bin/perl5
+#------------------------------------------------------------------
+#
+# Feb 1998, David Truong
+#
+# Copyright (c) 1998 by cisco Systems, Inc.
+# All rights reserved.
+#------------------------------------------------------------------
+
+push(@INC, "/usr/local/lib/atria/perl");
+push(@INC, "/usr/local/lib/ccperl");
+push(@INC, "/usr/local/lib/perl5");
+ 
+require "getopts.pl";
+
+#
+# Sub routine to display usage
+#
+sub Usage {
+    print STDERR "usage: calc_diff -f diff_file\n";
+    print STDERR "where:\n";
+    print STDERR "\t-f cc_diff output file:\n";
+    exit (1);
+}
+
+
+sub calc_size {
+    my $self = shift;
+    my $added = 0;
+    my $changed = 0;
+    my $correct_change = 0;
+    my $deleted = 0;
+    my $ccdiff = 0, $diff=0;
+
+    open(DIFFS, "<$infile") || die "Can't open $infile\n";
+    while(<DIFFS>) {
+        if( (/^#cmd=/ || /^COMMAND:/) && ((/ccdiff/ ) || (/\/router\/bin\/diff/))){
+            $ccdiff=1;
+            $diff=0;
+            next;
+        }
+        if( (/^#cmd=/ || /^COMMAND:/) && /cleartool diff/ ){
+            $diff=1;
+            $ccdiff=0;
+            next;
+        }
+        if( $ccdiff ){
+           if (/^\+ /) {
+            $added++;
+            next;
+           } 
+           if (/^! /) {
+            $changed++;
+            next;
+           }
+           if (/^- /) {
+            $deleted++;
+            next;
+           }
+        }
+        if( $diff ){
+           if (/^-----\[.+\]-----/) {
+            $changed++;
+            next;
+           }
+        }
+
+    }
+    close(<DIFFS>);
+    $correct_change = int($changed/2);
+    print "Lines added: $added\n";
+    print "Lines deleted: $deleted\n";
+    print "Lines changed: $correct_change\n";
+    #return ($added + $deleted + int($changed/2));
+}
+
+#
+# Main
+#
+{
+    
+    local($rc);
+
+    &Getopts(":f:h");
+    &Usage() if ($opt_h || (!$opt_f) );
+
+    $infile = $opt_f;
+    &calc_size($infile);
+
+    exit 0;
+}
