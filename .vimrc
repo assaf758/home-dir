@@ -108,7 +108,7 @@ endfun
 if has("gui_running")
   set guioptions-=T  "remove toolbar
   if has("gui_gtk2")
-    set guifont=Inconsolata\ for\ Powerline\ 11
+    set guifont=Inconsolata\ for\ Powerline\ 14
   elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
   endif

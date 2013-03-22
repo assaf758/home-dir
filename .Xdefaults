@@ -155,7 +155,7 @@ XTerm.vt100.Scrollbar.translations: #override\n\
       <Btn4Down>: StartScroll(Backward)
 
 !xterm*font:		9x15bold
-xterm*faceName:         Inconsolata-12
+xterm*faceName:         Inconsolata-14
 xterm*font1:		9x15bold
 xterm*font2:		8x13bold
 xterm*font3:		5x7
