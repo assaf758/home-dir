@@ -52,9 +52,7 @@ function ssh-settings {
     fi
 }
 
-
-#################### main 
-
+function compass-global-settings {
 # Source global definitions
 if [ -f /etc/bashrc ]; then
         . /etc/bashrc
@@ -65,8 +63,9 @@ if [ -f /home/compass/bashrc.global ]
 then
         . /home/compass/bashrc.global
 fi
+}
 
-# User specific aliases and functions
+#################### main 
 
 export PATH=~/bin:~/scripts:$PATH
 
@@ -87,6 +86,7 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'compass' )
+        compass-global-settings
         export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
         PS1='[\w$(__git_ps1 " (%s)")]\$ '
 	;;
