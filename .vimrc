@@ -1,8 +1,7 @@
 set nocompatible | filetype indent plugin on | syn on
-" echo hostname() 
 
 " Solve backspace ignored issue
-func Backspace()
+func! Backspace()
   if col('.') == 1
     if line('.')  != 1
       return  "\<ESC>kA\<Del>"
@@ -12,7 +11,12 @@ func Backspace()
   else
     return "\<Left>\<Del>"
   endif
-endfunc
+endfunc!
+
+fun! Hosttype()
+  let hostname = system("cat ~/hostname.txt")	
+  return hostname 
+endfun!
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   " windows users may want to use http://mawercer.de/~marc/vam/index.php
@@ -62,19 +66,24 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  "if $EMULATOR == "msys"
-  if hostname() == "ASSAF-LAP"
+  "if $EMULATOR == "msys
+  let xx = Hosttype() 
+  if xx ==# "ASSAF-LAP\n"
+	echo 1  
 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
         inoremap <BS> <c-r>=Backspace()<CR>
-  elseif hostname() == "assaf-lap-debian64"
+  elseif xx ==# "assaf-lap-debian64\n"
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
         python from powerline.ext.vim import source_plugin; source_plugin()
-  elseif hostname() == "hlinux" 
+  elseif xx ==# "hlinux\n" 
 	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})        
 	python from powerline.ext.vim import source_plugin; source_plugin()
-  else 
+  elseif xx ==# "compass\n"
         call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
+  else
+	echo "default"  
   endif
+
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
   " Addons are put into plugin_root_dir/plugin-name directory
@@ -91,18 +100,12 @@ fun! SetupVAM()
   " Also see section "2.2. names of addons and addon sources" in VAM's documentation
 endfun
 
-" experimental [E1]: load plugins lazily depending on filetype, See
-" NOTES
-" experimental [E2]: run after gui has been started (gvim) [3]
-" option1:  au VimEnter * call SetupVAM()
-" option2:  au GUIEnter * call SetupVAM()
-" See BUGS sections below [*]
-" Vim 7.0 users see BUGS section [3]
-
-
 "******************************************************************************
 "              Main
 "******************************************************************************
+let mapleader = ","
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " set gui_font for gvim:
 if has("gui_running")
@@ -137,7 +140,7 @@ set directory=~/.vim/tmp,.
 syntax enable
 let g:solarized_termtrans = 1 
 "if has('gui_running')
-"    set background=dark
+"    set background=light
 "else
 "    set background=dark
 "endif
@@ -154,7 +157,7 @@ set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 
 set cursorline " highlight current line
-
+set nowrap " no line wrapping
 set number " turn on line numbers
 set numberwidth=5 " We are good up to 99999 lines
 
@@ -166,4 +169,5 @@ set numberwidth=5 " We are good up to 99999 lines
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
+
 
