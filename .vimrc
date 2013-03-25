@@ -107,6 +107,13 @@ let mapleader = ","
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" tab-completion similar to bash.
+" When you type the first tab hit will complete as much as possible, the second 
+" tab hit will provide a list, the third and subsequent tabs will cycle through
+" completion options so you can complete the file without further keys
+set wildmode=longest,list,full
+set wildmenu
+
 " set gui_font for gvim:
 if has("gui_running")
   set guioptions-=T  "remove toolbar
