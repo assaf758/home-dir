@@ -1,5 +1,6 @@
 [user]
-	name = Assaf
+	name = assaf758
+	email = assaf758@hlinux.hlinux
 [reviewboard]
 	url = http://cmp-cdr-srv1.cmpsys.com
 [color]
@@ -34,3 +35,5 @@
     autocrlf = false
     safecrlf = true
     eol       = lf
+[push]
+	default = simple
