@@ -138,7 +138,6 @@ docs
 elisp
 .emacs
 emacs-24.1
-.emacs.d
 .emacs.d.manual
 .emacs.d.pre-prelude.tar
 emacs.ps
