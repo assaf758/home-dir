@@ -9,6 +9,12 @@
 (add-to-list 'load-path (expand-file-name "~/elisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
 
+(add-to-list 'load-path "~/.emacs.d/evil") ; only without ELPA/el-get
+  (require 'evil)
+  (evil-mode 1)
+
+
+
 ; Disable non-emacs stuff:
 ;(menu-bar-mode -1)       ;hide menu-bar
 (scroll-bar-mode -1)     ;hide scroll-bar
@@ -46,12 +52,12 @@
 
 (defun iswitchb-local-keys ()
     (mapc (lambda (K) 
-	      (let* ((key (car K)) (fun (cdr K)))
-    	        (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
-	    '(("<right>" . iswitchb-next-match)
-	      ("<left>"  . iswitchb-prev-match)
-	      ("<up>"    . ignore             )
-	      ("<down>"  . ignore             ))))
+              (let* ((key (car K)) (fun (cdr K)))
+                (define-key iswitchb-mode-map (edmacro-parse-keys key) fun)))
+            '(("<right>" . iswitchb-next-match)
+              ("<left>"  . iswitchb-prev-match)
+              ("<up>"    . ignore             )
+              ("<down>"  . ignore             ))))
 (add-hook 'iswitchb-define-mode-map-hook 'iswitchb-local-keys)
 
 ;; vertical line at 80chars
@@ -91,34 +97,34 @@
 ; ibuffer config
 (setq ibuffer-saved-filter-groups
       '(("home"
-	 ("emacs-config" (or (filename . ".emacs.d")
-			     (filename . "emacs-config")))
+         ("emacs-config" (or (filename . ".emacs.d")
+                              filename . "emacs-config")))
          ("martinowen.net" (filename . "martinowen.net"))
-	 ("Org" (or (mode . org-mode)
-		    (filename . "OrgMode")))
+         ("Org" (or (mode . org-mode)
+                    (filename . "OrgMode")))
          ("code" (filename . "code"))
-	 ("Web Dev" (or (mode . html-mode)
-			(mode . css-mode)))
-	 ("Subversion" (name . "\*svn"))
-	 ("Magit" (name . "\*magit"))
-	 ("ERC" (mode . erc-mode))
-	 ("Shell" (mode . Shell))
-	 ("Help" (or (name . "\*Help\*")
-		     (name . "\*Apropos\*")
-		     (name . "\*info\*")))
-	 ("Emacs-stuff" (name . "\*.*\*"))
+         ("Web Dev" (or (mode . html-mode)
+                        (mode . css-mode)))
+         ("Subversion" (name . "\*svn"))
+         ("Magit" (name . "\*magit"))
+         ("ERC" (mode . erc-mode))
+         ("Shell" (mode . Shell))
+         ("Help" (or (name . "\*Help\*")
+                     (name . "\*Apropos\*")
+                     (name . "\*info\*")))
+         ("Emacs-stuff" (name . "\*.*\*"))
           )))
 ; activate the 'home' filter
 (add-hook 'ibuffer-mode-hook 
-	  '(lambda ()
-	     (ibuffer-switch-to-saved-filter-groups "home")))
+          '(lambda ()
+             (ibuffer-switch-to-saved-filter-groups "home")))
 (setq ibuffer-expert t) ; don't confirm killing of buffers
 (setq ibuffer-show-empty-filter-groups nil) ; don't show empty groups
 ; automatically keep buffer-list window up to date
 (add-hook 'ibuffer-mode-hook 
-	  '(lambda ()
-	     (ibuffer-auto-mode 1)
-	     (ibuffer-switch-to-saved-filter-groups "home")))
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-switch-to-saved-filter-groups "home")))
 
 ; hide some of the files
 ;(require 'ibuf-ext)

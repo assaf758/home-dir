@@ -481,7 +481,7 @@
 				</key>
 			</key>
 		</key>
-		<key name=".Vanilla" modified="2013-01-10 13:35:28">
+		<key name=".Vanilla" modified="2013-03-26 21:08:28">
 			<value name="ColorTable00" type="dword" data="00423607"/>
 			<value name="ColorTable01" type="dword" data="003d2064"/>
 			<value name="ColorTable02" type="dword" data="00009985"/>
@@ -599,11 +599,11 @@
 			<value name="ColorKeyValue" type="dword" data="00010101"/>
 			<value name="UseCurrentSizePos" type="hex" data="01"/>
 			<value name="WindowMode" type="dword" data="00000520"/>
-			<value name="ConWnd Width" type="dword" data="00000082"/>
-			<value name="ConWnd Height" type="dword" data="0000005d"/>
+			<value name="ConWnd Width" type="dword" data="0000007e"/>
+			<value name="ConWnd Height" type="dword" data="0000002b"/>
 			<value name="Cascaded" type="hex" data="00"/>
-			<value name="ConWnd X" type="dword" data="00000000"/>
-			<value name="ConWnd Y" type="dword" data="00000000"/>
+			<value name="ConWnd X" type="dword" data="00000021"/>
+			<value name="ConWnd Y" type="dword" data="000000c4"/>
 			<value name="16bit Height" type="dword" data="00000000"/>
 			<value name="AutoSaveSizePos" type="hex" data="01"/>
 			<value name="QuakeStyle" type="hex" data="00"/>
@@ -733,7 +733,7 @@
 			<value name="SaveAllEditors" type="string" data=""/>
 			<value name="ToolbarAddSpace" type="dword" data="00000000"/>
 			<value name="TabConsole" type="string" data="&lt;%c&gt; %s"/>
-			<value name="TabSkipWords" type="string" data="Administrator:|Администратор:"/>
+			<value name="TabSkipWords" type="string" data="Administrator:|Адми"/>
 			<value name="TabPanels" type="string" data="&lt;%c&gt; %s"/>
 			<value name="TabEditor" type="string" data="&lt;%c.%i&gt;{%s}"/>
 			<value name="TabEditorModified" type="string" data="&lt;%c.%i&gt;[%s] *"/>
@@ -942,16 +942,16 @@
 			<value name="DndLKey" type="hex" data="00"/>
 			<value name="DndRKey" type="hex" data="a2"/>
 			<value name="WndDragKey" type="dword" data="00121101"/>
-				<key name="Tasks" modified="2013-01-04 23:38:48">
+				<key name="Tasks" modified="2013-01-21 11:35:06">
 				<value name="Count" type="dword" data="00000002"/>
-						<key name="Task1" modified="2013-01-04 23:38:48">
+						<key name="Task1" modified="2013-01-21 11:35:06">
 					<value name="Name" type="string" data="{vim-7.3}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="&quot;C:\Program Files (x86)\Vim\vim73\vim.exe&quot;"/>
 					<value name="Active" type="dword" data="00000000"/>
 					<value name="Count" type="dword" data="00000001"/>
 				</key>
-						<key name="Task2" modified="2013-01-04 23:38:48">
+						<key name="Task2" modified="2013-01-21 11:35:06">
 					<value name="Name" type="string" data="{Program-set}"/>
 					<value name="GuiArgs" type="string" data=""/>
 					<value name="Cmd1" type="string" data="&quot;C:\Program Files (x86)\Total Commander\Totalcmd.exe&quot;"/>
@@ -960,16 +960,25 @@
 					<value name="Count" type="dword" data="00000002"/>
 				</key>
 			</key>
-				<key name="Apps" modified="2013-01-04 23:38:48">
+				<key name="Apps" modified="2013-01-21 11:35:06">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-				<key name="Colors" modified="2013-01-04 23:38:48">
+				<key name="Colors" modified="2013-01-21 11:35:06">
 				<value name="Count" type="dword" data="00000000"/>
 			</key>
-			<value name="CmdLineHistory" type="multi"><line data="C:\Program Files\Far Manager\Far.exe"/><line data="&quot;C:\Windows\system32\cmd.exe&quot; /C c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
+			<value name="CmdLineHistory" type="multi"><line data="&quot;C:\Python27\pythonw.exe&quot;  &quot;C:\Program Files (x86)\DataNitro\DataNitroPython\v27\iron_udf_server.pyc&quot; -g &quot;2122914151&quot; -w &quot;0&quot; -t &quot;3&quot;"/><line data="&quot;C:\Python33\python.exe&quot; -i &quot;C:\Program Files (x86)\DataNitro\DataNitroPython\v33\bootstrap.pyc&quot; -g 357532112"/><line data="C:\Program Files\Far Manager\Far.exe"/><line data="&quot;C:\Python33\python.exe&quot; -i &quot;C:\Program Files (x86)\DataNitro\DataNitroPython\v33\bootstrap.pyc&quot; -g 244415620"/><line data="&quot;C:\Python33\python.exe&quot; -i &quot;C:\Program Files (x86)\DataNitro\DataNitroPython\v33\bootstrap.pyc&quot; -g 122022977"/><line data="&quot;C:\Python27\python.exe&quot; -i &quot;C:\Program Files (x86)\DataNitro\DataNitroPython\v27\bootstrap.pyc&quot; -g 122022977"/><line data="bash -i -new_console:sV"/><line data="&quot;C:\Windows\system32\cmd.exe&quot; /C c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="cmd -new_console:s50H bash -i"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat"/><line data="c:\Users\assaf\.config\conemu_bash_start.bat "/></value>
 			<value name="Multi.MinByEsc" type="hex" data="02"/>
 			<value name="MapShiftEscToEsc" type="hex" data="01"/>
 			<value name="HideChildCaption" type="hex" data="00"/>
+			<value name="SingleInstance" type="hex" data="00"/>
+			<value name="QuakeAnimation" type="dword" data="0000012c"/>
+			<value name="FocusInChildWindows" type="hex" data="01"/>
+			<value name="StatusBar.Hide.Resize" type="hex" data="00"/>
+			<value name="MinimizeOnLoseFocus" type="hex" data="00"/>
+			<value name="SwitchGuiFocus" type="dword" data="00000000"/>
+			<value name="SetFocusGui" type="dword" data="00000000"/>
+			<value name="SetFocusChild" type="dword" data="00005b34"/>
+			<value name="ChildSystemMenu" type="dword" data="00000000"/>
 		</key>
 	</key>
 </key>

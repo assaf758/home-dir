@@ -146,7 +146,7 @@ since 25-04-06:
 #Persistent
 #InstallKeybdHook
 #InstallMouseHook
-;#NoTrayIcon
+#NoTrayIcon
 Process Priority,,High
 SetWinDelay, -1
 SetBatchLines, -1

@@ -1,6 +1,6 @@
 
 #Include c:\Users\assaf\Scripts
-;#Include AltTab.ahk
+#Include AltTab.ahk
 
 ; Map the capslock to ctrl, maps shift-capslock to capslock 
 +Capslock::Capslock

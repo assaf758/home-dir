@@ -83,6 +83,9 @@ case "`cat ~/hostname.txt`" in
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
         export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 	alias find=/usr/bin/find
+	alias winword="/c/Program\ Files\ \(x86\)/Microsoft\ Office/Office14/WINWORD.EXE"
+	alias gvim="/c/Program\ Files\ \(x86\)/Vim/vim73/gvim.exe"
+	alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'compass' )
