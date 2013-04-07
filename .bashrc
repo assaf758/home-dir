@@ -15,7 +15,6 @@ function start_agent {
 # test for identities
 function test_identities {
     # test whether standard identities have been added to the agent already
-    echo 3
     ssh-add -l | grep "Could not open a connection" > /dev/null
     if [ $? -eq 1 ]; then 
         start_agent
@@ -34,7 +33,6 @@ function test_identities {
 function ssh-settings {
     SSH_ENV="$HOME/.ssh/environment"
     if [ -n "$SSH_AGENT_PID" ]; then
-	echo 1
         ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
         if [ $? -eq 0 ]; then
             test_identities
@@ -42,7 +40,6 @@ function ssh-settings {
     # if $SSH_AGENT_PID is not properly set, we might be able to load one from 
     # $SSH_ENV
     else
-        echo 2
         if [ -f "$SSH_ENV" ]; then
         . "$SSH_ENV" > /dev/null
         fi
