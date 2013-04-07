@@ -15,8 +15,8 @@ function start_agent {
 # test for identities
 function test_identities {
     # test whether standard identities have been added to the agent already
-    ssh-add -l | grep "Could not open a connection" > /dev/null
-    if [ $? -eq 1 ]; then 
+    ssh-add -l > /dev/null
+    if [ $? -eq 2 ]; then 
         start_agent
     fi 
     ssh-add -l | grep "The agent has no identities" > /dev/null
