@@ -124,7 +124,7 @@ if has("gui_running")
   endif
 endif
 
-"**** Powerline config ************
+"**** Needed also for Powerline ************
 "using the python installer, not the vim-plugin manager
 "source ~/.vim/vim-addons/github-Lokaltog-powerline/powerline/ext/vim/source_plugin.vim
 set laststatus=2   " Always show the statusline
@@ -144,7 +144,6 @@ set directory=~/.vim/tmp,.
 
 
 "**** Solorized config **************
-syntax enable
 let g:solarized_termtrans = 1 
 "if has('gui_running')
 "    set background=light
@@ -167,6 +166,8 @@ set cursorline " highlight current line
 set nowrap " no line wrapping
 set number " turn on line numbers
 set numberwidth=5 " We are good up to 99999 lines
+syntax enable
+set backspace=indent,eol,start  " backspace through everything in insert mode
 
 :imap jk <Esc>
 :imap kj <Esc>
