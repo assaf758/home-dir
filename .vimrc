@@ -81,7 +81,7 @@ fun! SetupVAM()
   elseif xx ==# "compass\n"
         call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
   else
-	echo "default"  
+	"echo "default"  
   endif
 
   " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
@@ -150,7 +150,7 @@ let g:solarized_termtrans = 1
 "else
 "    set background=dark
 "endif
-colorscheme solarized
+"colorscheme solarized
 
 " Ctrlp config **********************
 let g:ctrlp_cmd = 'CtrlPBuffer'
