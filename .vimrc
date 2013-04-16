@@ -66,7 +66,6 @@ fun! SetupVAM()
   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  "if $EMULATOR == "msys
   let xx = Hosttype() 
   if xx ==# "ASSAF-LAP\n"
 	echo 1  
@@ -76,8 +75,7 @@ fun! SetupVAM()
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
         python from powerline.ext.vim import source_plugin; source_plugin()
   elseif xx ==# "hlinux\n" 
-	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})        
-	python from powerline.ext.vim import source_plugin; source_plugin()
+	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp','github:Lokaltog/vim-powerline'], {'auto_install' : -1})       
   elseif xx ==# "compass\n"
         call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
   else
@@ -145,12 +143,12 @@ set directory=~/.vim/tmp,.
 
 "**** Solorized config **************
 let g:solarized_termtrans = 1 
-"if has('gui_running')
-"    set background=light
-"else
-"    set background=dark
-"endif
-"colorscheme solarized
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme solarized
 
 " Ctrlp config **********************
 let g:ctrlp_cmd = 'CtrlPBuffer'
