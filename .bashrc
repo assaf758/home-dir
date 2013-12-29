@@ -68,12 +68,13 @@ fi
 #################### main 
 
 export PATH=~/bin:~/scripts:$PATH
+export PATH=$PATH:/usr/bin/vendor_perl/
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
     'hlinux' )
-        export GOROOT=$HOME/Tools/go
-	export PATH=$PATH:$GOROOT/bin
+        #export GOROOT=$HOME/Tools/go
+	#export PATH=$PATH:$GOROOT/bin
 	;;
     'assaf-lap-debian64' )
 	export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
