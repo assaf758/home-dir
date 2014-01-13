@@ -52,19 +52,6 @@ function ssh-settings {
     fi
 }
 
-function compass-global-settings {
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
-# Compass users  bashrc definitions
-if [ -f /home/compass/bashrc.global ]
-then
-        . /home/compass/bashrc.global
-fi
-}
-
 #################### main 
 
 export PATH=~/bin:~/scripts:$PATH
@@ -117,6 +104,4 @@ alias lsl="ls -lah"
 unalias vs 2>/dev/null
 alias sss="ssh -X cmp-sft-srv1"
 alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
-alias eclipse_indigo='/auto/software/tools/indigo/eclipse/eclipse'
-alias eclipse_helios='/auto/software/tools/helios/eclipse/eclipse'
 

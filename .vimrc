@@ -57,9 +57,19 @@ fun! SetupVAM()
         python from powerline.ext.vim import source_plugin; source_plugin()
   elseif xx ==# "hlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
-	\'Solarized','github:wincent/Command-T','github:benmills/vimux','github:mileszs/ack.vim',
-	\'github:godlygeek/tabular','github:wesleyche/SrcExpl','github:Lokaltog/vim-powerline',
-	\'github:bernh/pss.vim','renamer','github:Lokaltog/vim-easymotion','github:flazz/vim-colorschemes',
+	\'Solarized',
+	\'github:wincent/Command-T',
+	\'github:benmills/vimux',
+	\'github:mileszs/ack.vim',
+	\'github:godlygeek/tabular',
+	\'github:wesleyche/SrcExpl',
+	\'github:Lokaltog/vim-powerline',
+	\'github:bernh/pss.vim',
+	\'renamer',
+	\'github:Lokaltog/vim-easymotion',
+	\'github:flazz/vim-colorschemes',
+	\'github:tpope/vim-commentary',
+	\'github:tpope/vim-repeat',
 	\], {'auto_install' : -1})
   else
 	"echo "default"
@@ -183,8 +193,14 @@ nmap \q :nohlsearch<CR>
 set cursorline 	" highlight current line
 set nowrap 	" no line wrapping
 set number 	" turn on line numbers
+nmap \l :set number! number?<cr>
 set numberwidth=4 " We are good up to 9999 lines
 syntax enable
+:map \s :if exists("g:syntax_on") <Bar>
+	\   syntax off <Bar>
+	\ else <Bar>
+	\   syntax enable <Bar>
+	\ endif <CR>
 
 " tabs & indentation
 set autoindent    " always set autoindenting on
@@ -238,4 +254,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+" Build and run go program hello.go on specific tmux window
+nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
