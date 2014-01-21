@@ -14,7 +14,10 @@ fi
 # [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xrdb -merge ~/.Xresources
 
+# window-manager must be last line in this script
 # exec gnome-session
 # exec startkde
-exec startxfce4
 # ...or the Window Manager of your choice
+exec startxfce4
+#exec dwm
+
