@@ -1,23 +1,39 @@
 #!/bin/sh
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
 
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+    xrdb -merge $sysresources
 fi
 
-# [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-xrdb -merge ~/.Xresources
+if [ -f $sysmodmap ]; then
+    xmodmap $sysmodmap
+fi
 
-# window-manager must be last line in this script
-# exec gnome-session
-# exec startkde
-# ...or the Window Manager of your choice
+if [ -f "$userresources" ]; then
+    xrdb -merge "$userresources"
+fi
+
+if [ -f "$usermodmap" ]; then
+    xmodmap "$usermodmap"
+fi
+
+# start some nice programs
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
+
+#twm &
 exec startxfce4
-#exec dwm
-
+#xclock -geometry 50x50-1+1 &
+#xterm -geometry 80x50+494+51 &
+#xterm -geometry 80x20+494-0 &
+exec xterm -geometry 80x66+0+0 -name login

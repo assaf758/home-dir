@@ -1,0 +1,8 @@
+#!/bin/sh
+xrdb -merge ~/.Xresources
+xbindkeys 
+kbd_home.sh
+tmuxinator misc 
+wingo --replace &
+xfce4-terminal -e "tmux attach-session -t misc"  &
+
