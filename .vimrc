@@ -106,6 +106,21 @@ nmap <C-_>i :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 endfunc!
 
+cnoreabbrev <expr> csu
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? '!cscope -Rbq'  : 'csu')
+cnoreabbrev <expr> csa
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+cnoreabbrev <expr> csf
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+cnoreabbrev <expr> csk
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+cnoreabbrev <expr> csr
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+cnoreabbrev <expr> css
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+cnoreabbrev <expr> csh
+      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+
 " Help functions **************************************************************
 
 " Solve backspace ignored issue
@@ -131,10 +146,11 @@ endfun!
 "              Main
 "******************************************************************************
 nnoremap ; :
-let mapleader = ","  " change the mapleader from \ to ,
-:imap jk <Esc>
+" let mapleader = ","  " change the mapleader from \ to ,
+" :imap jk <Esc>
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
+nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " underline current line with =
