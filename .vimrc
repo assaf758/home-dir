@@ -54,8 +54,8 @@ fun! SetupVAM()
         inoremap <BS> <c-r>=Backspace()<CR>
   elseif xx ==# "assaf-lap-debian64\n"
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
-        python from powerline.ext.vim import source_plugin; source_plugin()
-  elseif xx ==# "hlinux\n"
+        python from powerline.ext.vim import source_plugin; source_plug
+  elseif xx ==# "a10\n" || xx ==# "hlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
 	\'Solarized',
 	\'github:wincent/Command-T',
