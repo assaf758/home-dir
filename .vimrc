@@ -146,8 +146,8 @@ endfun!
 "              Main
 "******************************************************************************
 nnoremap ; :
-" let mapleader = ","  " change the mapleader from \ to ,
-" :imap jk <Esc>
+let mapleader = ","  " change the mapleader from \ to ,
+:imap jk <Esc>
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
