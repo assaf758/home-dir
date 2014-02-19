@@ -58,7 +58,6 @@ fun! SetupVAM()
   elseif xx ==# "hlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
 	\'Solarized',
-	\'github:wincent/Command-T',
 	\'github:benmills/vimux',
 	\'github:mileszs/ack.vim',
 	\'github:godlygeek/tabular',
@@ -70,11 +69,20 @@ fun! SetupVAM()
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
 	\'github:tpope/vim-repeat',
+	\'AsyncCommand',
+	\'github:Valloric/YouCompleteMe',
+	\'github:ervandew/supertab',
+	\'github:wincent/Command-T',
+	\'github:gcmt/wildfire.vim',
 	\], {'auto_install' : -1})
   else
 	"echo "default"
   endif
 endfun
+
+	"\'github:Rip-Rip/clang_complete',
+	"\'UltiSnips',
+
 
 " Cscope **********************************************************************
 func! Cscope()
@@ -205,8 +213,16 @@ set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 nmap \q :nohlsearch<CR>
 
-" Viewing  *******************************************************************
+" Cursor *******************************************************************
 set cursorline 	" highlight current line
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:block-Cursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
+" Viewing  *******************************************************************
 set nowrap 	" no line wrapping
 set number 	" turn on line numbers
 nmap \l :set number! number?<cr>
@@ -262,6 +278,28 @@ nnoremap <a-.> :cnext<CR>
 nnoremap <a-,> :cprev<CR>
 
 call Cscope() " Do cscope config
+
+" clang_complete
+"let g:clang_user_options='|| exit 0'
+"let g:clang_complete_auto = 0
+"let g:clang_complete_copen = 1
+"let g:clang_library_path= "/usr/lib"
+"let g:clang_snippets=1       " use a snippet engine for placeholders
+"let g:clang_snippets_engine='ultisnips'
+"let g:clang_auto_select=2
+
+" Completion menu
+"set pumheight=15
+set completeopt=menu,menuone
+let g:SuperTabDefaultCompletionType = "context"
+
+" YouCompleteMe config
+" Do not display "Pattern not found" messages during YouCompleteMe completion
+" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
+try
+  set shortmess+=c
+  catch /E539: Illegal character/
+endtry
 
 " Command-T config ********************************************
 " double percentage sign in command mode is expanded
