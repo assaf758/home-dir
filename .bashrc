@@ -76,16 +76,18 @@ case "`cat ~/hostname.txt`" in
 	alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
-    'compass' )
-        compass-global-settings
+    'a10' )
         export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
-        PS1='[\w$(__git_ps1 " (%s)")]\$ '
+	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
+	export DIR_STO="target/sources/sto/"
+	alias cdws="cd $WS"
 	;;
     * )	    
         ;;
 esac
 
-ssh-settings
+# ssh-settings
 
 export EDITOR=vim
 
@@ -98,10 +100,15 @@ HISTFILESIZE=20000
 HISTSIZE=10000
 set -o vi # make bash readline behave as vi
 
+# Set WS var to current dir
+ws_set() {
+	export WS=`pwd`
+}
+
 # Aliases config
 unalias ls &>/dev/null
 alias lsl="ls -lah"
-unalias vs 2>/dev/null
-alias sss="ssh -X cmp-sft-srv1"
-alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
 
+# slickedit
+unalias vs 2>/dev/null
+alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'

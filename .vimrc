@@ -70,7 +70,8 @@ fun! SetupVAM()
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
 	\'github:tpope/vim-repeat',
-	\], {'auto_install' : -1})
+	\'github:wincent/Command-T',
+ 	\], {'auto_install' : -1})
   else
 	"echo "default"
   endif
@@ -93,10 +94,14 @@ if has("cscope")
 	set csverb
 endif
 
-map g<C-]> :cs find c <C-R>=expand("<cword>")<CR><CR>  "find calling functions
-map g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  "find C symbol
+"find calling functions
+nmap g<C-]> :cs find c <C-R>=expand("<cword>")<CR><CR>  
+"find C symbol
+nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
+"find this definition 
+nmap g<C-[> :cs find g <C-R>=expand("<cword>")<CR><CR>  
 
-nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
@@ -146,8 +151,8 @@ endfun!
 "              Main
 "******************************************************************************
 nnoremap ; :
-" let mapleader = ","  " change the mapleader from \ to ,
-" :imap jk <Esc>
+let mapleader = ","  " change the mapleader from \ to ,
+:imap jk <Esc>
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
@@ -198,6 +203,14 @@ endif
 "colorscheme solarized
 colorscheme evening
 
+" Fix home/end key in all modes
+map <esc>OH <home>
+cmap <esc>OH <home>
+imap <esc>OH <home>
+map <esc>OF <end>
+cmap <esc>OF <end>
+imap <esc>OF <end>
+
 " Searching *******************************************************************
 set hlsearch   " highlight search
 set incsearch  " incremental search, search as you type
@@ -241,6 +254,9 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " Use K in normal mode to add blank line below this line
 nnoremap K 0i<C-M><ESC>k
+
+" Copy full pathname of current buffer to the unmamed register
+nnoremap cp :let @" = expand("%")
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
