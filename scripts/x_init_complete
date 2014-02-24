@@ -1,8 +1,9 @@
 #!/bin/sh
+wingo --replace 2>/dev/null &
+sleep 4
 xrdb -merge ~/.Xresources
 xbindkeys 
 kbd_home.sh
 tmuxinator misc 
-wingo --replace &
-xfce4-terminal -e "tmux attach-session -t misc"  &
-
+# xfce4-terminal -e "tmux attach-session -t misc"  &
+#tmux attach-session -t misc"

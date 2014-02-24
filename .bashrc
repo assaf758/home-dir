@@ -62,6 +62,7 @@ case "`cat ~/hostname.txt`" in
     'hlinux' )
         #export GOROOT=$HOME/Tools/go
 	#export PATH=$PATH:$GOROOT/bin
+	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	;;
     'assaf-lap-debian64' )
 	export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
@@ -85,7 +86,7 @@ case "`cat ~/hostname.txt`" in
         ;;
 esac
 
-ssh-settings
+#ssh-settings
 
 export EDITOR=vim
 

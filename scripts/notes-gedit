@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# if mount exit, simply call gvim:
+mountpoint -q ~/tmp/cache1 && gvim -f ~/tmp/cache1/notes.txt && 	exit 0
+
+# Otherwise, mount/edit/umount:
+echo "please mount using note-mount" ; exit 0
+mkdir -p ~/tmp/cache1
+[[ ! -e /dev/mapper/cache1 ]] && sudo cryptsetup "--type tcrypt open ~assaf/Dropbox/Apps/EDS/cache1 cache1"
+sudo bash -c 'mount -o uid=1000,gid=100 /dev/mapper/cache1 ~/tmp/cache1/ ; sudo -u assaf gvim -f ~/tmp/cache1/notes.txt ; umount ~/tmp/cache1 && sudo cryptsetup close cache1'
+
