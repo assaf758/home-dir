@@ -256,7 +256,9 @@ set showmode
 set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " Use K in normal mode to add blank line below this line
-nnoremap K 0i<C-M><ESC>k
+nnoremap K 0i<C-M><ESC>
+" Press Ctrl-J whenever you want to split a line
+nnoremap <leader>j i<CR><ESC>k$
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
