@@ -74,6 +74,7 @@ fun! SetupVAM()
 	\'github:ervandew/supertab',
 	\'github:wincent/Command-T',
 	\'github:gcmt/wildfire.vim',
+	\'github:tpope/vim-fugitive',
 	\], {'auto_install' : -1})
   else
 	"echo "default"

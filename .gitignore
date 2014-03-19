@@ -414,4 +414,19 @@ multipageproject/
 nmt_pw_pch.txt
 orb.db/
 xm/
+.fontmatrix/
+.asoundrc
+.conkyrc
+.hp48/
+.npm/
+.steam/
+.steampath
+.steampid
+.xprofile
+.xscreensaver
+.xsession
+.yEd/
+UMLet/
+bower_components/
+mas_files/
 
