@@ -157,5 +157,4 @@ set -o vi # make bash readline behave as vi
 unalias ls &>/dev/null
 alias lsl="ls -lah"
 alias sss="ssh -l assafb -X dev64-build12"
-alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
 

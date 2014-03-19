@@ -1,1 +1,1 @@
-gem: --bindir /usr/bin
+gem: --bindir ~/bin 
