@@ -24,7 +24,7 @@ function test_identities {
         echo "Adding ssh-key $SSH_KEY_FILE"
         ssh-add $SSH_KEY_FILE 
         if [ $? -eq 2 ];then
-            echo "Could not ssh-add assaf758 key"
+            echo "Could not ssh-add key $SSH_KEY_FILE"
         fi
     fi
 }
@@ -89,7 +89,7 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export SSH_KEY_FILE='~/.ssh/assafb_a10_id_dsa'
+        export SSH_KEY_FILE="$HOME/.ssh/assafb_a10_id_dsa"
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
