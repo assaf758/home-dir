@@ -58,49 +58,57 @@ fun! SetupVAM()
   elseif xx ==# "a10\n" || xx ==# "hlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
 	\'Solarized',
-	\'github:wincent/Command-T',
 	\'github:benmills/vimux',
-	\'github:mileszs/ack.vim',
 	\'github:godlygeek/tabular',
 	\'github:wesleyche/SrcExpl',
 	\'github:Lokaltog/vim-powerline',
 	\'github:bernh/pss.vim',
 	\'renamer',
-	\'github:Lokaltog/vim-easymotion',
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
 	\'github:tpope/vim-repeat',
 	\'github:wincent/Command-T',
- 	\], {'auto_install' : -1})
+        \'github:tpope/vim-unimpaired',
+        \'github:majutsushi/tagbar',
+        \], {'auto_install' : -1})
   else
 	"echo "default"
   endif
 endfun
 
+	"\'github:Lokaltog/vim-easymotion',
+	"\'AsyncCommand', - requires +clientserver
+	"\'github:Valloric/YouCompleteMe',
+	"\'github:ervandew/supertab',
+        "\'github:gcmt/wildfire.vim',
+        "'taglist',
+"
 " Cscope **********************************************************************
 func! Cscope()
 if has("cscope")
-	set csprg=/usr/bin/cscope
-	set csto=0
-	set cst
-	set nocsverb
-	" add any database in current directory
-	if filereadable("cscope.out")
-	    cs add cscope.out
-	" else add database pointed to by environment
-	elseif $CSCOPE_DB != ""
-	    cs add $CSCOPE_DB
-	endif
-	set csverb
+    set csprg=/usr/bin/cscope
+    set cst       " <C-]> will use both cscope and ctag results 
+    set csto=0    " Search defintion in cscope first , and if nothing found search tag
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+    " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+    if has('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
 endif
 
-"find calling functions
-nmap g<C-]> :cs find c <C-R>=expand("<cword>")<CR><CR>  
 "find C symbol
 nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
 "find this definition 
-nmap g<C-[> :cs find g <C-R>=expand("<cword>")<CR><CR>  
+nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
 
+" note that "-" and "_" are interchangable when mapping with ctrl
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
 nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -162,6 +170,9 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+" Provide buffer delete which does not close the window
+nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
 " tab hit will provide a list, the third and subsequent tabs will cycle through
@@ -193,16 +204,6 @@ call SetupVAM()
 
 set vb t_vb=  " No beeps
 
-"**** Solorized config **************
-let g:solarized_termtrans = 1
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-"colorscheme solarized
-colorscheme evening
-
 " Fix home/end key in all modes
 map <esc>OH <home>
 cmap <esc>OH <home>
@@ -230,14 +231,40 @@ syntax enable
 	\ else <Bar>
 	\   syntax enable <Bar>
 	\ endif <CR>
+"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+set statusline=%t       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}] "file format
+set statusline+=%h      "help file flag
+set statusline+=%#error# "switch to error highligh
+set statusline+=%m      "modified flag
+set statusline+=%*       "switch back to normal statusline highlight
+set statusline+=%r      "read only flag
+set statusline+=%y      "filetype
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+
+" Colorscheme **************
+let g:solarized_termtrans = 1
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+"colorscheme solarized
+"colorscheme evening
+colorscheme fog2
 
 " tabs & indentation
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
-set shiftwidth=8  " number of spaces to use for autoindenting
+set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set smarttab      " insert tabs on the start of a line according to
                   " shiftwidth, not tabstop
+set expandtab	  " Always expand tabs to corresponding number of spaces
 
 " toggle showing of whitespace chars
 nnoremap <leader>sp :set list! list?<cr>
@@ -254,9 +281,10 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " Use K in normal mode to add blank line below this line
 nnoremap K 0i<C-M><ESC>k
-
+" Press Ctrl-J whenever you want to split a line
+nnoremap <leader>j i<CR><ESC>k$
 " Copy full pathname of current buffer to the unmamed register
-nnoremap cp :let @" = expand("%")
+nnoremap cpp :let @" = expand("%") . ":" . line(".") . ":" . getline(".")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
@@ -273,19 +301,27 @@ nnoremap <c-l> <c-w>l
 " Allow calling sudo (to make file writeable) *after* you have edited the file
 cmap w!! w !sudo tee % >/dev/null
 
-"quick-fix mappings of for cprev/cnext
-nnoremap <a-.> :cnext<CR>
-nnoremap <a-,> :cprev<CR>
+"Quickfix (on top of imparied)
+nmap [c :colder<CR>
+nmap ]c :cnewer<CR>
+" Press o (when in quickfix window) to show location without changeing focus
+autocmd FileType qf nnoremap <buffer> o <CR><C-W><C-P>
 
 call Cscope() " Do cscope config
+"Configure Tagbar winodw display/hide
+nmap <F9> :TagbarToggle<CR>
 
 " Command-T config ********************************************
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+" The below does not work. Use Ctrl-p?
+" nnoremap <silent> <Leader>c :CommandTTag<CR>
+" Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
+set wildignore+=*.o,*.obj,.git,.svn
 
 " Build and run go program hello.go on specific tmux window
 nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>

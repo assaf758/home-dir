@@ -21,7 +21,7 @@ function test_identities {
     fi 
     ssh-add -l | grep "The agent has no identities" > /dev/null
     if [ $? -eq 0 ]; then
-        echo "Adding ssh-key for assaf758"
+        echo "Adding ssh-key $SSH_KEY_FILE"
         ssh-add $SSH_KEY_FILE 
         if [ $? -eq 2 ];then
             echo "Could not ssh-add assaf758 key"
@@ -52,6 +52,18 @@ function ssh-settings {
     fi
 }
 
+function ttf {
+export SRC_FILE_LIST=./file_list.in
+find . -regextype posix-extended -regex "(.*Makefile$|.*\.(c|cc|cpp|hpp|h|hh|py|pl|pm|xml|mk|sh|txt)$)" |\
+  grep -v -e ".*\.devcall[123]\.h$" > $SRC_FILE_LIST
+
+}
+
+function ttu {
+ctags -L $SRC_FILE_LIST
+cscope -Rbq -i $SRC_FILE_LIST
+}
+
 #################### main 
 
 export PATH=~/bin:~/scripts:$PATH
@@ -64,7 +76,7 @@ case "`cat ~/hostname.txt`" in
 	#export PATH=$PATH:$GOROOT/bin
 	;;
     'assaf-lap-debian64' )
-	export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
+	export SSH_KEY_FILE='/home1/assafb/.ssh/id_assaf758_rsa'
         ;;
     'assaf-lap' )
 	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
@@ -77,11 +89,12 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
+        export SSH_KEY_FILE='~/.ssh/assafb_a10_id_dsa'
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
+	alias myvim="/home1/assafb/bin/vim"
 	;;
     * )	    
         ;;
@@ -108,6 +121,7 @@ ws_set() {
 # Aliases config
 unalias ls &>/dev/null
 alias lsl="ls -lah"
+alias t='ctags -R; find . -name "*.c" -o -name "*.cc" -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" -o -name "*.cpp" -o -name "*.py" -o -name "*.pl" -o -name "*.pm" | cscope -Rbq -i-'
 
 # slickedit
 unalias vs 2>/dev/null
