@@ -430,3 +430,5 @@ mas_files/
 
 .Fontmatrix/
 .ssh/known_hosts
+.ssh/assaf758_id_rsa
+.ssh/assafb_a10_id_dsa

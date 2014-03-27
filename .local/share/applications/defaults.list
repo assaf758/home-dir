@@ -1,0 +1,22 @@
+[Default Applications]
+video/x-msvideo=vlc.desktop
+video/x-flv=vlc.desktop
+video/mp2t=vlc.desktop
+video/mp4=vlc.desktop
+video/mpeg=vlc.desktop
+video/ogg=vlc.desktop
+video/x-theora+ogg=vlc.desktop
+video/quicktime=vlc.desktop
+video/x-ms-wmv=vlc.desktop
+video/x-matroska=vlc.desktop
+application/x-rar=7zFM.desktop
+application/zip=7zFM.desktop
+application/x-compressed-tar=7zFM.desktop
+application/x-tar=7zFM.desktop
+application/pdf=acroread.desktop
+#application/pdf=kde4-okularApplication_pdf.desktop
+image/x-apple-ios-png=kde4-okularApplication_pdf.desktop
+#image/jpeg=kde4-okularApplication_pdf.desktop
+image/jpeg=viewnior.desktop
+
+
