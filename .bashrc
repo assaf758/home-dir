@@ -151,7 +151,10 @@ HISTCONTORL=ignoreboth
 ISTTIMEFORMAT="[%F | %R]"
 HISTFILESIZE=20000
 HISTSIZE=10000
+
 set -o vi # make bash readline behave as vi
+# Use jk as ESC mode replacement
+bind -m vi-insert '"jk": vi-movement-mode'
 
 # Aliases config
 unalias ls &>/dev/null
