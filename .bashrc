@@ -75,11 +75,14 @@ function test_identities {
     fi 
     ssh-add -l | grep "The agent has no identities" > /dev/null
     if [ $? -eq 0 ]; then
-        echo "Adding ssh-key for assaf758"
-        ssh-add $SSH_KEY_FILE 
-        if [ $? -eq 2 ];then
-            echo "Could not ssh-add assaf758 key"
-        fi
+        echo "Adding ssh-keys of all identities"
+        for ident in ~/.ssh/*.prv 
+		do 
+			ssh-add "$ident"
+			if [ $? -eq 2 ];then
+				echo "Could not ssh-add $ident"
+			fi
+		done
     fi
 }
 
