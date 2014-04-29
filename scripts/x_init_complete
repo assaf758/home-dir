@@ -5,8 +5,8 @@ wingo-cmd 'RenameWorkspace 0 "Local"'
 wingo-cmd 'RenameWorkspace 1 "Redirect"'
 wingo-cmd 'RenameWorkspace 2 "WAF2"'
 wingo-cmd 'RenameWorkspace 3 "Devices"'
-wingo-cmd 'RenameWorkspace 4 "temp0"'
-wingo-cmd 'RenameWorkspace 5 "temp1"'
+wingo-cmd 'RenameWorkspace 4 "5"'
+wingo-cmd 'RenameWorkspace 5 "6"'
 xrdb -merge ~/.Xresources
 xbindkeys 
 kbd_home.sh
