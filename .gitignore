@@ -1,3 +1,8 @@
+.cr3/
+.fltk/
+.ipython/
+.nviminfo
+.ssh/config
 hostname.txt
 cscope.files
 my_slick/
