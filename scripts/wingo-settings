@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#for i in {0..7} 
+#do
+#wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
+#sleep 1
+#done
+#exit 
+
+wingo-cmd 'RenameWorkspace 0 "Local"'
+sleep 2
+wingo-cmd 'RenameWorkspace 1 "VirtualBox"'
+sleep 2
+wingo-cmd 'RenameWorkspace 2 "X2go"'
+sleep 2
+wingo-cmd 'RenameWorkspace 3 "Devices"'
+sleep 2
+wingo-cmd 'RenameWorkspace 4 "Nocache"'
+sleep 2
+wingo-cmd 'RenameWorkspace 5 "4acos"'
+sleep 2
+wingo-cmd 'RenameWorkspace 6 "272"'
+sleep 2
+wingo-cmd 'RenameWorkspace 7 "acosdev"'

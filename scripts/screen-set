@@ -1,0 +1,19 @@
+#! /bin/bash
+
+case "$1" in 
+"") 
+  echo "Usage: ${0##*/} {inernal-only | external-right-only}"
+  ;;
+internal-only)
+  xrandr --output eDP1 --auto --output HDMI1 --off
+  ;;
+external-right-only)
+  xrandr --output eDP1 --off  --output HDMI1 --auto --rotate right
+  ;;
+*)
+  echo "Parameter value $1 is not supported"
+  echo "Usage: ${0##*/} {inernal-only | external-right-only}"
+  ;;
+esac
+
+
