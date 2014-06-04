@@ -36,7 +36,7 @@ function svndiff() {
 
 function svnlog() {
 	local SVN="`which svn`"
-	${SVN} log "$@"|sed -e 's/^-\+$/[1;32m\0[m/' -e 's/^r[0-9]\+.\+$/[1;31m\0[m/'
+	${SVN} log "$@"|sed -e 's/^-\+$/[1;32m\0[m/' -e 's/^r[0-9]\+.\+$/[1;31m\0[m/' | less
 }
 
 function svnblame() {

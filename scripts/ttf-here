@@ -1,0 +1,7 @@
+#/bin/bash
+SRC_FILE_LIST=file_list.in
+rm ${SRC_FILE_LIST}
+find . -regextype posix-extended \
+    -regex "(.*Makefile$|.*\.(c|cc|cpp|hpp|h|hh|py|pl|pm|xml|mk|make|sh|txt|sch)$)" |\
+     grep -v -e ".*\.devcall[123]\.h$" >> "$SRC_FILE_LIST"
+

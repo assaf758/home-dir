@@ -52,22 +52,18 @@ function ssh-settings {
     fi
 }
 
-function ttf {
-export SRC_FILE_LIST=./file_list.in
-find . -regextype posix-extended -regex "(.*Makefile$|.*\.(c|cc|cpp|hpp|h|hh|py|pl|pm|xml|mk|sh|txt)$)" |\
-  grep -v -e ".*\.devcall[123]\.h$" > $SRC_FILE_LIST
-
-}
-
 function ttu {
-ctags -L $SRC_FILE_LIST
-cscope -Rbq -i $SRC_FILE_LIST
+SRC_FILE_LIST=file_list.in
+ctags -L "$SRC_FILE_LIST"
+cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
 
 export PATH=~/bin:~/scripts:$PATH
 export PATH=$PATH:/usr/bin/vendor_perl/
+
+source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
@@ -102,7 +98,10 @@ esac
 
 # ssh-settings
 
+cd ~
+
 export EDITOR=vim
+export LESS=FSRX
 
 # append to the history file, don't overwrite it
 shopt -s histappend

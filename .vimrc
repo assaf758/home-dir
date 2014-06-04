@@ -64,6 +64,8 @@ fun! SetupVAM()
 	\'github:Lokaltog/vim-powerline',
 	\'github:bernh/pss.vim',
 	\'renamer',
+        \'LustyJuggler',
+        \'CSApprox',
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
 	\'github:tpope/vim-repeat',
@@ -255,7 +257,13 @@ else
 endif
 "colorscheme solarized
 "colorscheme evening
-colorscheme fog2
+"colorscheme fog2
+colorscheme simple256
+highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
+highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
+highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
+highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+
 
 " tabs & indentation
 set autoindent    " always set autoindenting on
@@ -279,7 +287,7 @@ set showmode
 
 set backspace=indent,eol,start  " backspace through everything in insert mode
 
-" Use K in normal mode to add blank line below this line
+" use k in normal mode to add blank line below this line
 nnoremap K 0i<C-M><ESC>k
 " Press Ctrl-J whenever you want to split a line
 nnoremap <leader>j i<CR><ESC>k$
@@ -315,7 +323,8 @@ nmap <F9> :TagbarToggle<CR>
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-
+let g:CommandTFileScanner="find"
+let g:CommandTMaxFiles=50000
 nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 " The below does not work. Use Ctrl-p?

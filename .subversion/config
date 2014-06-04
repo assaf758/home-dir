@@ -54,14 +54,14 @@
 ### Set diff-cmd to the absolute path of your 'diff' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff implementation.
-diff-cmd = svn-diff 
+diff-cmd = diff 
 ### Set diff3-cmd to the absolute path of your 'diff3' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff3 implementation.
-# diff3-cmd = diff3_program (diff3, gdiff3, etc.)
+diff3-cmd = diff3
 ### Set diff3-has-program-arg to 'yes' if your 'diff3' program
 ###   accepts the '--diff-program' option.
-# diff3-has-program-arg = [yes | no]
+diff3-has-program-arg = yes
 ### Set merge-tool-cmd to the command used to invoke your external
 ### merging tool of choice. Subversion will pass 4 arguments to
 ### the specified command: base theirs mine merged
@@ -99,8 +99,8 @@ diff-cmd = svn-diff
 ### which Subversion will ignore in its 'status' output, and
 ### while importing or adding files and directories.
 ### '*' matches leading dots, e.g. '*.rej' matches '.foo.rej'.
-# global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo
-#   *.rej *~ #*# .#* .*.swp .DS_Store
+global-ignores = *.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo
+   *.rej *~ #*# .#* .*.swp .DS_Store *.d
 ### Set log-encoding to the default encoding for log messages
 # log-encoding = latin1
 ### Set use-commit-times to make checkout/update/switch/revert
@@ -124,7 +124,7 @@ diff-cmd = svn-diff
 # enable-auto-props = yes
 ### Set interactive-conflicts to 'no' to disable interactive
 ### conflict resolution prompting.  It defaults to 'yes'.
-# interactive-conflicts = no
+interactive-conflicts = no
 
 ### Section for configuring automatic properties.
 [auto-props]
