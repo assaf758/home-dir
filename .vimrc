@@ -55,7 +55,7 @@ fun! SetupVAM()
   elseif xx ==# "assaf-lap-debian64\n"
  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
         python from powerline.ext.vim import source_plugin; source_plugin()
-  elseif xx ==# "hlinux\n"
+  elseif xx ==# "vlinux\n" || xx==# "hlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
 	\'Solarized',
 	\'github:benmills/vimux',
@@ -74,6 +74,8 @@ fun! SetupVAM()
 	\'github:ervandew/supertab',
 	\'github:wincent/Command-T',
 	\'github:gcmt/wildfire.vim',
+        \'github:tpope/vim-vinegar',
+	\'github:ardagnir/vimbed',
 	\'github:tpope/vim-fugitive',
 	\], {'auto_install' : -1})
   else
@@ -165,6 +167,12 @@ nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 " underline current line with =
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
+
+" Provide buffer delete which does not close the window
+nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+
+" Fast buffer selection
+nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
 
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
