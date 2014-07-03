@@ -1,15 +1,14 @@
 #!/bin/sh
-wingo --replace 2>/dev/null &
+#wingo --replace -p 1 --log-level 3 > $HOME/wingo.log 2>&1 & 
 sleep 4
-wingo-cmd 'RenameWorkspace 0 "Local"'
-wingo-cmd 'RenameWorkspace 1 "Redirect"'
-wingo-cmd 'RenameWorkspace 2 "WAF2"'
-wingo-cmd 'RenameWorkspace 3 "Devices"'
-wingo-cmd 'RenameWorkspace 4 "5"'
-wingo-cmd 'RenameWorkspace 5 "6"'
+#wingo-settings
 xrdb -merge ~/.Xresources
 xbindkeys 
 kbd_home.sh
 tmuxinator misc 
+#for i in {1..7}
+#do
+#	xfce4-terminal -e 'ssh assafb@dev64-build12'
+#done
 # xfce4-terminal -e "tmux attach-session -t misc"  &
 #tmux attach-session -t misc"
