@@ -61,7 +61,6 @@ fun! SetupVAM()
 	\'github:benmills/vimux',
 	\'github:godlygeek/tabular',
 	\'github:wesleyche/SrcExpl',
-	\'github:Lokaltog/vim-powerline',
 	\'github:bernh/pss.vim',
 	\'renamer',
         \'LustyJuggler',
@@ -71,6 +70,8 @@ fun! SetupVAM()
 	\'github:tpope/vim-repeat',
 	\'github:wincent/Command-T',
         \'github:tpope/vim-unimpaired',
+        \'github:bling/vim-airline',
+        \'github:tpope/vim-vinegar',
         \'github:majutsushi/tagbar',
         \], {'auto_install' : -1})
   else
@@ -78,6 +79,7 @@ fun! SetupVAM()
   endif
 endfun
 
+	"\'github:Lokaltog/vim-powerline',
 	"\'github:Lokaltog/vim-easymotion',
 	"\'AsyncCommand', - requires +clientserver
 	"\'github:Valloric/YouCompleteMe',
@@ -175,6 +177,9 @@ nnoremap <leader>2 yypVr-
 " Provide buffer delete which does not close the window
 nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 
+" Fast buffer selection
+nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
+
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
 " tab hit will provide a list, the third and subsequent tabs will cycle through
@@ -219,34 +224,34 @@ set hlsearch   " highlight search
 set incsearch  " incremental search, search as you type
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
-nmap \q :nohlsearch<CR>
+nnoremap <silent> <leader>q :nohlsearch<CR>
 
 " Viewing  *******************************************************************
 set cursorline 	" highlight current line
 set nowrap 	" no line wrapping
 set number 	" turn on line numbers
-nmap \l :set number! number?<cr>
+nnoremap <silent> <leader>n :set number! number?<cr>
 set numberwidth=4 " We are good up to 9999 lines
 syntax enable
-:map \s :if exists("g:syntax_on") <Bar>
+nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 	\   syntax off <Bar>
 	\ else <Bar>
 	\   syntax enable <Bar>
 	\ endif <CR>
 "set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-set statusline=%t       "tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%#error# "switch to error highligh
-set statusline+=%m      "modified flag
-set statusline+=%*       "switch back to normal statusline highlight
-set statusline+=%r      "read only flag
-set statusline+=%y      "filetype
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+"set statusline=%t       "tail of the filename
+"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+"set statusline+=%{&ff}] "file format
+"set statusline+=%h      "help file flag
+"set statusline+=%#error# "switch to error highligh
+"set statusline+=%m      "modified flag
+"set statusline+=%*       "switch back to normal statusline highlight
+"set statusline+=%r      "read only flag
+"set statusline+=%y      "filetype
+"set statusline+=%=      "left/right separator
+"set statusline+=%c,     "cursor column
+"set statusline+=%l/%L   "cursor line/total lines
+"set statusline+=\ %P    "percent through file
 
 " Colorscheme **************
 let g:solarized_termtrans = 1

@@ -1,3 +1,13 @@
+.aap/
+.depend/
+.ipython/
+.k5login
+build-1/
+device-backup/
+etc/
+file_list.in
+lib64/
+python.1
 hostname.txt
 cscope.files
 my_slick/
