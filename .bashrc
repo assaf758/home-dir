@@ -109,10 +109,18 @@ function ssh_settings {
     fi
 }
 
+function ttu {
+SRC_FILE_LIST=file_list.in
+ctags -L "$SRC_FILE_LIST"
+cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
+}
+
 #################### main 
 
 export PATH=~/bin:~/scripts:$PATH
 export PATH=$PATH:/usr/bin/vendor_perl/
+
+source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
@@ -122,7 +130,7 @@ case "`cat ~/hostname.txt`" in
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	;;
     'assaf-lap-debian64' )
-	export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
+	export SSH_KEY_FILE="$HOME/.ssh/id_assaf758_rsa"
         ;;
     'assaf-lap' )
 	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
@@ -134,10 +142,13 @@ case "`cat ~/hostname.txt`" in
 	alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
-    'compass' )
-        compass-global-settings
-        export SSH_KEY_FILE='/home/assaf/.ssh/id_assaf758_rsa'
-        PS1='[\w$(__git_ps1 " (%s)")]\$ '
+    'a10' )
+        export SSH_KEY_FILE="$HOME/.ssh/assafb_a10_id_dsa"
+	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
+	export DIR_STO="target/sources/sto/"
+	alias cdws="cd $WS"
+	alias myvim="/home1/assafb/bin/vim"
 	;;
     * )	    
         ;;
@@ -146,6 +157,7 @@ esac
 # ssh-settings
 
 export EDITOR=vim
+export LESS=FSRX
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -159,8 +171,17 @@ set -o vi # make bash readline behave as vi
 # Use jk as ESC mode replacement
 bind -m vi-insert '"jk": vi-movement-mode'
 
+# Set WS var to current dir
+ws_set() {
+	export WS=`pwd`
+}
+
 # Aliases config
 unalias ls &>/dev/null
 alias lsl="ls -lah"
 alias sss="ssh -l assafb -X dev64-build12"
+#alias t='ctags -R; find . -name "*.c" -o -name "*.cc" -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" -o -name "*.cpp" -o -name "*.py" -o -name "*.pl" -o -name "*.pm" | cscope -Rbq -i-'
 
+# slickedit
+#unalias vs 2>/dev/null
+#alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
