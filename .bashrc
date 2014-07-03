@@ -149,6 +149,7 @@ case "`cat ~/hostname.txt`" in
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
 	alias myvim="/home1/assafb/bin/vim"
+	cd ~/wspace
 	;;
     * )	    
         ;;
