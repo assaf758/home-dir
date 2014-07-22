@@ -68,7 +68,7 @@ fun! SetupVAM()
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
 	\'github:tpope/vim-repeat',
-	\'github:wincent/Command-T',
+	\'github:kien/ctrlp.vim',
         \'github:tpope/vim-unimpaired',
         \'github:bling/vim-airline',
         \'github:tpope/vim-vinegar',
@@ -304,6 +304,8 @@ set showmode
 
 set backspace=indent,eol,start  " backspace through everything in insert mode
 
+" use gp to select last changed test (pasted or not), with same selection type
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Use K in normal mode to add blank line below this line
 nnoremap K 0i<C-M><ESC>
 " Press <leader>j  whenever you want to split a line
@@ -336,14 +338,9 @@ call Cscope() " Do cscope config
 "Configure Tagbar winodw display/hide
 nmap <F9> :TagbarToggle<CR>
 
-" clang_complete
-"let g:clang_user_options='|| exit 0'
-"let g:clang_complete_auto = 0
-"let g:clang_complete_copen = 1
-"let g:clang_library_path= "/usr/lib"
-"let g:clang_snippets=1       " use a snippet engine for placeholders
-"let g:clang_snippets_engine='ultisnips'
-"let g:clang_auto_select=2
+" netrw 
+"let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
+" use gc to change vim cwd to the nerw dir
 
 " Completion menu
 "set pumheight=15
@@ -357,6 +354,10 @@ try
   set shortmess+=c
   catch /E539: Illegal character/
 endtry
+
+" CtrlP
+let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
+let g:ctrlp_max_files = 0  " No limit to amount of files to scan
 
 " Command-T config ********************************************
 " double percentage sign in command mode is expanded
