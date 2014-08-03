@@ -57,21 +57,21 @@ fun! SetupVAM()
         python from powerline.ext.vim import source_plugin; source_plug
   elseif xx ==# "a10\n" || xx ==# "hlinux\n" || xx ==# "vlinux\n"
 	call vam#ActivateAddons(['Conque_Shell',
-	\'Solarized',
 	\'github:benmills/vimux',
-	\'github:godlygeek/tabular',
-	\'github:wesleyche/SrcExpl',
 	\'github:bernh/pss.vim',
 	\'renamer',
-        \'LustyJuggler',
         \'CSApprox',
+        \'YankRing',
+        \'github:bling/vim-airline',
 	\'github:flazz/vim-colorschemes',
 	\'github:tpope/vim-commentary',
-	\'github:tpope/vim-repeat',
-	\'github:kien/ctrlp.vim',
         \'github:tpope/vim-unimpaired',
-        \'github:bling/vim-airline',
+	\'github:godlygeek/tabular',
+	\'github:tpope/vim-repeat',
+        \'LustyJuggler',
+	\'github:kien/ctrlp.vim',
         \'github:tpope/vim-vinegar',
+	\'github:wesleyche/SrcExpl',
         \'github:majutsushi/tagbar',
         \], {'auto_install' : -1})
   else
@@ -79,6 +79,7 @@ fun! SetupVAM()
   endif
 endfun
 
+	"\'Solarized',
 	"\'UltiSnips',
 	"\'github:gcmt/wildfire.vim',
 	"\'github:ardagnir/vimbed',
@@ -207,7 +208,6 @@ endif
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
-
 
 " run VAM package manger
 let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
@@ -355,18 +355,21 @@ try
   catch /E539: Illegal character/
 endtry
 
-" CtrlP
-let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
-let g:ctrlp_max_files = 0  " No limit to amount of files to scan
-
-" Command-T config ********************************************
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-let g:CommandTFileScanner="find"
-let g:CommandTMaxFiles=50000
-nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+" CtrlP
+let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
+let g:ctrlp_max_files = 0  " No limit to amount of files to scan
+nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap <leader>f :CtrlP<cr>
+
+" Command-T config ********************************************
+" let g:CommandTFileScanner="find"
+" let g:CommandTMaxFiles=50000
+" nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+" nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 " The below does not work. Use Ctrl-p?
 " nnoremap <silent> <Leader>c :CommandTTag<CR>
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
