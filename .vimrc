@@ -2,82 +2,105 @@ set nocompatible
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
 
-" VAM *********************************************************************************
-fun! EnsureVamIsOnDisk(plugin_root_dir)
-  let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
-  if isdirectory(vam_autoload_dir)
-    return 1
-  else
-    if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
-      " I'm sorry having to add this reminder. Eventually it'll pay off.
-      call confirm("Remind yourself that most plugins ship with ".
-                  \"documentation (README*, doc/*.txt). It is your ".
-                  \"first source of knowledge. If you can't find ".
-                  \"the info you're looking for in reasonable ".
-                  \"time ask maintainers to improve documentation")
-      call mkdir(a:plugin_root_dir, 'p')
-      execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
-                  \       shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
-      " VAM runs helptags automatically when you install or update
-      " plugins
-      exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
-    endif
-    return isdirectory(vam_autoload_dir)
-  endif
-endfun
+" " VAM *********************************************************************************
+" fun! EnsureVamIsOnDisk(plugin_root_dir)
+"   let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
+"   if isdirectory(vam_autoload_dir)
+"     return 1
+"   else
+"     if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
+"       " I'm sorry having to add this reminder. Eventually it'll pay off.
+"       call confirm("Remind yourself that most plugins ship with ".
+"                   \"documentation (README*, doc/*.txt). It is your ".
+"                   \"first source of knowledge. If you can't find ".
+"                   \"the info you're looking for in reasonable ".
+"                   \"time ask maintainers to improve documentation")
+"       call mkdir(a:plugin_root_dir, 'p')
+"       execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
+"                   \       shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
+"       " VAM runs helptags automatically when you install or update
+"       " plugins
+"       exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
+"     endif
+"     return isdirectory(vam_autoload_dir)
+"   endif
+" endfun
 
-fun! SetupVAM()
-  " Set advanced options like this:
-  " let g:vim_addon_manager = {}
-  " let g:vim_addon_manager.key = value
-  "     Pipe all output into a buffer which gets written to disk
-  " let g:vim_addon_manager.log_to_buf =1
+" fun! SetupVAM()
+"   " Set advanced options like this:
+"   " let g:vim_addon_manager = {}
+"   " let g:vim_addon_manager.key = value
+"   "     Pipe all output into a buffer which gets written to disk
+"   " let g:vim_addon_manager.log_to_buf =1
 
-  " Example: drop git sources unless git is in PATH. Same plugins can
-  " be installed from www.vim.org. Lookup MergeSources to get more control
-  " let g:vim_addon_manager.drop_git_sources = !executable('git')
-  " let g:vim_addon_manager.debug_activation = 1
+"   " Example: drop git sources unless git is in PATH. Same plugins can
+"   " be installed from www.vim.org. Lookup MergeSources to get more control
+"   " let g:vim_addon_manager.drop_git_sources = !executable('git')
+"   " let g:vim_addon_manager.debug_activation = 1
 
-  " VAM install location:
-  let plugin_root_dir = expand('$HOME/.vim/vim-addons')
-  if !EnsureVamIsOnDisk(plugin_root_dir)
-    echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
-    return
-  endif
-  let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
+"   " VAM install location:
+"   let plugin_root_dir = expand('$HOME/.vim/vim-addons')
+"   if !EnsureVamIsOnDisk(plugin_root_dir)
+"     echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
+"     return
+"   endif
+"   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
 
-  " Tell VAM which plugins to fetch & load:
-  let xx = Hosttype()
-  if xx ==# "ASSAF-LAP\n"
-	echo 1
-	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
-        inoremap <BS> <c-r>=Backspace()<CR>
-  elseif xx ==# "assaf-lap-debian64\n"
- 	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
-        python from powerline.ext.vim import source_plugin; source_plug
-  elseif xx ==# "a10\n" || xx ==# "hlinux\n" || xx ==# "vlinux\n"
-	call vam#ActivateAddons(['Conque_Shell',
-	\'github:benmills/vimux',
-	\'github:bernh/pss.vim',
-	\'renamer',
-        \'CSApprox',
-        \'YankRing',
-        \'github:bling/vim-airline',
-	\'github:flazz/vim-colorschemes',
-	\'github:tpope/vim-commentary',
-        \'github:tpope/vim-unimpaired',
-	\'github:godlygeek/tabular',
-	\'github:tpope/vim-repeat',
-        \'LustyJuggler',
-	\'github:kien/ctrlp.vim',
-        \'github:tpope/vim-vinegar',
-	\'github:wesleyche/SrcExpl',
-        \'github:majutsushi/tagbar',
-        \], {'auto_install' : -1})
-  else
-	"echo "default"
-  endif
-endfun
+"   " Tell VAM which plugins to fetch & load:
+"   let xx = Hosttype()
+"   if xx ==# "ASSAF-LAP\n"
+" 	echo 1
+" 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
+"         inoremap <BS> <c-r>=Backspace()<CR>
+"   elseif xx ==# "assaf-lap-debian64\n"
+"  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
+"         python from powerline.ext.vim import source_plugin; source_plug
+"   elseif xx ==# "a10\n" || xx ==# "hlinux\n" || xx ==# "vlinux\n"
+" 	call vam#ActivateAddons(['Conque_Shell',
+" 	\'github:benmills/vimux',
+" 	\'github:bernh/pss.vim',
+" 	\'renamer',
+"         \'CSApprox',
+"         \'YankRing',
+"         \'github:bling/vim-airline',
+" 	\'github:flazz/vim-colorschemes',
+" 	\'github:tpope/vim-commentary',
+"         \'github:tpope/vim-unimpaired',
+" 	\'github:godlygeek/tabular',
+" 	\'github:tpope/vim-repeat',
+"         \'LustyJuggler',
+" 	\'github:kien/ctrlp.vim',
+"         \'github:tpope/vim-vinegar',
+" 	\'github:wesleyche/SrcExpl',
+"         \'github:majutsushi/tagbar',
+" 	\'github:Valloric/YouCompleteMe',
+"         \], {'auto_install' : -1})
+"   else
+" 	"echo "default"
+"   endif
+" endfun
+
+
+fun! SetupPlug()
+call plug#begin('~/.vim/plugged')
+
+Plug 'benmills/vimux',
+Plug 'bernh/pss.vim',
+Plug 'https://github.com/vim-scripts/renamer.vim',
+Plug 'CSApprox',
+Plug 'https://github.com/vim-scripts/YankRing.vim',
+Plug 'bling/vim-airline',
+Plug 'flazz/vim-colorschemes',
+Plug 'tpope/vim-commentary',
+Plug 'tpope/vim-unimpaired',
+Plug 'godlygeek/tabular',
+Plug 'tpope/vim-repeat',
+Plug 'LustyJuggler',
+Plug 'kien/ctrlp.vim',
+Plug 'tpope/vim-vinegar',
+Plug 'wesleyche/SrcExpl',
+Plug 'majutsushi/tagbar',
+Plug 'Valloric/YouCompleteMe',
 
 	"\'Solarized',
 	"\'UltiSnips',
@@ -91,6 +114,8 @@ endfun
 	"\'github:ervandew/supertab',
         "\'github:gcmt/wildfire.vim',
         "'taglist',
+call plug#end()
+endfun
 
 " Cscope **********************************************************************
 func! Cscope()
@@ -210,8 +235,9 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
 " run VAM package manger
-let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
-call SetupVAM()
+" let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
+" call SetupVAM()
+call SetupPlug()
 
 set vb t_vb=  " No beeps
 
