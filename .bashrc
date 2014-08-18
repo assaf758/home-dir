@@ -129,10 +129,11 @@ source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
-    'hlinux' | 'vlinux' )
+    'hlinux' | 'wlinux' )
         #export GOROOT=$HOME/Tools/go
 	#export PATH=$PATH:$GOROOT/bin
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
 	;;
     'assaf-lap' )
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"

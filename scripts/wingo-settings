@@ -23,7 +23,7 @@ wingo-cmd 'RenameWorkspace 4 "4acos"'
 sleep ${SLEEP}
 wingo-cmd 'RenameWorkspace 5 "cli"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 6 "http"'
+wingo-cmd 'RenameWorkspace 6 "ssn"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 7 "reroot"'
+wingo-cmd 'RenameWorkspace 7 "temp"'
 sleep ${SLEEP}
