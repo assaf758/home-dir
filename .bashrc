@@ -182,6 +182,8 @@ ws_set() {
 # Aliases config
 unalias ls &>/dev/null
 alias lsl="ls -lah"
+alias sbas="source ~/.bashrc"
+alias vbas="vim ~/.bashrc"
 #alias t='ctags -R; find . -name "*.c" -o -name "*.cc" -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" -o -name "*.cpp" -o -name "*.py" -o -name "*.pl" -o -name "*.pm" | cscope -Rbq -i-'
 
 # slickedit
