@@ -1,3 +1,11 @@
+.abrt/
+.gpg-agent-info
+.imsettings.log
+.k5login_
+.keychain/
+.snapshot/
+ws/
+yankring_history_v2.txt
 .Fontmatrix/
 .asoundrc
 .avidemux/
