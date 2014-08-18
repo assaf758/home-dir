@@ -37,6 +37,7 @@ ex ()
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
       *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xJf $1   ;;
       *.bz2)       bunzip2 $1   ;;
       *.rar)       unrar x $1     ;;
       *.gz)        gunzip $1    ;;
@@ -76,7 +77,7 @@ function test_identities {
     ssh-add -l | grep "The agent has no identities" > /dev/null
     if [ $? -eq 0 ]; then
         echo "Adding ssh-keys of all identities"
-        for ident in ~/.ssh/*.prv 
+        for ident in $(find ~/.ssh | grep 'ssh/assaf'| grep -v pub) 
 		do 
 			ssh-add "$ident"
 			if [ $? -eq 2 ];then
@@ -88,7 +89,7 @@ function test_identities {
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings {
-    keychain assafb_a10_id_dsa assaf758_id_rsa
+    eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
 }
 
 function old_ssh_settings {
@@ -135,7 +136,6 @@ case "`cat ~/hostname.txt`" in
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
 	;;
     'assaf-lap' )
-	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
         export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 	alias find=/usr/bin/find
@@ -145,13 +145,14 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export SSH_KEY_FILE="$HOME/.ssh/assafb_a10_id_dsa"
+        export LOCAL=~/ws/assafb_temp
+        export PATH=${LOCAL}/bin:$PATH
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
 	alias myvim="/home1/assafb/bin/vim"
-	cd ~/wspace
+	cd ~/ws
 	;;
     * )	    
         ;;
@@ -181,10 +182,8 @@ ws_set() {
 
 # Aliases config
 unalias ls &>/dev/null
-alias lsl="ls -lah"
 alias sbas="source ~/.bashrc"
 alias vbas="vim ~/.bashrc"
-#alias t='ctags -R; find . -name "*.c" -o -name "*.cc" -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" -o -name "*.cpp" -o -name "*.py" -o -name "*.pl" -o -name "*.pm" | cscope -Rbq -i-'
 
 # slickedit
 #unalias vs 2>/dev/null

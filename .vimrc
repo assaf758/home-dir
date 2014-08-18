@@ -100,7 +100,6 @@ Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
-Plug 'Valloric/YouCompleteMe',
 
 	"\'Solarized',
 	"\'UltiSnips',
