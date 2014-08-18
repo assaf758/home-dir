@@ -128,14 +128,12 @@ source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
-    'hlinux' | 'vlinux' )
+    'hlinux' | 'wlinux' )
         #export GOROOT=$HOME/Tools/go
 	#export PATH=$PATH:$GOROOT/bin
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
 	;;
-    'assaf-lap-debian64' )
-	export SSH_KEY_FILE="$HOME/.ssh/id_assaf758_rsa"
-        ;;
     'assaf-lap' )
 	export SSH_KEY_FILE='/c/Users/assaf/.ssh/id_assaf758_rsa'
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -184,7 +182,6 @@ ws_set() {
 # Aliases config
 unalias ls &>/dev/null
 alias lsl="ls -lah"
-alias sss="ssh -l assafb -X dev64-build12"
 #alias t='ctags -R; find . -name "*.c" -o -name "*.cc" -o -name "*.hpp" -o -name "*.hh" -o -name "*.h" -o -name "*.cpp" -o -name "*.py" -o -name "*.pl" -o -name "*.pm" | cscope -Rbq -i-'
 
 # slickedit
