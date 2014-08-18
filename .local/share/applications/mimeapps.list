@@ -16,4 +16,6 @@ application/x-wine-extension-ini=gedit.desktop;
 image/gif=viewnior.desktop;gimp.desktop;
 x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
+x-scheme-handler/file=exo-file-manager.desktop
+x-scheme-handler/trash=exo-file-manager.desktop
 
