@@ -1,4 +1,5 @@
-.abrt/
+.pyenv/
+abrt/
 .gpg-agent-info
 .imsettings.log
 .k5login_
