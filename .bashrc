@@ -4,6 +4,16 @@ if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
 
+function deferred_exit()
+{
+    echo "exit if not ctrl-c.."
+    sleep 3
+    echo "Too late... bye"
+    exit 0
+}
+#deferred_exit
+
+
 xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
@@ -33,7 +43,7 @@ alias np='nano PKGBUILD'
 
 # ex - archive extractor
 # usage: ex <file>
-ex ()
+function ex ()
 {
   if [ -f $1 ] ; then
     case $1 in
@@ -60,7 +70,8 @@ ex ()
 #################### ssh-agent config
 
 # start the ssh-agent
-function start_agent {
+function start_agent ()
+{
     echo "Initializing new SSH agent..."
     # spawn ssh-agent
     ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
