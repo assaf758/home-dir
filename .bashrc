@@ -149,12 +149,6 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        if [ "$(hostname)" ==  "dev64-build13" ]
-        then
-            export MYVIM="/usr/bin/vim"
-        else
-            export MYVIM="$LOCAL/bin/vim"
-        fi
         export LOCAL=~/local
         export WS_TEMP=~/ws/assafb_temp
         export DL=${WS_TEMP}/DL
@@ -205,7 +199,7 @@ ws_set() {
 # Aliases config
 unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
-alias vbash="$MYVIM ~/.bashrc"
+alias vbash="vim ~/.bashrc"
 
 # slickedit
 #unalias vs 2>/dev/null
