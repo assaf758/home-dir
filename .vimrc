@@ -87,7 +87,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'benmills/vimux',
 Plug 'bernh/pss.vim',
 Plug 'https://github.com/vim-scripts/renamer.vim',
-Plug 'CSApprox',
+"Plug 'CSApprox',
 Plug 'https://github.com/vim-scripts/YankRing.vim',
 Plug 'bling/vim-airline',
 Plug 'flazz/vim-colorschemes',
@@ -188,6 +188,13 @@ fun! Hosttype()
   return hostname
 endfun!
 
+fun! My_mappings()
+  redir! > ~/vim_maps.txt
+  verbose map
+  verbose map!
+  redir END
+  e ~/vim_maps.txt
+endfun!
 "******************************************************************************
 "              Main
 "******************************************************************************
@@ -195,9 +202,13 @@ nnoremap ; :
 let mapleader = ","  " change the mapleader from \ to ,
 :imap jk <Esc>
 
+let g:ycm_server_keep_logfile = 1
+let g:ycm_server_log_level = 'debug'
+
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
@@ -268,7 +279,8 @@ set guicursor+=i:blinkwait10
 set nowrap 	" no line wrapping
 set number 	" turn on line numbers
 nnoremap <silent> <leader>n :set number! number?<cr>
-set numberwidth=4 " We are good up to 9999 lines
+set numberwidth=5 " We are good up to 99999 lines
+nnoremap <leader>G :echo expand('%:p')<cr>
 syntax enable
 nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 	\   syntax off <Bar>
@@ -379,6 +391,9 @@ try
   set shortmess+=c
   catch /E539: Illegal character/
 endtry
+
+" LustyJuggler
+let g:LustyJugglerSuppressRubyWarning = 1
 
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14

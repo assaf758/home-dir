@@ -135,7 +135,7 @@ case "`cat ~/hostname.txt`" in
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
 	;;
-    'assaf-lap' )
+    'assaf-win' )
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
         export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
 	alias find=/usr/bin/find
@@ -145,13 +145,23 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export LOCAL=~/ws/assafb_temp
+        if [ "$(hostname)" ==  "dev64-build13" ]
+        then
+            export MYVIM="/usr/bin/vim"
+        else
+            export MYVIM="$LOCAL/bin/vim"
+        fi
+        export LOCAL=~/local
+        export WS_TEMP=~/ws/assafb_temp
+        export DL=${WS_TEMP}/DL
         export PATH=${LOCAL}/bin:$PATH
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
-	alias myvim="/home1/assafb/bin/vim"
+	alias stbuild="rm -f *build && sudo make MOD=20 64BIT=yes all"
+        alias stvim="(cd target/sources/sto/ && ${MYVIM})"
+        alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
 	cd ~/ws
 	;;
     * )	    
@@ -182,8 +192,8 @@ ws_set() {
 
 # Aliases config
 unalias ls &>/dev/null
-alias sbas="source ~/.bashrc"
-alias vbas="vim ~/.bashrc"
+alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
+alias vbash="$MYVIM ~/.bashrc"
 
 # slickedit
 #unalias vs 2>/dev/null

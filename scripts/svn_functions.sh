@@ -24,6 +24,7 @@ function svnup() {
 
 	if [ ${new_revision} -gt ${old_revision} ]; then
 		svnlog -v -rHEAD:${first_update} "$@"
+		printf "\nDone: SVN update from r%d to r%d\n" ${old_revision} ${new_revision}
 	else
 		echo "No changes."
 	fi
@@ -37,6 +38,18 @@ function svndiff() {
 function svnlog() {
 	local SVN="`which svn`"
 	${SVN} log "$@"|sed -e 's/^-\+$/[1;32m\0[m/' -e 's/^r[0-9]\+.\+$/[1;31m\0[m/' | less
+}
+
+
+function svnlogassafb() {
+#still TBD
+	local SVN="`which svn`"
+	if [ $# -eq 0 ]
+        then
+            ${SVN} log "$@"| sed -e 's/^-\+$/[1;32m\0[m/' -e 's/^r[0-9]\+.\+$/[1;31m\0[m/' | less
+        else
+            ${SVN} log | sed -n "/$1/,/-----$/ p" | sed -e 's/^-\+$/[1;32m\0[m/' -e 's/^r[0-9]\+.\+$/[1;31m\0[m/' | less
+        fi
 }
 
 function svnblame() {
