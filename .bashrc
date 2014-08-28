@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
@@ -88,11 +90,11 @@ function test_identities {
 }
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
-function ssh_settings {
+function ssh-settings () {
     eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
 }
 
-function old_ssh_settings {
+function old-ssh-settings {
     SSH_ENV="$HOME/.ssh/environment"
     if [ -n "$SSH_AGENT_PID" ]; then
         ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
@@ -134,6 +136,8 @@ case "`cat ~/hostname.txt`" in
 	#export PATH=$PATH:$GOROOT/bin
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
 	;;
     'assaf-win' )
 	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -169,6 +173,14 @@ case "`cat ~/hostname.txt`" in
 esac
 
 # ssh-settings
+
+# pyenv install
+export PYENV_ROOT="${HOME}/.pyenv"
+if [ -d "${PYENV_ROOT}" ]; then
+  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
 
 export EDITOR=vim
 export LESS=FSRX

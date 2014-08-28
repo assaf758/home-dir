@@ -1,29 +1,26 @@
 #/bin/sh
 
-wingo --replace &
-sleep 10
+SLEEP=0
 
-SLEEP=1
+for i in {0..7} 
+    do
+    sleep ${SLEEP}
+    wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
+done
 
-# for i in {0..7} 
-# do
-# sleep ${SLEEP}
-# wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
-# done
-
-wingo-cmd 'RenameWorkspace 0 "Local"'
+wingo-cmd 'RenameWorkspace 0 "local"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 1 "VirtualBox"'
+wingo-cmd 'RenameWorkspace 1 "virtualBox"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 2 "X2go"'
+wingo-cmd 'RenameWorkspace 2 "x2go"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 3 "Devices"'
+wingo-cmd 'RenameWorkspace 3 "devices"'
 sleep ${SLEEP}
 wingo-cmd 'RenameWorkspace 4 "4acos"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 5 "cli"'
+wingo-cmd 'RenameWorkspace 5 "policy"'
 sleep ${SLEEP}
-wingo-cmd 'RenameWorkspace 6 "ssn"'
+wingo-cmd 'RenameWorkspace 6 "http"'
 sleep ${SLEEP}
 wingo-cmd 'RenameWorkspace 7 "temp"'
 sleep ${SLEEP}

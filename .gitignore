@@ -1,6 +1,8 @@
 local/
 vim_maps.txt
 .abrt/
+.pyenv/
+abrt/
 .gpg-agent-info
 .imsettings.log
 .k5login_

@@ -10,4 +10,3 @@ mkdir -p ~/tmp/tc4
 mountpoint -q ~/tmp/tc2 || sudo mount -o uid=1000,gid=100 /dev/mapper/tc2 ~/tmp/tc2 
 mountpoint -q ~/tmp/tc3 || sudo mount -o uid=1000,gid=100 /dev/mapper/tc3 ~/tmp/tc3
 mountpoint -q ~/tmp/tc4 || sudo mount -o uid=1000,gid=100 /dev/mapper/tc4 ~/tmp/tc4 
-
