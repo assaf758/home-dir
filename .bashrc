@@ -149,17 +149,17 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
+        export LOCAL=~/local
+        export WS_TEMP=~/ws/assafb_temp
+        export DL=${WS_TEMP}/DL
+        export PATH=${LOCAL}/bin:$PATH
+	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
         if [ "$(hostname)" ==  "dev64-build13" ]
         then
             export MYVIM="/usr/bin/vim"
         else
             export MYVIM="$LOCAL/bin/vim"
         fi
-        export LOCAL=~/local
-        export WS_TEMP=~/ws/assafb_temp
-        export DL=${WS_TEMP}/DL
-        export PATH=${LOCAL}/bin:$PATH
-	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
