@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
@@ -88,7 +90,7 @@ function test_identities {
 }
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
-function ssh-settings {
+function ssh-settings () {
     eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
 }
 
