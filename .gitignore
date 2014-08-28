@@ -1,3 +1,5 @@
+local/
+vim_maps.txt
 .abrt/
 .gpg-agent-info
 .imsettings.log
