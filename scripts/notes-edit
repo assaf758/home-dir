@@ -12,4 +12,4 @@ mkdir -p ${HOME}/tmp/cache1
 sudo mount -o uid=${USER},gid=users /dev/mapper/cache1 ${HOME}/tmp/cache1/
 vim ${HOME}/tmp/cache1/notes.txt
 sudo umount ${HOME}/tmp/cache1 && sudo cryptsetup close cache1
-
+rm -rf ${HOME}/tmp/cache1
