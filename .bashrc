@@ -165,12 +165,6 @@ case "`cat ~/hostname.txt`" in
         export DL=${WS_TEMP}/DL
         export PATH=${LOCAL}/bin:$PATH
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
-        if [ "$(hostname)" ==  "dev64-build13" ]
-        then
-            export MYVIM="/usr/bin/vim"
-        else
-            export MYVIM="$LOCAL/bin/vim"
-        fi
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
@@ -216,7 +210,7 @@ ws_set() {
 # Aliases config
 unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
-alias vbash="$MYVIM ~/.bashrc"
+alias vbash="vim ~/.bashrc"
 
 # slickedit
 #unalias vs 2>/dev/null
