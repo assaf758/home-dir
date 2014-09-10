@@ -101,11 +101,11 @@ function test_identities {
 }
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
-function ssh-settings () {
+function ssh_settings () {
     eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
 }
 
-function old-ssh-settings {
+function old_ssh_settings {
     SSH_ENV="$HOME/.ssh/environment"
     if [ -n "$SSH_AGENT_PID" ]; then
         ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
