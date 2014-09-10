@@ -173,7 +173,7 @@ case "`cat ~/hostname.txt`" in
         export LOCAL=~/local
         export WS_TEMP=~/ws/assafb_temp
         export DL=${WS_TEMP}/DL
-        add_to_path "${LOCAL}"
+        add_to_path "${LOCAL}/bin"
         #export PATH=${LOCAL}/bin:$PATH
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
