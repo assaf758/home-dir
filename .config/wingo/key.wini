@@ -194,7 +194,8 @@ Mod1-z := AutoCycle (GetWorkspace)
 Mod1-h := AutoResizeMaster (GetWorkspace) -0.02
 Mod1-l := AutoResizeMaster (GetWorkspace) 0.02
 Mod1-b := AutoResizeWindow (GetWorkspace) -0.02
-Mod1-n := AutoResizeWindow (GetWorkspace) 0.02
+#conflicts with vim-rsi plugin 
+#Mod1-n := AutoResizeWindow (GetWorkspace) 0.02
 Mod1-k := AutoNext (GetWorkspace)
 Mod1-j := AutoPrev (GetWorkspace)
 Mod1-Shift-k := AutoSwitchNext (GetWorkspace)

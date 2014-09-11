@@ -210,9 +210,10 @@ ISTTIMEFORMAT="[%F | %R]"
 HISTFILESIZE=20000
 HISTSIZE=10000
 
-set -o vi # make bash readline behave as vi
+# For now use emacs readline
+set -o emacs # make bash readline behave as vi
 # Use jk as ESC mode replacement
-bind -m vi-insert '"jk": vi-movement-mode'
+# bind -m vi-insert '"jk": vi-movement-mode'
 
 # Set WS var to current dir
 ws_set() {
