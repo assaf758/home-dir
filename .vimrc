@@ -404,6 +404,7 @@ let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
 let g:ctrlp_max_files = 0  " No limit to amount of files to scan
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>f :CtrlP<cr>
+nnoremap <leader>m :CtrlPMixed<cr>
 
 " Command-T config ********************************************
 " let g:CommandTFileScanner="find"

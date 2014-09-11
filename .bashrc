@@ -66,6 +66,14 @@ function ex ()
   fi
 }
 
+add_to_path ()
+{
+    if [[ "$PATH" =~ (^|:)"$1"(:|$) ]]
+    then
+        return 0
+    fi
+    export PATH=$1:$PATH
+}
 
 #################### ssh-agent config
 
@@ -101,7 +109,7 @@ function test_identities {
 }
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
-function ssh_settings {
+function ssh_settings () {
     eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
 }
 
@@ -134,9 +142,11 @@ cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
-
-export PATH=~/bin:~/scripts:$PATH
-export PATH=$PATH:/usr/bin/vendor_perl/
+add_to_path "~/bin"
+add_to_path "~/scripts"
+#export PATH=~/bin:~/scripts:$PATH
+add_to_path "/usr/bin/vendor_perl/"
+#export PATH=$PATH:/usr/bin/vendor_perl/
 
 source ~/scripts/svn_functions.sh
 
@@ -163,12 +173,14 @@ case "`cat ~/hostname.txt`" in
         export LOCAL=~/local
         export WS_TEMP=~/ws/assafb_temp
         export DL=${WS_TEMP}/DL
-        export PATH=${LOCAL}/bin:$PATH
+        add_to_path "${LOCAL}/bin"
+        #export PATH=${LOCAL}/bin:$PATH
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
 	alias stbuild="rm -f *build && sudo make MOD=20 64BIT=yes all"
+	alias stdist="sudo make MOD=20 64BIT=yes distclean"
         alias stvim="(cd target/sources/sto/ && ${MYVIM})"
         alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
 	cd ~/ws

@@ -1,12 +1,12 @@
 #/bin/sh
 
-SLEEP=5
+SLEEP=1
 
-for i in {0..7} 
-    do
-    sleep ${SLEEP}
-    wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
-done
+# for i in {0..7} 
+#     do
+#     sleep ${SLEEP}
+#     wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
+# done
 
 wingo-cmd 'RenameWorkspace 0 "local"'
 sleep ${SLEEP}
