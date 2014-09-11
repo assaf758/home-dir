@@ -142,8 +142,8 @@ cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
-add_to_path "~/bin"
-add_to_path "~/scripts"
+add_to_path "$HOME/bin"
+add_to_path "$HOME/scripts"
 #export PATH=~/bin:~/scripts:$PATH
 add_to_path "/usr/bin/vendor_perl/"
 #export PATH=$PATH:/usr/bin/vendor_perl/
