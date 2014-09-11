@@ -208,7 +208,7 @@ let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
+nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
@@ -228,7 +228,7 @@ vmap <Leader>P "+P
 " Visual-line mode
 nmap <Leader><Leader> V
 " Provide buffer delete which does not close the window
-nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " Fast buffer selection
 nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
