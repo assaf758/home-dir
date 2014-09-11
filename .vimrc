@@ -100,6 +100,8 @@ Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
+Plug 'AndrewRadev/splitjoin.vim',
+Plug 'tpope/vim-rsi',
 
 	"\'Solarized',
 	"\'UltiSnips',
@@ -199,7 +201,7 @@ endfun!
 "              Main
 "******************************************************************************
 nnoremap ; :
-let mapleader = ","  " change the mapleader from \ to ,
+let mapleader = "\<space>"  " change the mapleader from \ to <space>
 :imap jk <Esc>
 
 let g:ycm_server_keep_logfile = 1
@@ -207,13 +209,24 @@ let g:ycm_server_log_level = 'debug'
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.md<cr>
+nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
+nnoremap <silent> <leader>w :w<cr>
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+"Copy & paste to system clipboard with <Space>p and <Space>y:
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+" Visual-line mode
+nmap <Leader><Leader> V
 " Provide buffer delete which does not close the window
 nnoremap <leader>d :bp<bar>sp<bar>bn<bar>bd<CR>
 
