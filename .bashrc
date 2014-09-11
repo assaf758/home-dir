@@ -142,8 +142,8 @@ cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
-add_to_path "~/bin"
-add_to_path "~/scripts"
+add_to_path "$HOME/bin"
+add_to_path "$HOME/scripts"
 #export PATH=~/bin:~/scripts:$PATH
 add_to_path "/usr/bin/vendor_perl/"
 #export PATH=$PATH:/usr/bin/vendor_perl/
@@ -210,9 +210,10 @@ ISTTIMEFORMAT="[%F | %R]"
 HISTFILESIZE=20000
 HISTSIZE=10000
 
-set -o vi # make bash readline behave as vi
+# For now use emacs readline
+set -o emacs # make bash readline behave as vi
 # Use jk as ESC mode replacement
-bind -m vi-insert '"jk": vi-movement-mode'
+# bind -m vi-insert '"jk": vi-movement-mode'
 
 # Set WS var to current dir
 ws_set() {
