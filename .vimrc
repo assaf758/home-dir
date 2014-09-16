@@ -100,7 +100,7 @@ Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
-Plug 'AndrewRadev/splitjoin.vim',
+"Plug 'AndrewRadev/splitjoin.vim',
 Plug 'tpope/vim-rsi',
 
 	"\'Solarized',
@@ -171,6 +171,46 @@ cnoreabbrev <expr> csh
 
 " Help functions **************************************************************
 
+" ex command for toggling hex mode - define mapping if desired
+command! -bar Hexmode call ToggleHex()
+" helper function to toggle hex mode
+function! ToggleHex()
+  " hex mode should be considered a read-only operation
+  " save values for modified and read-only for restoration later,
+  " and clear the read-only flag for now
+  let l:modified=&mod
+  let l:oldreadonly=&readonly
+  let &readonly=0
+  let l:oldmodifiable=&modifiable
+  let &modifiable=1
+  if !exists("b:editHex") || !b:editHex
+    " save old options
+    let b:oldft=&ft
+    let b:oldbin=&bin
+    " set new options
+    setlocal binary " make sure it overrides any textwidth, etc.
+    let &ft="xxd"
+    " set status
+    let b:editHex=1
+    " switch to hex editor
+    %!xxd
+  else
+    " restore old options
+    let &ft=b:oldft
+    if !b:oldbin
+      setlocal nobinary
+    endif
+    " set status
+    let b:editHex=0
+    " return to normal editing
+    %!xxd -r
+  endif
+  " restore values for modified and read only state
+  let &mod=l:modified
+  let &readonly=l:oldreadonly
+  let &modifiable=l:oldmodifiable
+endfunction
+
 " Solve backspace ignored issue
 func! Backspace()
   if col('.') == 1
@@ -218,6 +258,14 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+" test search object. 
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+" Toggle hex mode
+nnoremap <Leader>H :Hexmode<CR>
+
 "Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -225,8 +273,7 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-" Visual-line mode
-nmap <Leader><Leader> V
+
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 
@@ -358,8 +405,8 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Use K in normal mode to add blank line below this line
 nnoremap K 0i<C-M><ESC>
-" Press <leader>j  whenever you want to split a line
-nnoremap <leader>j i<CR><ESC>k$
+" Press <leader>J  whenever you want to split a line
+nnoremap <leader>J i<CR><ESC>k$
 " Copy full pathname of current buffer to the unmamed register
 nnoremap cpp :let @" = expand("%") . ":" . line(".") . ":" . getline(".")<CR>
 
