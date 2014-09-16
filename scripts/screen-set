@@ -2,20 +2,20 @@
 
 case "$1" in 
 "") 
-  echo "Usage: ${0##*/} {inernal-only | external-right-only | external-normal-only}"
+  echo "Usage: ${0##*/} {inernal | external-right | external-normal}"
   ;;
-internal-only)
+internal)
   xrandr --output eDP1 --auto --output HDMI1 --off
   ;;
-external-normal-only)
+external-normal)
   xrandr --output eDP1 --off  --output HDMI1 --auto --rotate normal 
   ;;
-external-right-only)
+external-right)
   xrandr --output eDP1 --off  --output HDMI1 --auto --rotate right
   ;;
 *)
   echo "Parameter value $1 is not supported"
-  echo "Usage: ${0##*/} {inernal-only | external-right-only}"
+  echo "Usage: ${0##*/} { inernal-only | external-right | external-normal }"
   ;;
 esac
 
