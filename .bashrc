@@ -153,8 +153,8 @@ source ~/scripts/svn_functions.sh
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in 
     'hlinux' | 'wlinux' )
-        #export GOROOT=$HOME/Tools/go
-	#export PATH=$PATH:$GOROOT/bin
+        export GOPATH=$HOME/wspace/go_ws
+	add_to_path $GOPATH/bin
 	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
@@ -194,7 +194,7 @@ esac
 # pyenv install
 export PYENV_ROOT="${HOME}/.pyenv"
 if [ -d "${PYENV_ROOT}" ]; then
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
+  add_to_path "${PYENV_ROOT}/bin"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
