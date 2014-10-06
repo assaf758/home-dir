@@ -142,11 +142,12 @@ cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
-add_to_path "$HOME/bin"
+export LOCAL=~/local
 add_to_path "$HOME/scripts"
-#export PATH=~/bin:~/scripts:$PATH
 add_to_path "/usr/bin/vendor_perl/"
-#export PATH=$PATH:/usr/bin/vendor_perl/
+add_to_path "$LOCAL/go/bin"
+add_to_path "$LOCAL/bin"
+add_to_path "$HOME/bin"
 
 source ~/scripts/svn_functions.sh
 
@@ -155,7 +156,7 @@ case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
         export GOPATH=$HOME/wspace/go_ws
 	add_to_path $GOPATH/bin
-	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
@@ -170,12 +171,9 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export LOCAL=~/local
         export WS_TEMP=~/ws/assafb_temp
         export DL=${WS_TEMP}/DL
-        add_to_path "$LOCAL/bin"
-        #export PATH=${LOCAL}/bin:$PATH
-	PS1="\n>>\$(date +%Y.%d.%m\ %H:%M); \h:\w\n$ "
+	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
 	alias cdws="cd $WS"
