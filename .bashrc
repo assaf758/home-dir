@@ -185,6 +185,7 @@ case "`cat ~/hostname.txt`" in
     'a10' )
         export WS_TEMP=~/ws/assafb_temp
         export DL=${WS_TEMP}/DL
+        MYVIM=${LOCAL}/bin/vim
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
 	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
 	export DIR_STO="target/sources/sto/"
