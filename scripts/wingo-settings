@@ -2,7 +2,7 @@
 
 for i in {0..7} 
     do
-    wingo-cmd "RenameWorkspace ${i} \"ttt-${i}\""
+    wingo-cmd "RenameWorkspace ${i} \"tttr-${i}\""
 done
 
 wingo-cmd 'RenameWorkspace 0 "local"'
