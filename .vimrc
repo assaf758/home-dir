@@ -102,6 +102,7 @@ Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
 "Plug 'AndrewRadev/splitjoin.vim',
 Plug 'tpope/vim-rsi',
+Plug 'terryma/vim-expand-region',
 
 	"\'Solarized',
 	"\'UltiSnips',
@@ -361,6 +362,9 @@ nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 "set statusline+=%c,     "cursor column
 "set statusline+=%l/%L   "cursor line/total lines
 "set statusline+=\ %P    "percent through file
+
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
 let g:solarized_termtrans = 1

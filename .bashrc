@@ -182,6 +182,10 @@ case "`cat ~/hostname.txt`" in
 	alias stdist="sudo make MOD=20 64BIT=yes distclean"
         alias stvim="(cd target/sources/sto/ && ${MYVIM})"
         alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
+        alias srv1_s="ssh root@192.168.212.107"
+        alias srv2_s="ssh root@192.168.212.108"
+        alias cli1_s="ssh root@192.168.212.109"
+        alias cli2_s="ssh root@192.168.212.110"
 	cd ~/ws
 	;;
     * )	    
