@@ -2,7 +2,7 @@ set nocompatible
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
 
-" " VAM *********************************************************************************
+ " VAM *********************************************************************************
 " fun! EnsureVamIsOnDisk(plugin_root_dir)
 "   let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
 "   if isdirectory(vam_autoload_dir)
@@ -248,15 +248,29 @@ let mapleader = "\<space>"  " change the mapleader from \ to <space>
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
 
-if layout ==# "us(workman)\n"
-   nmap ' :
-   vmap ' :
-   nmap t j
-   vmap t j
-   :imap ii <Esc>
+"if layout ==# "us(workman)\n"
+if 1
+  nmap ' :
+  vmap ' :
+  "with this remapping I lost t,e,k
+  "left/right is done with h/t
+  nnoremap t l
+  vnoremap t l
+  nnoremap n j
+  vnoremap n j
+  nnoremap e k
+  vnoremap e k
+  nnoremap k n
+  nnoremap K N
+  :imap ii <Esc>
+  " Use E in normal mode to add blank line below the current line
+  nnoremap E 0i<C-M><ESC>
 else
+  "with this remapping I lost ;
   nnoremap ; :
   :imap jk <Esc>
+  " Use K in normal mode to add blank line below the current line
+  nnoremap K 0i<C-M><ESC>
 endif
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
@@ -418,8 +432,6 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " use gp to select last changed test (pasted or not), with same selection type
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-" Use K in normal mode to add blank line below this line
-nnoremap K 0i<C-M><ESC>
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
 " Copy full pathname of current buffer to the unmamed register
