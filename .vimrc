@@ -241,12 +241,23 @@ endfun!
 "******************************************************************************
 "              Main
 "******************************************************************************
-nnoremap ; :
+let layout = system("layout.sh")
 let mapleader = "\<space>"  " change the mapleader from \ to <space>
-:imap jk <Esc>
+
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
+
+if layout ==# "us(workman)\n"
+   nmap ' :
+   vmap ' :
+   nmap t j
+   vmap t j
+   :imap ii <Esc>
+else
+  nnoremap ; :
+  :imap jk <Esc>
+endif
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>

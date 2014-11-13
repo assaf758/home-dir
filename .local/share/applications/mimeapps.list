@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=evince.desktop
+application/pdf=kde4-okularApplication_pdf.desktop
 text/plain=gedit.desktop
 image/jpeg=viewnior.desktop
 application/xml=gedit.desktop
@@ -8,6 +8,7 @@ image/gif=viewnior.desktop
 video/x-ms-wmv=vlc.desktop
 video/mp4=vlc.desktop
 video/x-flv=vlc.desktop
+image/vnd.djvu=djvulibre-djview4.desktop
 
 [Added Associations]
 application/octet-stream=gedit.desktop;
@@ -18,4 +19,5 @@ x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
 x-scheme-handler/file=exo-file-manager.desktop
 x-scheme-handler/trash=exo-file-manager.desktop
-
+image/vnd.djvu=calibre-ebook-viewer.desktop;cr3.desktop;djvulibre-djview4.desktop;
+application/pdf=raktpdf.desktop;kde4-okularApplication_pdf.desktop;7zFM.desktop;
