@@ -249,25 +249,21 @@ let g:ycm_server_log_level = 'debug'
 
 if layout ==# "us(workman)\n"
    nmap ' :
+   vmap ' :
    nmap t j
-"  imap l <Esc>
+   vmap t j
+   :imap ii <Esc>
 else
   nnoremap ; :
   :imap jk <Esc>
 endif
-"   nnoremap <silent> <leader>rc :e $MYVIMRC<cr>
-"   nnoremap <silent> <leader>rh :e ~/Dropbox/Draft/vim.txt<cr>
-"   nnoremap <silent> <leader>rv :e ~/.bashrc<cr>
-"   nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
-"   nnoremap <silent> <leader>map :silent call My_mappings()<cr>
-"   nnoremap <silent> <leader>d :w<cr>
-" else
-  nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-  nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
-  nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
-  nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
-  nnoremap <silent> <leader>map :silent call My_mappings()<cr>
-  nnoremap <silent> <leader>w :w<cr>
+
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
+nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
+nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
+nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>map :silent call My_mappings()<cr>
+nnoremap <silent> <leader>w :w<cr>
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
