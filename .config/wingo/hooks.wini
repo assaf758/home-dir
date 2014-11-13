@@ -79,7 +79,7 @@ match := True
 #startup := Shell "gkrellm"
 
 # Easter egg!
-startup := Dale
+#startup := Dale
 
 [ForceFloating]
 # This hook matches certain windows, and forces them into the floating layout.
