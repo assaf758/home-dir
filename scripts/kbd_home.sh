@@ -6,6 +6,22 @@ xmodmap -e "clear lock"
 setxkbmap -query
 # note that xmodmap seems to break the "esc" funciotnality in slickedit
 
-#xmodmap ~/.Xmodmap
+#assign altgr to alt_r
+xmodmap -e "keycode 108 = Alt_R"
 
+# Select keyboard layout
+case "$1" in 
+"") 
+  echo "Usage: ${0##*/} qwerty | workman"
+  ;;
+qwerty)
+  ;;
+workman)
+  setxkbmap -layout 'us,il' -variant 'workman,'
+  ;;
+*)
+  echo "Parameter value $1 is not supported"
+  echo "Usage: ${0##*/} qwerty | workman"
+  ;;
+esac
 

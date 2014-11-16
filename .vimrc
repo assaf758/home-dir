@@ -241,9 +241,9 @@ endfun!
 "******************************************************************************
 "              Main
 "******************************************************************************
+" change the mapleader from \ to <space>
+let mapleader = "\<space>"  
 let layout = system("layout.sh")
-let mapleader = "\<space>"  " change the mapleader from \ to <space>
-
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
