@@ -1,5 +1,5 @@
 #SingleInstance Force
-#Include %A_ScriptDir%\common.ahk
+;#Include %A_ScriptDir%\common.ahk
 
 OutputDebug ahkba: Hi from AutoHotkey.ahk
 
@@ -79,6 +79,20 @@ Capslock::Ctrl
 
 Ralt & j::AltTab  ; the original alt-tab window
 Ralt & k::ShiftAltTab 
+
+; Readline mappings
+^e::
+Send {End}
+return
+^a:: 
+Send {Home}
+return
+^d:: 
+Send {Del}
+return
+^h:: 
+Send {BS}
+return
 
 ;SC027::
 #Tab:: 
