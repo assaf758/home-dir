@@ -2,7 +2,7 @@ set nocompatible
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
 
-" " VAM *********************************************************************************
+ " VAM *********************************************************************************
 " fun! EnsureVamIsOnDisk(plugin_root_dir)
 "   let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
 "   if isdirectory(vam_autoload_dir)
@@ -100,20 +100,22 @@ Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
-Plug 'AndrewRadev/splitjoin.vim',
+"Plug 'AndrewRadev/splitjoin.vim',
 Plug 'tpope/vim-rsi',
+Plug 'terryma/vim-expand-region',
 
-	"\'Solarized',
-	"\'UltiSnips',
-	"\'github:gcmt/wildfire.vim',
-	"\'github:ardagnir/vimbed',
-	"\'github:tpope/vim-fugitive',
-	"\'github:Lokaltog/vim-powerline',
-	"\'github:Lokaltog/vim-easymotion',
-	"\'AsyncCommand', - requires +clientserver
-	"\'github:Valloric/YouCompleteMe',
-	"\'github:ervandew/supertab',
-        "\'github:gcmt/wildfire.vim',
+        "Plug 'miyakogi/conoline.vim',
+	"'Solarized',
+	"'UltiSnips',
+	"'github:gcmt/wildfire.vim',
+	"'github:ardagnir/vimbed',
+	"'github:tpope/vim-fugitive',
+	"'github:Lokaltog/vim-powerline',
+	"'github:Lokaltog/vim-easymotion',
+	"'AsyncCommand', - requires +clientserver
+	"'github:Valloric/YouCompleteMe',
+	"'github:ervandew/supertab',
+        "'github:gcmt/wildfire.vim',
         "'taglist',
 call plug#end()
 endfun
@@ -171,6 +173,46 @@ cnoreabbrev <expr> csh
 
 " Help functions **************************************************************
 
+" ex command for toggling hex mode - define mapping if desired
+command! -bar Hexmode call ToggleHex()
+" helper function to toggle hex mode
+function! ToggleHex()
+  " hex mode should be considered a read-only operation
+  " save values for modified and read-only for restoration later,
+  " and clear the read-only flag for now
+  let l:modified=&mod
+  let l:oldreadonly=&readonly
+  let &readonly=0
+  let l:oldmodifiable=&modifiable
+  let &modifiable=1
+  if !exists("b:editHex") || !b:editHex
+    " save old options
+    let b:oldft=&ft
+    let b:oldbin=&bin
+    " set new options
+    setlocal binary " make sure it overrides any textwidth, etc.
+    let &ft="xxd"
+    " set status
+    let b:editHex=1
+    " switch to hex editor
+    %!xxd
+  else
+    " restore old options
+    let &ft=b:oldft
+    if !b:oldbin
+      setlocal nobinary
+    endif
+    " set status
+    let b:editHex=0
+    " return to normal editing
+    %!xxd -r
+  endif
+  " restore values for modified and read only state
+  let &mod=l:modified
+  let &readonly=l:oldreadonly
+  let &modifiable=l:oldmodifiable
+endfunction
+
 " Solve backspace ignored issue
 func! Backspace()
   if col('.') == 1
@@ -200,12 +242,37 @@ endfun!
 "******************************************************************************
 "              Main
 "******************************************************************************
-nnoremap ; :
-let mapleader = "\<space>"  " change the mapleader from \ to <space>
-:imap jk <Esc>
+" change the mapleader from \ to <space>
+let mapleader = "\<space>"  
+let layout = system("layout.sh")
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
+
+"if layout ==# "us(workman)\n"
+if 1
+  nmap ' :
+  vmap ' :
+  "with this remapping I lost t,e,k
+  "left/right is done with h/t
+  nnoremap t l
+  vnoremap t l
+  nnoremap n j
+  vnoremap n j
+  nnoremap e k
+  vnoremap e k
+  nnoremap k n
+  nnoremap K N
+  :imap ii <Esc>
+  " Use E in normal mode to add blank line below the current line
+  nnoremap E 0i<C-M><ESC>
+else
+  "with this remapping I lost ;
+  nnoremap ; :
+  :imap jk <Esc>
+  " Use K in normal mode to add blank line below the current line
+  nnoremap K 0i<C-M><ESC>
+endif
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
@@ -218,6 +285,14 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
+" test search object. 
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+" Toggle hex mode
+nnoremap <Leader>H :Hexmode<CR>
+
 "Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -225,8 +300,7 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-" Visual-line mode
-nmap <Leader><Leader> V
+
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 
@@ -315,6 +389,9 @@ nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 "set statusline+=%l/%L   "cursor line/total lines
 "set statusline+=\ %P    "percent through file
 
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 " Colorscheme **************
 let g:solarized_termtrans = 1
 if has('gui_running')
@@ -356,10 +433,8 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " use gp to select last changed test (pasted or not), with same selection type
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-" Use K in normal mode to add blank line below this line
-nnoremap K 0i<C-M><ESC>
-" Press <leader>j  whenever you want to split a line
-nnoremap <leader>j i<CR><ESC>k$
+" Press <leader>J  whenever you want to split a line
+nnoremap <leader>J i<CR><ESC>k$
 " Copy full pathname of current buffer to the unmamed register
 nnoremap cpp :let @" = expand("%") . ":" . line(".") . ":" . getline(".")<CR>
 
