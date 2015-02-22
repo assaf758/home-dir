@@ -24,7 +24,7 @@ function ranger_cd {
     rm -f -- "$tempfile"
 }
 # This binds Ctrl-O to ranger-cd:
-bind '"\C-o":"ranger-cd\C-m"'
+#bind '"\C-o":"ranger-cd\C-m"'
 
 xhost +local:root > /dev/null 2>&1
 
@@ -158,8 +158,8 @@ export LOCAL=~/local
 add_to_path "$HOME/scripts"
 add_to_path "/usr/bin/vendor_perl/"
 add_to_path "$LOCAL/go/bin"
-add_to_path "$LOCAL/bin"
 add_to_path "$HOME/bin"
+add_to_path "$LOCAL/bin"
 
 source ~/scripts/svn_functions.sh
 

@@ -83,11 +83,9 @@ syn on
 
 fun! SetupPlug()
 call plug#begin('~/.vim/plugged')
-
 Plug 'benmills/vimux',
 Plug 'bernh/pss.vim',
 Plug 'https://github.com/vim-scripts/renamer.vim',
-"Plug 'CSApprox',
 Plug 'https://github.com/vim-scripts/YankRing.vim',
 Plug 'bling/vim-airline',
 Plug 'flazz/vim-colorschemes',
@@ -100,22 +98,23 @@ Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
-"Plug 'AndrewRadev/splitjoin.vim',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
-
-	"\'Solarized',
-	"\'UltiSnips',
-	"\'github:gcmt/wildfire.vim',
-	"\'github:ardagnir/vimbed',
-	"\'github:tpope/vim-fugitive',
-	"\'github:Lokaltog/vim-powerline',
-	"\'github:Lokaltog/vim-easymotion',
-	"\'AsyncCommand', - requires +clientserver
-	"\'github:Valloric/YouCompleteMe',
-	"\'github:ervandew/supertab',
-        "\'github:gcmt/wildfire.vim',
-        "'taglist',
+Plug 'christoomey/vim-tmux-navigator',
+"Plug 'CSApprox',
+"Plug 'AndrewRadev/splitjoin.vim',
+"\'Solarized',
+"\'UltiSnips',
+"\'github:gcmt/wildfire.vim',
+"\'github:ardagnir/vimbed',
+"\'github:tpope/vim-fugitive',
+"\'github:Lokaltog/vim-powerline',
+"\'github:Lokaltog/vim-easymotion',
+"\'AsyncCommand', - requires +clientserver
+"\'github:Valloric/YouCompleteMe',
+"\'github:ervandew/supertab',
+"\'github:gcmt/wildfire.vim',
+"'taglist',
 call plug#end()
 endfun
 
@@ -244,15 +243,14 @@ endfun!
 let layout = system("layout.sh")
 let mapleader = "\<space>"  " change the mapleader from \ to <space>
 
-
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
 
 "if layout ==# "us(workman)\n"
 if 1
-  nmap ' :
-  vmap ' :
-  "with this remapping I lost t,e,k
+  nmap ; :
+  vmap ; :
+  "with this remapping I lost commands t,e,k
   "left/right is done with h/t
   nnoremap t l
   vnoremap t l
@@ -265,12 +263,38 @@ if 1
   :imap ii <Esc>
   " Use E in normal mode to add blank line below the current line
   nnoremap E 0i<C-M><ESC>
+  "easier navigation between split windows
+  "nnoremap <c-n> <c-y>
+  "nnoremap <c-e> <c-w>k
+  "nnoremap <c-h> <c-w>h
+  " lost <c-t>:
+  "nnoremap <c-t> <c-w>l
+
+  " prevent yankring from reassigning <c-n>
+  let g:yankring_replace_n_nkey = ''
+
+  " easier navigation between split windows
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <c-n> :TmuxNavigateDown<cr>
+  nnoremap <silent> <c-e> :TmuxNavigateUp<cr>
+  nnoremap <silent> <c-t> :TmuxNavigateRight<cr>
+  nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+
 else
   "with this remapping I lost ;
   nnoremap ; :
   :imap jk <Esc>
   " Use K in normal mode to add blank line below the current line
   nnoremap K 0i<C-M><ESC>
+
+
+" easier navigation between split windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
 endif
 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
@@ -442,12 +466,6 @@ set noswapfile		" nor swapfiles
 set history=1000        " remember more commands and search history
 set undolevels=1000     " use many muchos levels of undo
 set title               " change the terminal's title (no effect under tmux / gui)
-
-" easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
 
 " Allow calling sudo (to make file writeable) *after* you have edited the file
 cmap w!! w !sudo tee % >/dev/null
