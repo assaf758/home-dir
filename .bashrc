@@ -24,7 +24,7 @@ function ranger_cd {
     rm -f -- "$tempfile"
 }
 # This binds Ctrl-O to ranger-cd:
-bind '"\C-o":"ranger-cd\C-m"'
+#bind '"\C-o":"ranger-cd\C-m"'
 
 xhost +local:root > /dev/null 2>&1
 
