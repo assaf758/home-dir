@@ -86,7 +86,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'benmills/vimux',
 Plug 'bernh/pss.vim',
 Plug 'https://github.com/vim-scripts/renamer.vim',
-Plug 'https://github.com/vim-scripts/YankRing.vim',
+Plug 'maxbrunsfeld/vim-yankstack',
 Plug 'bling/vim-airline',
 Plug 'flazz/vim-colorschemes',
 Plug 'tpope/vim-commentary',
@@ -240,11 +240,15 @@ endfun!
 "******************************************************************************
 "              Main
 "******************************************************************************
+call SetupPlug()
+
 let layout = system("layout.sh")
 let mapleader = "\<space>"  " change the mapleader from \ to <space>
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
+
+call yankstack#setup()
 
 "if layout ==# "us(workman)\n"
 if 1
@@ -260,7 +264,7 @@ if 1
   vnoremap e k
   nnoremap k n
   nnoremap K N
-  :imap ii <Esc>
+  ":imap ii <Esc>
   " Use E in normal mode to add blank line below the current line
   nnoremap E 0i<C-M><ESC>
   "easier navigation between split windows
@@ -269,9 +273,6 @@ if 1
   "nnoremap <c-h> <c-w>h
   " lost <c-t>:
   "nnoremap <c-t> <c-w>l
-
-  " prevent yankring from reassigning <c-n>
-  let g:yankring_replace_n_nkey = ''
 
   " easier navigation between split windows
   let g:tmux_navigator_no_mappings = 1
@@ -288,21 +289,32 @@ else
   " Use K in normal mode to add blank line below the current line
   nnoremap K 0i<C-M><ESC>
 
-
-" easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
+  " easier navigation between split windows
+  nnoremap <c-j> <c-w>j
+  nnoremap <c-k> <c-w>k
+  nnoremap <c-h> <c-w>h
+  nnoremap <c-l> <c-w>l
 endif
-
+ 
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
+nnoremap Y y$
+
+" fix meta-keys which generate <Esc>a .. <Esc>z
+" https://github.com/maxbrunsfeld/vim-yankstack/wiki/Linux-terminal-configurations-for-correct-meta-key-handling
+let c='a'
+while c <= 'z'
+  exec "set <M-".toupper(c).">=\e".c
+  exec "imap \e".c." <M-".toupper(c).">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+" open quickfix window
+copen 
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
@@ -357,7 +369,6 @@ set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 " run VAM package manger
 " let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
 " call SetupVAM()
-call SetupPlug()
 
 set vb t_vb=  " No beeps
 
