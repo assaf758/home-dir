@@ -6,10 +6,12 @@
 
 #echo "please mount using note-mount" ; exit 0
 
-# Otherwise, create trcypt device, mount, edit/umount:
-[[ ! -e /dev/mapper/cache1 ]] && sudo cryptsetup --type tcrypt open ${HOME}/Dropbox/Apps/EDS/cache1 cache1
-mkdir -p ${HOME}/tmp/cache1
-sudo mount -o uid=${USER},gid=users /dev/mapper/cache1 ${HOME}/tmp/cache1/
-vim ${HOME}/tmp/cache1/notes.txt
-sudo umount ${HOME}/tmp/cache1 && sudo cryptsetup close cache1
-rm -rf ${HOME}/tmp/cache1
+# Otherwise, create trcypt device, mount, edit and umount:
+[[ ! -e /dev/mapper/cache1 ]] && \
+    sudo cryptsetup --type tcrypt open ${HOME}/Dropbox/Apps/EDS/cache1 cache1 && \
+    mkdir -p ${HOME}/tmp/cache1 && \
+    sudo mount -o uid=${USER},gid=users /dev/mapper/cache1 ${HOME}/tmp/cache1/ && \
+    vim ${HOME}/tmp/cache1/notes.txt
+
+#cleanup
+sudo umount ${HOME}/tmp/cache1 && sudo cryptsetup close cache1 && rm -rf ${HOME}/tmp/cache1
