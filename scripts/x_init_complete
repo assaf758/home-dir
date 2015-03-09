@@ -5,6 +5,10 @@ sleep 4
 #wingo-settings
 xrdb -merge ~/.Xresources
 xbindkeys 
+
+# disable screen blank
+xset s off -dpms
+
 kbd_home.sh
 tmuxinator misc 
 #for i in {1..7}
