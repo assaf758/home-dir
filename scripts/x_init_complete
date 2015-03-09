@@ -5,7 +5,7 @@ sleep 4
 #wingo-settings
 xrdb -merge ~/.Xresources
 xbindkeys 
-kbd_home.sh
+kbd_home.sh workman
 tmuxinator misc 
 #for i in {1..7}
 #do
