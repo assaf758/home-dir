@@ -101,6 +101,8 @@ Plug 'majutsushi/tagbar',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
+Plug 'vim-scripts/EvalSelection.vim',
+Plug 'moll/vim-bbye'
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',
 "\'Solarized',
@@ -267,7 +269,7 @@ if 1
   nnoremap K N
   ":imap ii <Esc>
   " Use E in normal mode to add blank line below the current line
-  nnoremap E 0i<C-M><ESC>
+  nnoremap E 0i<C-M><ESC>k
   "easier navigation between split windows
   "nnoremap <c-n> <c-y>
   "nnoremap <c-e> <c-w>k
@@ -288,7 +290,7 @@ else
   nnoremap ; :
   :imap jk <Esc>
   " Use K in normal mode to add blank line below the current line
-  nnoremap K 0i<C-M><ESC>
+  nnoremap K 0i<C-M><ESC>k
 
   " easier navigation between split windows
   nnoremap <c-j> <c-w>j
@@ -297,10 +299,10 @@ else
   nnoremap <c-l> <c-w>l
 endif
  
-nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-nnoremap <silent> <leader>ed :e ~/Dropbox/Draft/vim.txt<cr>
-nnoremap <silent> <leader>eb :e ~/.bashrc<cr>
-nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
+nnoremap <silent> <leader>Ed :e ~/Dropbox/Draft/vim.txt<cr>
+nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
+nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap Y y$
@@ -338,7 +340,7 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 " Provide buffer delete which does not close the window
-nnoremap <leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <leader>bd :Bdelete<CR>
 
 " Fast buffer selection
 nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
@@ -522,6 +524,16 @@ let g:ctrlp_max_files = 0  " No limit to amount of files to scan
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>f :CtrlP<cr>
 nnoremap <leader>m :CtrlPMixed<cr>
+
+" expand_region 
+call expand_region#custom_text_objects({ 
+      \ "\/\\n\\n\<CR>": 1,  
+      \ 'a]' :1,  
+      \ 'ab' :1,  
+      \ 'aB' :1, 
+      \ 'ii' :0, 
+      \ 'ai' :0, 
+      \ })
 
 " Command-T config ********************************************
 " let g:CommandTFileScanner="find"
