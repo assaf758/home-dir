@@ -14,7 +14,7 @@ function deferred_exit()
 #deferred_exit
 
 
-function ranger_cd {
+function ranger {
     tempfile="$(mktemp)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&

@@ -1,1 +1,4 @@
-sudo systemctl restart nfs-config && sudo systemctl restart rpc-statd && sudo systemctl restart nfs-server
+sudo systemctl restart nfs-config &&\
+sudo systemctl restart rpcbind &&\
+sudo systemctl restart rpc-statd &&\
+sudo systemctl restart nfs-server

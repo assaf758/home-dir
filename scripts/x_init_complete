@@ -1,6 +1,6 @@
 #!/bin/sh
 mkdir -p $HOME/var/log
-wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 & 
+nohup wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 & 
 sleep 4
 #wingo-settings
 xrdb -merge ~/.Xresources
