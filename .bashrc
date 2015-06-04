@@ -171,6 +171,7 @@ case "`cat ~/hostname.txt`" in
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
 	;;
     'assaf-win' )
