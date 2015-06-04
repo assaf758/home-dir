@@ -235,6 +235,10 @@ ws_set() {
 	export WS=`pwd`
 }
 
+# Set $LAST to output of last command
+# make it only for interactive somehow? mess yaourt output
+#PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
+
 # Aliases config
 unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"

@@ -5,3 +5,11 @@ Xft.rgba: rgb
 Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
+
+! Background color
+URxvt*background: black
+
+! Font color
+URxvt*foreground: white
+
+URxvt.font: 9x15

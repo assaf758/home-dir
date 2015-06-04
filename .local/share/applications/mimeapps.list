@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=kde4-okularApplication_pdf.desktop
+application/pdf=acroread.desktop
 text/plain=gedit.desktop
 image/jpeg=viewnior.desktop
 application/xml=gedit.desktop
@@ -9,6 +9,8 @@ video/x-ms-wmv=vlc.desktop
 video/mp4=vlc.desktop
 video/x-flv=vlc.desktop
 image/vnd.djvu=djvulibre-djview4.desktop
+text/html=google-chrome.desktop
+text/htm=google-chrome.desktop
 
 [Added Associations]
 application/octet-stream=gedit.desktop;
