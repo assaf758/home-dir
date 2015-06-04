@@ -14,7 +14,7 @@ function deferred_exit()
 #deferred_exit
 
 
-function ranger_cd {
+function ranger {
     tempfile="$(mktemp)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
@@ -171,6 +171,7 @@ case "`cat ~/hostname.txt`" in
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
         ;;
     'assaf-win' )
@@ -237,6 +238,10 @@ set -o emacs # make bash readline behave as vi
 ws_set() {
         export WS=`pwd`
 }
+
+# Set $LAST to output of last command
+# make it only for interactive somehow? mess yaourt output
+#PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
 
 # Aliases config
 unalias ls &>/dev/null
