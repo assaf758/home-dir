@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -f /etc/bash_completion ]; then
-	    . /etc/bash_completion
+            . /etc/bash_completion
 fi
 
 function deferred_exit()
@@ -111,12 +111,12 @@ function test_identities {
     if [ $? -eq 0 ]; then
         echo "Adding ssh-keys of all identities"
         for ident in $(find ~/.ssh | grep 'ssh/assaf'| grep -v pub) 
-		do 
-			ssh-add "$ident"
-			if [ $? -eq 2 ];then
-				echo "Could not ssh-add $ident"
-			fi
-		done
+                do 
+                        ssh-add "$ident"
+                        if [ $? -eq 2 ];then
+                                echo "Could not ssh-add $ident"
+                        fi
+                done
     fi
 }
 
@@ -167,40 +167,43 @@ source ~/scripts/svn_functions.sh
 case "`cat ~/hostname.txt`" in 
     'hlinux' | 'wlinux' )
         export GOPATH=$HOME/wspace/go_ws
-	add_to_path $GOPATH/bin
-	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        add_to_path $GOPATH/bin
+        PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
-	;;
+        ;;
     'assaf-win' )
-	export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
+        export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
         export PATH=$PATH:/c/Program\ Files\ \(x86\)/PortableGit/bin
-	alias find=/usr/bin/find
-	alias winword="/c/Program\ Files\ \(x86\)/Microsoft\ Office/Office14/WINWORD.EXE"
-	alias gvim="/c/Program\ Files\ \(x86\)/Vim/vim73/gvim.exe"
-	alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
+        alias find=/usr/bin/find
+        alias winword="/c/Program\ Files\ \(x86\)/Microsoft\ Office/Office14/WINWORD.EXE"
+        alias gvim="/c/Program\ Files\ \(x86\)/Vim/vim73/gvim.exe"
+        alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
         export WS_TEMP=~/ws/assafb_temp
+        export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_TEMP}/DL
         MYVIM=${LOCAL}/bin/vim
-	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-	export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
-	export DIR_STO="target/sources/sto/"
-	alias cdws="cd $WS"
-	alias stbuild="rm -f *build && sudo make MOD=20 64BIT=yes all"
-	alias stdist="sudo make MOD=20 64BIT=yes distclean"
+        export JUJU_HOME=${WS_STORAGE}/juju_home
+        PS1="\n${JUJU_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        add_to_path "$HOME/juju/bin/"
+        export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
+        export DIR_STO="target/sources/sto/"
+        alias cdws="cd $WS"
+        alias stbuild="rm -f *build && sudo make MOD=20 64BIT=yes all"
+        alias stdist="sudo make MOD=20 64BIT=yes distclean"
         alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
         alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
         alias srv1_s="ssh root@192.168.212.107"
         alias srv2_s="ssh root@192.168.212.108"
         alias cli1_s="ssh root@192.168.212.109"
         alias cli2_s="ssh root@192.168.212.110"
-	cd ~/ws
-	;;
+        cd ~/ws
+        ;;
     * )	    
         ;;
 esac
@@ -233,7 +236,7 @@ set -o emacs # make bash readline behave as vi
 
 # Set WS var to current dir
 ws_set() {
-	export WS=`pwd`
+        export WS=`pwd`
 }
 
 # Set $LAST to output of last command
