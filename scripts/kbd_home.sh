@@ -1,7 +1,7 @@
 #!/bin/bash
 #The caps-lock key serves as additional ctrl. no caps-lock functionality
 setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant '' -option  
-setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant '' -option 'ctrl:nocaps', 'grp:shifts_toggle'
+# setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant '' -option 'ctrl:nocaps', 'grp:shifts_toggle'
 xmodmap -e "clear lock"
 # note that xmodmap seems to break the "esc" funciotnality in slickedit
 
@@ -14,11 +14,19 @@ case "$1" in
   echo "Usage: ${0##*/} qwerty | workman"
   ;;
 qwerty)
+  printf "\nLayout set to qwerty:\n"
+  setxkbmap -rules evdev -model logitech_base -layout 'us,il'  -option 'ctrl:nocaps', 'grp:shifts_toggle'
+  setxkbmap -query
+  ;;
+qwerty-c)
+  printf "\nLayout set to qwerty-c:\n"
+  setxkbmap -rules evdev -model logitech_base -layout 'us,il' , 'grp:shifts_toggle'
+  setxkbmap -query
   ;;
 workman)
-#  setxkbmap -layout 'us,il' -variant 'workman,'
-setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, ' -option 'ctrl:nocaps', 'grp:shifts_toggle'
-
+  printf "\nLayout set to workman:\n"
+  setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, ' -option 'ctrl:nocaps', 'grp:shifts_toggle'
+  setxkbmap -query
   ;;
 *)
   echo "Parameter value $1 is not supported"
@@ -26,7 +34,6 @@ setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, '
   ;;
 esac
 
-setxkbmap -query
 
   # turn on stickykeys. don't let two keys pressed at the same time disable it.
   # turn on "latch lock", ie pressing a modifier key twice "locks" it on.
