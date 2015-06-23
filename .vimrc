@@ -463,7 +463,6 @@ set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
 
 " Viewing  *******************************************************************
-set nowrap 	" no line wrapping
 set number 	" turn on line numbers
 nnoremap <silent> <leader>n :set number! number?<cr>
 set numberwidth=5 " We are good up to 99999 lines
@@ -611,3 +610,5 @@ set wildignore+=*.o,*.obj,.git,.svn
 " Build and run go program hello.go on specific tmux window
 nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
+" disable soft-wrap (run after all plugins have ran)
+autocmd VimEnter * set nowrap 

@@ -234,6 +234,11 @@ set -o emacs # make bash readline behave as vi
 # Use jk as ESC mode replacement
 # bind -m vi-insert '"jk": vi-movement-mode'
 
+# bind readline ^g to delete char
+#http://superuser.com/a/212455
+# stty werase undef
+bind '"\C-g": backward-delete-char'
+
 # Set WS var to current dir
 ws_set() {
         export WS=`pwd`
