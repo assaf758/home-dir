@@ -188,9 +188,9 @@ case "`cat ~/hostname.txt`" in
         export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_TEMP}/DL
         MYVIM=${LOCAL}/bin/vim
-        export JUJU_HOME=${WS_STORAGE}/juju_home
-        PS1="\n${JUJU_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        add_to_path "$HOME/juju/bin/"
+        export JUNEST_HOME=${WS_STORAGE}/junest_home
+        PS1="\n${JUNEST_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        add_to_path "$HOME/junest/bin/"
         export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
         export DIR_STO="target/sources/sto/"
         alias cdws="cd $WS"
