@@ -169,10 +169,11 @@ case "`cat ~/hostname.txt`" in
         export GOPATH=$HOME/wspace/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
+        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
