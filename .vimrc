@@ -102,6 +102,7 @@ Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
 Plug 'vim-scripts/EvalSelection.vim',
+Plug 'tpope/vim-abolish',
 Plug 'moll/vim-bbye'
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',

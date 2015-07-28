@@ -184,9 +184,8 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export WS_TEMP=~/ws/assafb_temp
         export WS_STORAGE=~/ws/assafb_storage
-        export DL=${WS_TEMP}/DL
+        export DL=${WS_STORAGE}/DL
         MYVIM=${LOCAL}/bin/vim
         export JUNEST_HOME=${WS_STORAGE}/junest_home
         PS1="\n${JUNEST_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
@@ -198,10 +197,11 @@ case "`cat ~/hostname.txt`" in
         alias stdist="sudo make MOD=20 64BIT=yes distclean"
         alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
         alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
-        alias srv1_s="ssh root@192.168.212.107"
-        alias srv2_s="ssh root@192.168.212.108"
+        alias srv1_s="ssh root@192.168.212.108"
         alias cli1_s="ssh root@192.168.212.109"
         alias cli2_s="ssh root@192.168.212.110"
+	# strangly needed (search $PATH) does not work for ranger app
+	alias ranger="$LOCAL/bin/ranger"
         cd ~/ws
         ;;
     * )	    
