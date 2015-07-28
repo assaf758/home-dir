@@ -2,7 +2,7 @@
 
 case "$1" in 
 "") 
-  echo "Usage: ${0##*/} {inernal | external-right | external-normal}"
+  echo "Usage: ${0##*/} { inernal-only | external-home | external-office }"
   ;;
 internal)
   xrandr --output eDP1 --auto --output DP1  --off --output HDMI1 --off
