@@ -168,7 +168,8 @@ case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
         export GOPATH=$HOME/wspace/go_ws
         add_to_path $GOPATH/bin
-        PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        add_to_path /opt/junest/bin
+	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
         alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"

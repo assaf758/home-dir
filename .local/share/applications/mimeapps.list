@@ -11,6 +11,7 @@ video/x-flv=vlc.desktop
 image/vnd.djvu=djvulibre-djview4.desktop
 text/html=google-chrome.desktop
 text/htm=google-chrome.desktop
+application/x-bittorrent=fatrat.desktop
 
 [Added Associations]
 application/octet-stream=gedit.desktop;
