@@ -104,6 +104,7 @@ Plug 'christoomey/vim-tmux-navigator',
 Plug 'vim-scripts/EvalSelection.vim',
 Plug 'moll/vim-bbye',
 Plug 'wincent/terminus'
+Plug 'tpope/vim-abolish',
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',
 "\'Solarized',

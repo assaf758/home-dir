@@ -170,10 +170,10 @@ case "`cat ~/hostname.txt`" in
         add_to_path $GOPATH/bin
         add_to_path /opt/junest/bin
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
-        alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
         alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
+        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -185,9 +185,8 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'a10' )
-        export WS_TEMP=~/ws/assafb_temp
         export WS_STORAGE=~/ws/assafb_storage
-        export DL=${WS_TEMP}/DL
+        export DL=${WS_STORAGE}/DL
         MYVIM=${LOCAL}/bin/vim
         export JUNEST_HOME=${WS_STORAGE}/junest_home
         PS1="\n${JUNEST_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
@@ -199,10 +198,11 @@ case "`cat ~/hostname.txt`" in
         alias stdist="sudo make MOD=20 64BIT=yes distclean"
         alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
         alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
-        alias srv1_s="ssh root@192.168.212.107"
-        alias srv2_s="ssh root@192.168.212.108"
+        alias srv1_s="ssh root@192.168.212.108"
         alias cli1_s="ssh root@192.168.212.109"
         alias cli2_s="ssh root@192.168.212.110"
+	# strangly needed (search $PATH) does not work for ranger app
+	alias ranger="$LOCAL/bin/ranger"
         cd ~/ws
         ;;
     * )	    
