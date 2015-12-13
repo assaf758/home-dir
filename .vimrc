@@ -101,10 +101,11 @@ Plug 'majutsushi/tagbar',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
-Plug 'vim-scripts/EvalSelection.vim',
 Plug 'moll/vim-bbye',
-Plug 'wincent/terminus'
+Plug 'wincent/terminus',
 Plug 'tpope/vim-abolish',
+Plug 'morhetz/gruvbox',
+" Plug 'vim-scripts/EvalSelection.vim',
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',
 "\'Solarized',
@@ -432,7 +433,7 @@ endif
 "source ~/.vim/vim-addons/github-Lokaltog-powerline/powerline/ext/vim/source_plugin.vim
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+"set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
 " run VAM package manger
 " let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
@@ -494,16 +495,11 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
-let g:solarized_termtrans = 1
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+"let g:solarized_termtrans = 1
 "colorscheme solarized
-"colorscheme evening
-"colorscheme fog2
-colorscheme simple256
+colorscheme gruvbox
+set background=dark "light
+
 highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
 highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
 highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
