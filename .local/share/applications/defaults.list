@@ -22,4 +22,5 @@ application/x-cbr=kde4-okularApplication_pdf.desktop
 application/x-cb7=kde4-okularApplication_pdf.desktop
 application/x-cbz=kde4-okularApplication_pdf.desktop
 text/plain=gvim.desktop
+text/html=google-chrome.desktop
 application/x-desktop=gvim.desktop

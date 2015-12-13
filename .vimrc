@@ -1,4 +1,7 @@
-set nocompatible
+if !has('nvim')
+  set nocompatible
+endif 
+
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
 
@@ -22,7 +25,8 @@ Plug 'majutsushi/tagbar',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
-Plug 'vim-scripts/EvalSelection.vim',
+Plug 'moll/vim-bbye',
+Plug 'wincent/terminus',
 Plug 'tpope/vim-abolish',
 Plug 'moll/vim-bbye',
 Plug 'MattesGroeger/vim-bookmarks',
@@ -33,9 +37,11 @@ Plug 'FelikZ/ctrlp-py-matcher',
 Plug 'Shougo/deoplete.nvim',
 Plug 'morhetz/gruvbox',
 Plug 'Lokaltog/vim-easymotion',
+Plug 'morhetz/gruvbox',
+
+" Plug 'vim-scripts/EvalSelection.vim',
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',
-"\'Solarized',
 "\'UltiSnips',
 "\'github:gcmt/wildfire.vim',
 "\'github:ardagnir/vimbed',
@@ -357,6 +363,10 @@ if has("gui_running")
 endif
 
 set laststatus=2   " Always show the statusline
+if !has('nvim')
+  set encoding=utf-8 " Necessary to show Unicode glyphs
+endif
+
 set vb t_vb=  " No beeps
 
 " Fix home/end key in all modes
@@ -413,22 +423,12 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
-" let g:solarized_termtrans = 1
-" if has('gui_running')
-"     set background=light
-" else
-"     set background=dark
-" endif
-"colorscheme solarized
-"colorscheme evening
-"colorscheme fog2
-"colorscheme simple256
 colorscheme gruvbox
 set background=dark
-highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
-highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
-highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
-highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
+" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
+" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
+" highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 
 " tabs & indentation

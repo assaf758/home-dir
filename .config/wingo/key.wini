@@ -72,7 +72,8 @@
 # be escaped with a backslash, e.g., \".
 #
 # N.B. The shell used can be changed in `options.wini`.
-Mod4-t := Shell "xfce4-terminal"
+#Mod4-t := Shell "xfce4-terminal"
+Mod4-t := Shell "termite"
 Mod4-F2 := Shell "gmrun"
 
 # You could also use Wingo's Shell command to execute commands on the fly.

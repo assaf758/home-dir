@@ -90,7 +90,7 @@ function test_identities {
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings () {
-    eval `keychain --eval assafb_a10_id_dsa assaf758_id_rsa`
+    eval `keychain --eval assafb_a10_id_dsa assafb_a10 assaf758_id_rsa`
 }
 
 function old_ssh_settings {
@@ -187,6 +187,12 @@ case "`cat ~/hostname.txt`" in
         export GOPATH=$HOME/wspace/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        add_to_path /opt/junest/bin
+	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
+        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
+        alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
+        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
