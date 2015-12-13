@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=acroread.desktop
+application/pdf=pdf-xchange.desktop
 text/plain=gedit.desktop
 image/jpeg=viewnior.desktop
 application/xml=gedit.desktop
