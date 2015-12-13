@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ -f /etc/bash_completion ]; then
-            . /etc/bash_completion
-fi
-
 function deferred_exit()
 {
     echo "exit if not ctrl-c.."
@@ -14,44 +10,16 @@ function deferred_exit()
 #deferred_exit
 
 
-function ranger {
+function cdranger {
     tempfile="$(mktemp)"
-    /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
         cd -- "$(cat "$tempfile")"
     fi
     rm -f -- "$tempfile"
 }
-# This binds Ctrl-O to ranger-cd:
-#bind '"\C-o":"ranger-cd\C-m"'
 
-xhost +local:root > /dev/null 2>&1
-
-complete -cf sudo
-
-shopt -s cdspell
-shopt -s checkwinsize
-shopt -s cmdhist
-shopt -s dotglob
-shopt -s expand_aliases
-shopt -s extglob
-shopt -s histappend
-shopt -s hostcomplete
-shopt -s nocaseglob
-
-export HISTSIZE=10000
-export HISTFILESIZE=${HISTSIZE}
-export HISTCONTROL=ignoreboth
-
-alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias grep='grep --color=tty -d skip'
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano PKGBUILD'
 
 # ex - archive extractor
 # usage: ex <file>
@@ -149,12 +117,62 @@ function old_ssh_settings {
 
 function ttu {
 SRC_FILE_LIST=file_list.in
-ctags -L "$SRC_FILE_LIST"
+#ctags -L "$SRC_FILE_LIST"
 cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
 #################### main 
+
+if [ -z ${ORIG_PATH+x} ]; then
+	# echo "setting ORIG_PATH to $PATH"
+	export ORIG_PATH=$PATH
+fi
+
+if [ -f /etc/bash_completion ]; then
+            . /etc/bash_completion
+fi
+
+if [[ -n $SSH_CONNECTION ]] ; then
+           export TERM=linux
+   elif [[ $COLORTERM == xfce4-terminal ]] ; then
+    # http://vim.wikia.com/wiki/256_colors_in_vim
+    export TERM=gnome-256color
+    # http://pkgs.fedoraproject.org/cgit/coreutils.git/tree/
+    eval `dircolors --sh "/etc/DIR_COLORS.256color"`
+else
+        export TERM=linux
+    eval `dircolors`
+fi    
+
+xhost +local:root > /dev/null 2>&1
+
+complete -cf sudo
+
+shopt -s cdspell
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s dotglob
+shopt -s expand_aliases
+shopt -s extglob
+shopt -s histappend
+shopt -s hostcomplete
+shopt -s nocaseglob
+
+export HISTSIZE=10000
+export HISTFILESIZE=${HISTSIZE}
+export HISTCONTROL=ignoreboth
+
+alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias grep='grep --color=tty -d skip'
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+alias np='nano PKGBUILD'
+
 export LOCAL=~/local
+
 add_to_path "$HOME/scripts"
 add_to_path "/usr/bin/vendor_perl/"
 add_to_path "$LOCAL/go/bin"
@@ -169,11 +187,6 @@ case "`cat ~/hostname.txt`" in
         export GOPATH=$HOME/wspace/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
-        alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
-        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
-        alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
-        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -187,37 +200,71 @@ case "`cat ~/hostname.txt`" in
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_STORAGE}/DL
-        MYVIM=${LOCAL}/bin/vim
         export JUNEST_HOME=${WS_STORAGE}/junest_home
-        PS1="\n${JUNEST_ENV}>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        add_to_path "$HOME/junest/bin/"
+	if [ -z ${JUNEST_ENV+x} ]; then
+            MYVIM=${LOCAL}/bin/vim
+	    add_to_path "$HOME/junest/bin/"
+	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+
+            if [ -f ~/.cwdfile ]; then
+		cd $(cat ~/.cwdfile)
+		if [ $? -ne 0 ]; then
+		    cd ~/ws
+		fi
+	        rm ~/.cwdfile
+	    else
+		cd ~/ws
+	    fi
+        else
+            MYVIM=vim
+            export PATH=${ORIG_PATH}
+            add_to_path "$HOME/scripts"
+	    EFFECTIVE_UID=$(id -u)
+	    if [ ${EFFECTIVE_UID} -eq 0 ]; then
+		JPR="jnr"
+	    else
+		JPR="jn"
+	    fi
+	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h(${JPR}):\w\n$ "
+	fi
         export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
         export DIR_STO="target/sources/sto/"
         alias cdws="cd $WS"
-        alias stbuild="rm -f *build && sudo make MOD=20 64BIT=yes all"
-        alias stdist="sudo make MOD=20 64BIT=yes distclean"
+        alias stbuild20="rm -f *build && sudo make MOD=20 64BIT=yes all"
+        alias stbuild52="rm -f *build && sudo make MOD=52 64BIT=yes all"
+        alias stdist20="sudo make MOD=20 64BIT=yes distclean"
+        alias stdist52="sudo make MOD=52 64BIT=yes distclean"
         alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
-        alias sttag="(cd target/sources/sto/ ; ttf ; ttu)"
-        alias srv1_s="ssh root@192.168.212.108"
-        alias cli1_s="ssh root@192.168.212.109"
-        alias cli2_s="ssh root@192.168.212.110"
-	# strangly needed (search $PATH) does not work for ranger app
-	alias ranger="$LOCAL/bin/ranger"
-        cd ~/ws
+	alias nvim="TERM=xterm-termite nvim"
+        alias stnvim="nvim --cmd 'cd target/sources/sto'"
+        alias sttag="(cd target/sources/sto/ && rm cscope.* ; ttf ; ttu)"
         ;;
     * )	    
         ;;
 esac
 
+
+alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
+alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
+alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
+alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
+alias srv1_s="ssh root@192.168.212.108"
+alias cli1_s="ssh root@192.168.212.109"
+alias cli2_s="ssh root@192.168.212.110"
+alias jnr="junest -p \"-k 3.10\" -f"
+alias jn="run_junest"
+alias into17="cdssh dev64-build17"
+
 # ssh-settings
 
-# pyenv install
-export PYENV_ROOT="${HOME}/.pyenv"
-if [ -d "${PYENV_ROOT}" ]; then
-  add_to_path "${PYENV_ROOT}/bin"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
+# # pyenv install
+# export PYENV_ROOT="${HOME}/.pyenv"
+# if [ -d "${PYENV_ROOT}" ]; then
+#   add_to_path "${PYENV_ROOT}/bin"
+#   eval "$(pyenv init -)"
+#   eval "$(pyenv virtualenv-init -)"
+# fi
 
 export EDITOR=vim
 export LESS=FSRX
@@ -257,3 +304,5 @@ alias vbash="vim ~/.bashrc"
 # slickedit
 #unalias vs 2>/dev/null
 #alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
