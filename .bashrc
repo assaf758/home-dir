@@ -72,14 +72,14 @@ function start_agent ()
 function test_identities {
     # test whether standard identities have been added to the agent already
     ssh-add -l > /dev/null
-    if [ $? -eq 2 ]; then 
+    if [ $? -eq 2 ]; then
         start_agent
-    fi 
+    fi
     ssh-add -l | grep "The agent has no identities" > /dev/null
     if [ $? -eq 0 ]; then
         echo "Adding ssh-keys of all identities"
-        for ident in $(find ~/.ssh | grep 'ssh/assaf'| grep -v pub) 
-                do 
+        for ident in $(find ~/.ssh | grep 'ssh/assaf'| grep -v pub)
+                do
                         ssh-add "$ident"
                         if [ $? -eq 2 ];then
                                 echo "Could not ssh-add $ident"
@@ -100,7 +100,7 @@ function old_ssh_settings {
         if [ $? -eq 0 ]; then
             test_identities
         fi
-    # if $SSH_AGENT_PID is not properly set, we might be able to load one from 
+    # if $SSH_AGENT_PID is not properly set, we might be able to load one from
     # $SSH_ENV
     else
         if [ -f "$SSH_ENV" ]; then
@@ -121,7 +121,7 @@ SRC_FILE_LIST=file_list.in
 cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
-#################### main 
+#################### main
 
 if [ -z ${ORIG_PATH+x} ]; then
 	# echo "setting ORIG_PATH to $PATH"
@@ -142,7 +142,7 @@ if [[ -n $SSH_CONNECTION ]] ; then
 else
         export TERM=linux
     eval `dircolors`
-fi    
+fi
 
 xhost +local:root > /dev/null 2>&1
 
@@ -155,6 +155,7 @@ shopt -s dotglob
 shopt -s expand_aliases
 shopt -s extglob
 shopt -s histappend
+shopt -s histverify
 shopt -s hostcomplete
 shopt -s nocaseglob
 
@@ -182,7 +183,7 @@ add_to_path "$LOCAL/bin"
 source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
-case "`cat ~/hostname.txt`" in 
+case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
         export GOPATH=$HOME/wspace/go_ws
         add_to_path $GOPATH/bin
@@ -245,7 +246,7 @@ case "`cat ~/hostname.txt`" in
         alias stnvim="nvim --cmd 'cd target/sources/sto'"
         alias sttag="(cd target/sources/sto/ && rm cscope.* ; ttf ; ttu)"
         ;;
-    * )	    
+    * )
         ;;
 esac
 
