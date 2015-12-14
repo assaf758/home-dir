@@ -55,60 +55,63 @@ Plug 'morhetz/gruvbox',
 call plug#end()
 endfun
 
-" Cscope **********************************************************************
-func! Cscope()
-if has("cscope")
-    set csprg=/usr/bin/cscope
-    set cst       " <C-]> will use both cscope and ctag results 
-    set csto=0    " Search defintion in cscope first , and if nothing found search tag
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    " else add database pointed to by environment
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-    set csverb
-    if has('quickfix')
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
-endif
-
-"find refs to C symbol under cursor
-nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
-"find def of M symbol under cursor
-nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
-"find file under cursor
-nmap g<C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
-
-" note that "-" and "_" are interchangable when mapping with ctrl
-nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
-nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-_>i :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-endfunc!
-
-cnoreabbrev <expr> csu
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? '!cscope -Rbq'  : 'csu')
-cnoreabbrev <expr> csa
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
-cnoreabbrev <expr> csf
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
-cnoreabbrev <expr> csk
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
-cnoreabbrev <expr> csr
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
-cnoreabbrev <expr> css
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
-cnoreabbrev <expr> csh
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
 
 " Help functions **************************************************************
+
+" ******* Cscope **************************************************************
+func! Cscope()
+    if has("cscope")
+        set csprg=/usr/bin/cscope
+        set cst       " <C-]> will use both cscope and ctag results 
+        set csto=0    " Search defintion in cscope first , and if nothing found search tag
+        set nocsverb
+        " add any database in current directory
+        if filereadable("cscope.out")
+            cs add cscope.out
+        " else add database pointed to by environment
+        elseif $CSCOPE_DB != ""
+            cs add $CSCOPE_DB
+        endif
+        set csverb
+        if has('quickfix')
+            set cscopequickfix=s-,c-,d-,i-,t-,e-
+        endif
+    endif
+
+    "find refs to C symbol under cursor
+    nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
+    "find def of M symbol under cursor
+    nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
+    "find file under cursor
+    nmap g<C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
+
+    " note that "-" and "_" are interchangable when mapping with ctrl
+    nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
+    nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-_>i :cs find i <C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+    cnoreabbrev <expr> csu
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? '!cscope -Rbq'  : 'csu')
+    cnoreabbrev <expr> csa
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+    cnoreabbrev <expr> csf
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+    cnoreabbrev <expr> csk
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+    cnoreabbrev <expr> csr
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+    cnoreabbrev <expr> css
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+    cnoreabbrev <expr> csh
+        \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+
+endfunc!
+
 
 " ex command for toggling hex mode - define mapping if desired
 command! -bar Hexmode call ToggleHex()
