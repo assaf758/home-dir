@@ -1,85 +1,9 @@
-set nocompatible
+if !has('nvim')
+  set nocompatible
+endif 
+
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
-
- " VAM *********************************************************************************
-" fun! EnsureVamIsOnDisk(plugin_root_dir)
-"   let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
-"   if isdirectory(vam_autoload_dir)
-"     return 1
-"   else
-"     if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
-"       " I'm sorry having to add this reminder. Eventually it'll pay off.
-"       call confirm("Remind yourself that most plugins ship with ".
-"                   \"documentation (README*, doc/*.txt). It is your ".
-"                   \"first source of knowledge. If you can't find ".
-"                   \"the info you're looking for in reasonable ".
-"                   \"time ask maintainers to improve documentation")
-"       call mkdir(a:plugin_root_dir, 'p')
-"       execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
-"                   \       shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
-"       " VAM runs helptags automatically when you install or update
-"       " plugins
-"       exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
-"     endif
-"     return isdirectory(vam_autoload_dir)
-"   endif
-" endfun
-
-" fun! SetupVAM()
-"   " Set advanced options like this:
-"   " let g:vim_addon_manager = {}
-"   " let g:vim_addon_manager.key = value
-"   "     Pipe all output into a buffer which gets written to disk
-"   " let g:vim_addon_manager.log_to_buf =1
-
-"   " Example: drop git sources unless git is in PATH. Same plugins can
-"   " be installed from www.vim.org. Lookup MergeSources to get more control
-"   " let g:vim_addon_manager.drop_git_sources = !executable('git')
-"   " let g:vim_addon_manager.debug_activation = 1
-
-"   " VAM install location:
-"   let plugin_root_dir = expand('$HOME/.vim/vim-addons')
-"   if !EnsureVamIsOnDisk(plugin_root_dir)
-"     echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
-"     return
-"   endif
-"   let &rtp.=(empty(&rtp)?'':',').plugin_root_dir.'/vim-addon-manager'
-
-"   " Tell VAM which plugins to fetch & load:
-"   let xx = Hosttype()
-"   if xx ==# "ASSAF-LAP\n"
-" 	echo 1
-" 	call vam#ActivateAddons(['Solarized',], {'auto_install' : -1})
-"         inoremap <BS> <c-r>=Backspace()<CR>
-"   elseif xx ==# "assaf-lap-debian64\n"
-"  	call vam#ActivateAddons(['Conque_Shell','Solarized','ctrlp'], {'auto_install' : -1})
-"         python from powerline.ext.vim import source_plugin; source_plug
-"   elseif xx ==# "a10\n" || xx ==# "hlinux\n" || xx ==# "vlinux\n"
-" 	call vam#ActivateAddons(['Conque_Shell',
-" 	\'github:benmills/vimux',
-" 	\'github:bernh/pss.vim',
-" 	\'renamer',
-"         \'CSApprox',
-"         \'YankRing',
-"         \'github:bling/vim-airline',
-" 	\'github:flazz/vim-colorschemes',
-" 	\'github:tpope/vim-commentary',
-"         \'github:tpope/vim-unimpaired',
-" 	\'github:godlygeek/tabular',
-" 	\'github:tpope/vim-repeat',
-"         \'LustyJuggler',
-" 	\'github:kien/ctrlp.vim',
-"         \'github:tpope/vim-vinegar',
-" 	\'github:wesleyche/SrcExpl',
-"         \'github:majutsushi/tagbar',
-" 	\'github:Valloric/YouCompleteMe',
-"         \], {'auto_install' : -1})
-"   else
-" 	"echo "default"
-"   endif
-" endfun
-
 
 fun! SetupPlug()
 call plug#begin('~/.vim/plugged')
@@ -94,25 +18,34 @@ Plug 'tpope/vim-unimpaired',
 Plug 'godlygeek/tabular',
 Plug 'tpope/vim-repeat',
 Plug 'LustyJuggler',
-Plug 'kien/ctrlp.vim',
 Plug 'tpope/vim-vinegar',
 Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
-Plug 'vim-scripts/EvalSelection.vim',
+Plug 'moll/vim-bbye',
+Plug 'wincent/terminus',
+Plug 'tpope/vim-abolish',
 Plug 'moll/vim-bbye',
 Plug 'MattesGroeger/vim-bookmarks',
+Plug 'bogado/file-line',
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' },
+Plug 'junegunn/fzf.vim',
+Plug 'FelikZ/ctrlp-py-matcher',
+Plug 'Shougo/deoplete.nvim',
+Plug 'morhetz/gruvbox',
+Plug 'Lokaltog/vim-easymotion',
+Plug 'morhetz/gruvbox',
+
+" Plug 'vim-scripts/EvalSelection.vim',
 "Plug 'CSApprox',
 "Plug 'AndrewRadev/splitjoin.vim',
-"\'Solarized',
 "\'UltiSnips',
 "\'github:gcmt/wildfire.vim',
 "\'github:ardagnir/vimbed',
 "\'github:tpope/vim-fugitive',
 "\'github:Lokaltog/vim-powerline',
-"\'github:Lokaltog/vim-easymotion',
 "\'AsyncCommand', - requires +clientserver
 "\'github:Valloric/YouCompleteMe',
 "\'github:ervandew/supertab',
@@ -141,10 +74,12 @@ if has("cscope")
     endif
 endif
 
-"find C symbol
+"find refs to C symbol under cursor
 nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
-"find this definition 
+"find def of M symbol under cursor
 nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
+"find file under cursor
+nmap g<C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
 
 " note that "-" and "_" are interchangable when mapping with ctrl
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
@@ -238,7 +173,7 @@ function! RangeChooser()
     " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
     " with ranger 1.4.2 through 1.5.0 instead.
     "exec 'silent !ranger --choosefile=' . shellescape(temp)
-    exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    exec 'silent terminal ranger --choosefiles=' . termescape()(temp)
     if !filereadable(temp)
         redraw!
         " Nothing to read.
@@ -326,7 +261,7 @@ else
   nnoremap <c-l> <c-w>l
 endif
  
-nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
+nnoremap <silent> <leader>Ev :e ~/.vimrc<cr>
 nnoremap <silent> <leader>Ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
@@ -426,16 +361,10 @@ if has("gui_running")
   endif
 endif
 
-"**** Needed also for Powerline ************
-"using the python installer, not the vim-plugin manager
-"source ~/.vim/vim-addons/github-Lokaltog-powerline/powerline/ext/vim/source_plugin.vim
 set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
-
-" run VAM package manger
-" let g:additional_addon_dirs = ['/home/assaf/.vim/manual-addons']
-" call SetupVAM()
+if !has('nvim')
+  set encoding=utf-8 " Necessary to show Unicode glyphs
+endif
 
 set vb t_vb=  " No beeps
 
@@ -493,20 +422,12 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
-let g:solarized_termtrans = 1
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-"colorscheme solarized
-"colorscheme evening
-"colorscheme fog2
-colorscheme simple256
-highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
-highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
-highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
-highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+colorscheme gruvbox
+set background=dark
+" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
+" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
+" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
+" highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 
 " tabs & indentation
@@ -535,8 +456,10 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
-" Copy full pathname of current buffer to the unmamed register
-nnoremap cpp :let @" = expand("%") . ":" . line(".") . ":" . getline(".")<CR>
+" Echo current buffer's Full Pathname to the vim command line 
+nnoremap <leader>cfp :echo expand("%:p")<CR>
+" Echo current buffer's Filename (tail) + Line number to the vim command line 
+nnoremap <leader>cfl :echo expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
@@ -574,6 +497,9 @@ try
   catch /E539: Illegal character/
 endtry
 
+" bookmarks
+highlight SignColumn ctermbg=black
+
 " LustyJuggler
 let g:LustyJugglerSuppressRubyWarning = 1
 
@@ -581,12 +507,25 @@ let g:LustyJugglerSuppressRubyWarning = 1
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
-" CtrlP
-let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
-let g:ctrlp_max_files = 0  " No limit to amount of files to scan
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>f :CtrlP<cr>
-nnoremap <leader>m :CtrlPMixed<cr>
+" FZF
+nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>F :Files<cr>
+nnoremap <leader>f :Files apps/asm<cr>
+
+" " CtrlP
+" let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
+" let g:ctrlp_max_files = 0  " No limit to amount of files to scan
+" let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+"       \ --ignore .git
+"       \ --ignore .svn
+"       \ --ignore .hg
+"       \ --ignore .DS_Store
+"       \ --ignore "**/*.pyc"
+"       \ -g ""'
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" nnoremap <leader>b :CtrlPBuffer<cr>
+" nnoremap <leader>f :CtrlP<cr>
+" nnoremap <leader>m :CtrlPMixed<cr>
 
 " expand_region 
 call expand_region#custom_text_objects({ 
