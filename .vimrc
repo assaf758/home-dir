@@ -31,7 +31,7 @@ Plug 'Shougo/deoplete.nvim',
 Plug 'morhetz/gruvbox',
 Plug 'Lokaltog/vim-easymotion',
 Plug 'morhetz/gruvbox',
-Plug 'github:tpope/vim-fugitive',
+Plug 'tpope/vim-fugitive',
 
 " Plug 'vim-scripts/EvalSelection.vim',
 "Plug 'CSApprox',
