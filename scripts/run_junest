@@ -1,0 +1,10 @@
+#!/bin/bash
+JUNEST_CFG="$HOME/.config/junest"
+mkdir -p $JUNEST_CFG/
+cp /etc/passwd $JUNEST_CFG/passwd
+cp /etc/group $JUNEST_CFG/group
+echo $USER:x:$(id -u):$(id -g):$USER:$HOME:$SHELL >> $JUNEST_CFG/passwd
+for i in $( id -G ); do
+	 getent group $i | awk -F':' '{print $1 ":" $2 ":" $3 ":"}' >> $JUNEST_CFG/group
+done
+junest -p "-b $JUNEST_CFG/passwd:/etc/passwd -b $JUNEST_CFG/group:/etc/group -b /mnt/a10/it -k 3.10" "$@"

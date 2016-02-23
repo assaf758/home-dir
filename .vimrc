@@ -1,12 +1,9 @@
 if !has('nvim')
   set nocompatible
-endif 
-
-filetype indent plugin on   " load plugins and set indentation per file type
-syn on
+endif
 
 fun! SetupPlug()
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'benmills/vimux',
 Plug 'bernh/pss.vim',
 Plug 'https://github.com/vim-scripts/renamer.vim',
@@ -19,12 +16,10 @@ Plug 'godlygeek/tabular',
 Plug 'tpope/vim-repeat',
 Plug 'LustyJuggler',
 Plug 'tpope/vim-vinegar',
-Plug 'wesleyche/SrcExpl',
 Plug 'majutsushi/tagbar',
 Plug 'tpope/vim-rsi',
 Plug 'terryma/vim-expand-region',
 Plug 'christoomey/vim-tmux-navigator',
-Plug 'moll/vim-bbye',
 Plug 'wincent/terminus',
 Plug 'tpope/vim-abolish',
 Plug 'moll/vim-bbye',
@@ -32,25 +27,13 @@ Plug 'MattesGroeger/vim-bookmarks',
 Plug 'bogado/file-line',
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' },
 Plug 'junegunn/fzf.vim',
-Plug 'FelikZ/ctrlp-py-matcher',
 Plug 'Shougo/deoplete.nvim',
 Plug 'morhetz/gruvbox',
 Plug 'Lokaltog/vim-easymotion',
 Plug 'morhetz/gruvbox',
-
-" Plug 'vim-scripts/EvalSelection.vim',
-"Plug 'CSApprox',
-"Plug 'AndrewRadev/splitjoin.vim',
-"\'UltiSnips',
-"\'github:gcmt/wildfire.vim',
-"\'github:ardagnir/vimbed',
-"\'github:tpope/vim-fugitive',
-"\'github:Lokaltog/vim-powerline',
-"\'AsyncCommand', - requires +clientserver
-"\'github:Valloric/YouCompleteMe',
-"\'github:ervandew/supertab',
-"\'github:gcmt/wildfire.vim',
-"'taglist',
+Plug 'airodactyl/neovim-ranger',
+" Plug 'ludovicchabant/vim-gutentags',
+Plug 'ntnn/vim-gutentags', { 'branch': 'gtags-cscope' }
 call plug#end()
 endfun
 
@@ -61,16 +44,20 @@ endfun
 func! Cscope()
     if has("cscope")
         set csprg=/usr/bin/cscope
-        set cst       " <C-]> will use both cscope and ctag results 
+        set cst       " <C-]> will use both cscope and ctag results
         set csto=0    " Search defintion in cscope first , and if nothing found search tag
         set nocsverb
-        " add any database in current directory
+        "add any database in current directory
         if filereadable("cscope.out")
             cs add cscope.out
         " else add database pointed to by environment
         elseif $CSCOPE_DB != ""
             cs add $CSCOPE_DB
         endif
+
+	"let g:gutentags_modules = [ 'gtags_cscope', 'ctags' ]
+	let g:gutentags_enabled = 0
+
         set csverb
         if has('quickfix')
             set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -78,14 +65,14 @@ func! Cscope()
     endif
 
     "find refs to C symbol under cursor
-    nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
+    nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>
     "find def of M symbol under cursor
-    nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
+    nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>
     "find file under cursor
     nmap g<C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
 
     " note that "-" and "_" are interchangable when mapping with ctrl
-    nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
+    nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
@@ -111,9 +98,6 @@ func! Cscope()
 
 endfunc!
 
-
-" ex command for toggling hex mode - define mapping if desired
-command! -bar Hexmode call ToggleHex()
 " helper function to toggle hex mode
 function! ToggleHex()
   " hex mode should be considered a read-only operation
@@ -167,35 +151,9 @@ endfunc!
 
 " Find the hostname - using my own "proprietry" method
 fun! Hosttype()
-  let hostname = system("cat ~/hostname.txt")	
+  let hostname = system("cat ~/hostname.txt")
   return hostname
 endfun!
-
-function! RangeChooser()
-    let temp = tempname()
-    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
-    " with ranger 1.4.2 through 1.5.0 instead.
-    "exec 'silent !ranger --choosefile=' . shellescape(temp)
-    exec 'silent terminal ranger --choosefiles=' . termescape()(temp)
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'edit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
 
 fun! My_mappings()
   redir! > ~/vim_maps.txt
@@ -204,6 +162,7 @@ fun! My_mappings()
   redir END
   e ~/vim_maps.txt
 endfun!
+
 "******************************************************************************
 "              Main
 "******************************************************************************
@@ -211,12 +170,15 @@ call SetupPlug()
 
 let layout = system("layout.sh")
 " change the mapleader from \ to <space>
-let mapleader = "\<space>"  
+let mapleader = "\<space>"
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
 
 call yankstack#setup()
+
+filetype indent plugin on   " load plugins and set indentation per file type
+syn on
 
 "if layout ==# "us(workman)\n"
 if 1
@@ -263,21 +225,18 @@ else
   nnoremap <c-h> <c-w>h
   nnoremap <c-l> <c-w>l
 endif
- 
-nnoremap <silent> <leader>Ev :e ~/.vimrc<cr>
+
+
+" ex command for toggling hex mode - define mapping if desired
+command! -bar Hexmode call ToggleHex()
+
+nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>Ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap Y y$
-
-" Add ranger as a file chooser in vim
-" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
-" files, press enter and ranger will quit again and vim will open the selected
-" files.
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
@@ -311,21 +270,21 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 
 " fix meta-keys which generate <Esc>a .. <Esc>z
 " https://github.com/maxbrunsfeld/vim-yankstack/wiki/Linux-terminal-configurations-for-correct-meta-key-handling
-let c='a'
-while c <= 'z'
-  exec "set <M-".toupper(c).">=\e".c
-  exec "imap \e".c." <M-".toupper(c).">"
-  let c = nr2char(1+char2nr(c))
-endw
+" let c='a'
+" while c <= 'z'
+"   exec "set <M-".toupper(c).">=\e".c
+"   exec "imap \e".c." <M-".toupper(c).">"
+"   let c = nr2char(1+char2nr(c))
+" endw
 
 " open quickfix window
-copen 
+copen
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
-" test search object. 
+" test search object
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
@@ -406,20 +365,6 @@ nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 	\ else <Bar>
 	\   syntax enable <Bar>
 	\ endif <CR>
-"set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-"set statusline=%t       "tail of the filename
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
-"set statusline+=%h      "help file flag
-"set statusline+=%#error# "switch to error highligh
-"set statusline+=%m      "modified flag
-"set statusline+=%*       "switch back to normal statusline highlight
-"set statusline+=%r      "read only flag
-"set statusline+=%y      "filetype
-"set statusline+=%=      "left/right separator
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -427,9 +372,9 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Colorscheme **************
 colorscheme gruvbox
 set background=dark
-" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
-" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
-" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
+" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
+" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black
+" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
 " highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 
@@ -459,9 +404,9 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
-" Echo current buffer's Full Pathname to the vim command line 
+" Echo current buffer's Full Pathname to the vim command line
 nnoremap <leader>cfp :echo expand("%:p")<CR>
-" Echo current buffer's Filename (tail) + Line number to the vim command line 
+" Echo current buffer's Filename (tail) + Line number to the vim command line
 nnoremap <leader>cfl :echo expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
@@ -483,7 +428,7 @@ call Cscope() " Do cscope config
 "Configure Tagbar winodw display/hide
 nmap <F9> :TagbarToggle<CR>
 
-" netrw 
+" netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
 " use gc to change vim cwd to the nerw dir
 
@@ -492,16 +437,19 @@ nmap <F9> :TagbarToggle<CR>
 set completeopt=menu,menuone
 let g:SuperTabDefaultCompletionType = "context"
 
-" YouCompleteMe config
-" Do not display "Pattern not found" messages during YouCompleteMe completion
-" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-try
-  set shortmess+=c
-  catch /E539: Illegal character/
-endtry
-
 " bookmarks
 highlight SignColumn ctermbg=black
+
+"deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#disable_auto_complete = 1
+inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ deoplete#mappings#manual_complete()
+
+" let g:clang_complete_auto = 0
+"     let g:clang_auto_select = 0
+"     let g:clang_default_keymappings = 0
 
 " LustyJuggler
 let g:LustyJugglerSuppressRubyWarning = 1
@@ -530,8 +478,8 @@ nnoremap <leader>f :Files apps/asm<cr>
 " nnoremap <leader>f :CtrlP<cr>
 " nnoremap <leader>m :CtrlPMixed<cr>
 
-" expand_region 
-call expand_region#custom_text_objects({ 
+" expand_region
+call expand_region#custom_text_objects({
       \ "\/\\n\\n\<CR>": 1,  
       \ 'a]' :1,  
       \ 'ab' :1,  
