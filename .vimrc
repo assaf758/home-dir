@@ -6,7 +6,7 @@ filetype indent plugin on   " load plugins and set indentation per file type
 syn on
 
 fun! SetupPlug()
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'benmills/vimux',
 Plug 'bernh/pss.vim',
 Plug 'https://github.com/vim-scripts/renamer.vim',
@@ -37,6 +37,8 @@ Plug 'Shougo/deoplete.nvim',
 Plug 'morhetz/gruvbox',
 Plug 'Lokaltog/vim-easymotion',
 Plug 'morhetz/gruvbox',
+Plug 'vim-scripts/cscope_dynamic',
+Plug 'github:tpope/vim-fugitive',
 
 " Plug 'vim-scripts/EvalSelection.vim',
 "Plug 'CSApprox',
@@ -44,7 +46,6 @@ Plug 'morhetz/gruvbox',
 "\'UltiSnips',
 "\'github:gcmt/wildfire.vim',
 "\'github:ardagnir/vimbed',
-"\'github:tpope/vim-fugitive',
 "\'github:Lokaltog/vim-powerline',
 "\'AsyncCommand', - requires +clientserver
 "\'github:Valloric/YouCompleteMe',
@@ -306,14 +307,14 @@ command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-arg
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 
 
-" fix meta-keys which generate <Esc>a .. <Esc>z
-" https://github.com/maxbrunsfeld/vim-yankstack/wiki/Linux-terminal-configurations-for-correct-meta-key-handling
-let c='a'
-while c <= 'z'
-  exec "set <M-".toupper(c).">=\e".c
-  exec "imap \e".c." <M-".toupper(c).">"
-  let c = nr2char(1+char2nr(c))
-endw
+" " fix meta-keys which generate <Esc>a .. <Esc>z
+" " https://github.com/maxbrunsfeld/vim-yankstack/wiki/Linux-terminal-configurations-for-correct-meta-key-handling
+" let c='a'
+" while c <= 'z'
+"   exec "set <M-".toupper(c).">=\e".c
+"   exec "imap \e".c." <M-".toupper(c).">"
+"   let c = nr2char(1+char2nr(c))
+" endw
 
 " open quickfix window
 copen 
