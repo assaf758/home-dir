@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# HEAD=$(svn log -l 1 | grep -r "r[0-9][0-9]*\w" -o | grep -r "[0-9][0-9]*" -o)
+HEAD=$(svn log -l 1 -r HEAD:1 | grep -r "r[0-9][0-9]*\w" -o | grep -r "[0-9][0-9]*" -o)
+limit=${1}
+[[ -z "$1" ]] && limit=10
+
+# revisions=$(svn log -l $limit | grep -r "r[0-9][0-9]*\w" -o | grep -r "[0-9][0-9]*" -o)
+revisions=$(svn log -l $limit -r HEAD:1 | grep -r "r[0-9][0-9]*\w" -o | grep -r "[0-9][0-9]*" -o)
+
+mkdir -p ~/diffs
+echo $revisions > ~/diffs/revisions.log
+
+for revision in ${revisions}
+do
+        diff=$(svn diff -r $revision:${HEAD})
+        log=$(svn log -r ${HEAD})
+        echo "${log}" > ~/diffs/diff-$HEAD.log
+        echo "$diff" >> ~/diffs/diff-$HEAD.log
+        HEAD=$revision
+done

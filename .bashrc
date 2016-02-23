@@ -143,8 +143,8 @@ if [ -z ${ORIG_PATH+x} ]; then
 	export ORIG_PATH=$PATH
 fi
 
-if [ -f /etc/bash_completion ]; then
-            . /etc/bash_completion
+if [ -f /usr/share/bash-completion/bash_completion ] ; then
+    source /usr/share/bash-completion/bash_completion
 fi
 
 if [[ -n $SSH_CONNECTION ]] ; then
@@ -258,7 +258,7 @@ case "`cat ~/hostname.txt`" in
         alias stdist20="sudo make MOD=20 64BIT=yes distclean"
         alias stdist52="sudo make MOD=52 64BIT=yes distclean"
         alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
-	alias nvim="TERM=xterm-termite nvim"
+	alias nvim="TERM=screen-256color nvim"
         alias stnvim="nvim --cmd 'cd target/sources/sto'"
         alias sttag="(cd target/sources/sto/ && rm cscope.* ; ttf ; ttu)"
         ;;

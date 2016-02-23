@@ -1,0 +1,7 @@
+#!/bin/bash
+TMPFILE="/tmp/$(basename $0).$$.tmp"
+echo "$(pwd)" > ${TMPFILE}
+# scp  ${TMPFILE} $1:~/.cwdfile
+cp  ${TMPFILE} ~/.cwdfile
+rm $TMPFILE
+ssh $@
