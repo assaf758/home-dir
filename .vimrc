@@ -33,6 +33,8 @@ Plug 'morhetz/gruvbox'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
+Plug 'airodactyl/neovim-ranger'
+Plug 'KabbAmine/vCoolor.vim'
 
 "Plug 'vim-scripts/EvalSelection.vim'
 "Plug 'CSApprox'
@@ -68,8 +70,8 @@ func! Cscope()
             cs add $CSCOPE_DB
         endif
 
-	"let g:gutentags_modules = [ 'gtags_cscope', 'ctags' ]
-	let g:gutentags_enabled = 0
+        "let g:gutentags_modules = [ 'gtags_cscope', 'ctags' ]
+        let g:gutentags_enabled = 0
 
         set csverb
         if has('quickfix')
@@ -168,6 +170,32 @@ fun! Hosttype()
   return hostname
 endfun!
 
+" Return indent (all whitespace at start of a line), converted from
+" tabs to spaces if what = 1, or from spaces to tabs otherwise.
+" When converting to tabs, result has no redundant spaces.
+function! Indenting(indent, what, cols)
+  let spccol = repeat(' ', a:cols)
+  let result = substitute(a:indent, spccol, '\t', 'g')
+  let result = substitute(result, ' \+\ze\t', '', 'g')
+  if a:what == 1
+    let result = substitute(result, '\t', spccol, 'g')
+  endif
+  return result
+endfunction
+
+" Convert whitespace used for indenting (before first non-whitespace).
+" what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
+" cols = string with number of columns per tab, or empty to use 'tabstop'.
+" The cursor position is restored, but the cursor will be in a different
+" column when the number of characters in the indent of the line is changed.
+function! IndentConvert(line1, line2, what, cols)
+  let savepos = getpos('.')
+  let cols = empty(a:cols) ? &tabstop : a:cols
+  execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+  call histdel('search', -1)
+  call setpos('.', savepos)
+endfunction
+
 fun! My_mappings()
   redir! > ~/vim_maps.txt
   verbose map
@@ -192,8 +220,9 @@ call yankstack#setup()
 
 filetype indent plugin on   " load plugins and set indentation per file type
 syn on
-
 "if layout ==# "us(workman)\n"
+
+
 if 1
   nmap ; :
   vmap ; :
@@ -251,31 +280,6 @@ nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap Y y$
 
-" Return indent (all whitespace at start of a line), converted from
-" tabs to spaces if what = 1, or from spaces to tabs otherwise.
-" When converting to tabs, result has no redundant spaces.
-function! Indenting(indent, what, cols)
-  let spccol = repeat(' ', a:cols)
-  let result = substitute(a:indent, spccol, '\t', 'g')
-  let result = substitute(result, ' \+\ze\t', '', 'g')
-  if a:what == 1
-    let result = substitute(result, '\t', spccol, 'g')
-  endif
-  return result
-endfunction
-
-" Convert whitespace used for indenting (before first non-whitespace).
-" what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
-" cols = string with number of columns per tab, or empty to use 'tabstop'.
-" The cursor position is restored, but the cursor will be in a different
-" column when the number of characters in the indent of the line is changed.
-function! IndentConvert(line1, line2, what, cols)
-  let savepos = getpos('.')
-  let cols = empty(a:cols) ? &tabstop : a:cols
-  execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
-  call histdel('search', -1)
-  call setpos('.', savepos)
-endfunction
 command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
 command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
@@ -318,7 +322,6 @@ nnoremap <leader>bd :Bdelete<CR>
 
 " Fast buffer selection
 nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
-
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
 " tab hit will provide a list, the third and subsequent tabs will cycle through
@@ -374,10 +377,10 @@ set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
 syntax enable
 nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
-	\   syntax off <Bar>
-	\ else <Bar>
-	\   syntax enable <Bar>
-	\ endif <CR>
+        \   syntax off <Bar>
+        \ else <Bar>
+        \   syntax enable <Bar>
+        \ endif <CR>
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -441,10 +444,6 @@ call Cscope() " Do cscope config
 "Configure Tagbar winodw display/hide
 nmap <F9> :TagbarToggle<CR>
 
-" netrw
-"let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
-" use gc to change vim cwd to the nerw dir
-
 " Completion menu
 "set pumheight=15
 set completeopt=menu,menuone
@@ -452,10 +451,10 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " bookmarks
 highlight SignColumn ctermbg=black
-
 "deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#disable_auto_complete = 1
+" inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-n>" :
         \ deoplete#mappings#manual_complete()
@@ -476,43 +475,21 @@ nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files<cr>
 nnoremap <leader>f :Files apps/asm<cr>
 
-" " CtrlP
-" let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
-" let g:ctrlp_max_files = 0  " No limit to amount of files to scan
-" let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-"       \ --ignore .git
-"       \ --ignore .svn
-"       \ --ignore .hg
-"       \ --ignore .DS_Store
-"       \ --ignore "**/*.pyc"
-"       \ -g ""'
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" nnoremap <leader>b :CtrlPBuffer<cr>
-" nnoremap <leader>f :CtrlP<cr>
-" nnoremap <leader>m :CtrlPMixed<cr>
-
 " expand_region
 call expand_region#custom_text_objects({
-      \ "\/\\n\\n\<CR>": 1,  
-      \ 'a]' :1,  
-      \ 'ab' :1,  
-      \ 'aB' :1, 
-      \ 'ii' :0, 
-      \ 'ai' :0, 
+      \ "\/\\n\\n\<CR>": 1,
+      \ 'a]' :1,
+      \ 'ab' :1,
+      \ 'aB' :1,
+      \ 'ii' :0,
+      \ 'ai' :0,
       \ })
 
-" Command-T config ********************************************
-" let g:CommandTFileScanner="find"
-" let g:CommandTMaxFiles=50000
-" nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-" nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-" The below does not work. Use Ctrl-p?
-" nnoremap <silent> <Leader>c :CommandTTag<CR>
-" Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
 
 " Build and run go program hello.go on specific tmux window
 nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
 " disable soft-wrap (run after all plugins have ran)
-autocmd VimEnter * set nowrap 
+autocmd VimEnter * set nowrap
+
