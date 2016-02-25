@@ -187,6 +187,7 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
+alias tmux='TERM=linux-assaf tmux'
 
 export LOCAL=~/local
 
@@ -289,7 +290,10 @@ alias into17="cdssh dev64-build17"
 #   eval "$(pyenv virtualenv-init -)"
 # fi
 
-export EDITOR=vim
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export EDITOR=nvim
+
+export BROWSER=google-chrome-stable
 export LESS=FSRX
 
 # append to the history file, don't overwrite it

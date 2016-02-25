@@ -1,0 +1,3 @@
+linux-assaf|linux with italics support,
+    sitm=\E[3m, ritm=\E[23m, Tc, use=linux,
+

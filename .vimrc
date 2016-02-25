@@ -4,48 +4,49 @@ endif
 
 fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
-Plug 'benmills/vimux',
-Plug 'bernh/pss.vim',
-Plug 'https://github.com/vim-scripts/renamer.vim',
-Plug 'maxbrunsfeld/vim-yankstack',
-Plug 'bling/vim-airline',
-Plug 'flazz/vim-colorschemes',
-Plug 'tpope/vim-commentary',
-Plug 'tpope/vim-unimpaired',
-Plug 'godlygeek/tabular',
-Plug 'tpope/vim-repeat',
-Plug 'LustyJuggler',
-Plug 'tpope/vim-vinegar',
-Plug 'majutsushi/tagbar',
-Plug 'tpope/vim-rsi',
-Plug 'terryma/vim-expand-region',
-Plug 'christoomey/vim-tmux-navigator',
-Plug 'wincent/terminus',
-Plug 'tpope/vim-abolish',
-Plug 'moll/vim-bbye',
-Plug 'MattesGroeger/vim-bookmarks',
-Plug 'bogado/file-line',
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' },
-Plug 'junegunn/fzf.vim',
-Plug 'Shougo/deoplete.nvim',
-Plug 'morhetz/gruvbox',
-Plug 'Lokaltog/vim-easymotion',
-Plug 'morhetz/gruvbox',
-Plug 'tpope/vim-fugitive',
+Plug 'benmills/vimux'
+Plug 'bernh/pss.vim'
+Plug 'https://github.com/vim-scripts/renamer.vim'
+Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'flazz/vim-colorschemes'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-repeat'
+Plug 'LustyJuggler'
+Plug 'tpope/vim-vinegar'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-rsi'
+Plug 'terryma/vim-expand-region'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'wincent/terminus'
+Plug 'tpope/vim-abolish'
+Plug 'moll/vim-bbye'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'bogado/file-line'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'morhetz/gruvbox'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-fugitive'
 
-" Plug 'vim-scripts/EvalSelection.vim',
-"Plug 'CSApprox',
-"Plug 'AndrewRadev/splitjoin.vim',
-"\'UltiSnips',
-"\'github:gcmt/wildfire.vim',
-"\'github:ardagnir/vimbed',
-"\'github:Lokaltog/vim-powerline',
-"\'AsyncCommand', - requires +clientserver
-"\'github:Valloric/YouCompleteMe',
-"\'github:ervandew/supertab',
-"\'github:gcmt/wildfire.vim',
-"'taglist',
-Plug 'ntnn/vim-gutentags', { 'branch': 'gtags-cscope' }
+"Plug 'vim-scripts/EvalSelection.vim'
+"Plug 'CSApprox'
+"Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'UltiSnips'
+"elug 'gcmt/wildfire.vim'
+"Plug 'ardagnir/vimbed'
+"Plug 'Lokaltog/vim-powerline'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'ervandew/supertab'
+"Plug 'ntnn/vim-gutentags', { 'branch': 'gtags-cscope' }
+"Plug 'AsyncCommand', //  requires +clientserver
+"Plug 'taglist'
+
 call plug#end()
 endfun
 
