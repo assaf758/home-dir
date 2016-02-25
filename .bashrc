@@ -188,6 +188,7 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
 alias tmux='TERM=linux-assaf tmux'
+alias nvim='TERM=linux-assaf nvim'
 
 export LOCAL=~/local
 
