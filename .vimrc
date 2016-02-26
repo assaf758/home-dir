@@ -31,8 +31,20 @@ Plug 'Shougo/deoplete.nvim',
 Plug 'morhetz/gruvbox',
 Plug 'Lokaltog/vim-easymotion',
 Plug 'morhetz/gruvbox',
-Plug 'airodactyl/neovim-ranger',
-" Plug 'ludovicchabant/vim-gutentags',
+Plug 'tpope/vim-fugitive',
+
+" Plug 'vim-scripts/EvalSelection.vim',
+"Plug 'CSApprox',
+"Plug 'AndrewRadev/splitjoin.vim',
+"\'UltiSnips',
+"\'github:gcmt/wildfire.vim',
+"\'github:ardagnir/vimbed',
+"\'github:Lokaltog/vim-powerline',
+"\'AsyncCommand', - requires +clientserver
+"\'github:Valloric/YouCompleteMe',
+"\'github:ervandew/supertab',
+"\'github:gcmt/wildfire.vim',
+"'taglist',
 Plug 'ntnn/vim-gutentags', { 'branch': 'gtags-cscope' }
 call plug#end()
 endfun

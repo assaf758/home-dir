@@ -121,6 +121,21 @@ SRC_FILE_LIST=file_list.in
 cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
 }
 
+function log_bash_persistent_history()
+{
+  [[
+    $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$
+  ]]
+  local date_part="${BASH_REMATCH[1]}"
+  local command_part="${BASH_REMATCH[2]}"
+  if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
+  then
+    echo $date_part "|" "$command_part" >> ~/.persistent_history
+    export PERSISTENT_HISTORY_LAST="$command_part"
+  fi
+}
+
+
 #################### main
 
 if [ -z ${ORIG_PATH+x} ]; then
@@ -162,6 +177,7 @@ shopt -s nocaseglob
 export HISTSIZE=10000
 export HISTFILESIZE=${HISTSIZE}
 export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT="%F %T  "
 
 alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
 alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
@@ -301,7 +317,9 @@ ws_set() {
 
 # Set $LAST to output of last command
 # make it only for interactive somehow? mess yaourt output
-#PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x)'
+#PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x); log_bash_persistent_history'
+
+PROMPT_COMMAND='log_bash_persistent_history'
 
 # Aliases config
 unalias ls &>/dev/null
