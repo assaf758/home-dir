@@ -34,7 +34,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'airodactyl/neovim-ranger'
-Plug 'KabbAmine/vCoolor.vim'
 
 "Plug 'vim-scripts/EvalSelection.vim'
 "Plug 'CSApprox'
@@ -451,6 +450,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " bookmarks
 highlight SignColumn ctermbg=black
+
 "deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#disable_auto_complete = 1
