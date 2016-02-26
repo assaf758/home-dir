@@ -11,7 +11,8 @@ Plug 'benmills/vimux'
 Plug 'bernh/pss.vim'
 Plug 'vim-scripts/renamer.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -24,7 +25,6 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-rsi'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'moll/vim-bbye'
 Plug 'wincent/terminus'
 Plug 'tpope/vim-abolish'
 Plug 'moll/vim-bbye'
@@ -37,8 +37,10 @@ Plug 'morhetz/gruvbox'
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
-Plug 'multilobyte/gtags-cscope'
+Plug 'assaf758/gtags-cscope' "Plug 'multilobyte/gtags-cscope'
 Plug 'mhinz/vim-grepper'
+Plug 'tpope/vim-fugitive'
+Plug 'panickbr/neovim-ranger'
 
 " Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'FelikZ/ctrlp-py-matcher'
@@ -436,9 +438,9 @@ set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
 set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
-set smarttab      " insert tabs on the start of a line according to
-                  " shiftwidth, not tabstop
+set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab	  " Always expand tabs to corresponding number of spaces
+set tabstop=4     " size of a hard tabstop char
 
 " toggle showing of whitespace chars
 nnoremap <leader>sp :set list! list?<cr>
@@ -513,21 +515,6 @@ nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files<cr>
 nnoremap <leader>f :Files apps/asm<cr>
 
-" " CtrlP
-" let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
-" let g:ctrlp_max_files = 0  " No limit to amount of files to scan
-" let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-"       \ --ignore .git
-"       \ --ignore .svn
-"       \ --ignore .hg
-"       \ --ignore .DS_Store
-"       \ --ignore "**/*.pyc"
-"       \ -g ""'
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" nnoremap <leader>b :CtrlPBuffer<cr>
-" nnoremap <leader>f :CtrlP<cr>
-" nnoremap <leader>m :CtrlPMixed<cr>
-
 " expand_region 
 call expand_region#custom_text_objects({ 
       \ "\/\\n\\n\<CR>": 1,  
@@ -541,15 +528,10 @@ call expand_region#custom_text_objects({
 " vimux config
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
-" Command-T config ********************************************
-" let g:CommandTFileScanner="find"
-" let g:CommandTMaxFiles=50000
-" nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-" nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-" The below does not work. Use Ctrl-p?
-" nnoremap <silent> <Leader>c :CommandTTag<CR>
+
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
+set tabstop=4     " size of a hard tabstop char
 
 " Build and run go program hello.go on specific tmux window
 nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
