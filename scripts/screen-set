@@ -4,16 +4,16 @@ case "$1" in
 "") 
   echo "Usage: ${0##*/} { inernal-only | external-home | external-office }"
   ;;
-internal)
-  xrandr --output eDP1 --auto --output DP1  --off --output DP2 --off --output HDMI1 --off
+wlinux-internal)
+  xrandr --output eDP1 --auto --output DP-0  --off --output DP2 --off --output HDMI1 --off
   ;;
-external-home)
-  xrandr --output eDP1 --off  --output HDMI1 --auto --rotate normal --mode 1280x1024
-  xrandr --output eDP1 --off  --output HDMI1 --auto --rotate normal --mode 2560x1440
+wlinux-home-external)
+  xrandr --output eDP1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152
   ;;
-external-office)
-  xrandr --output eDP1 --off  --output HDMI1 --auto --rotate normal --mode 1280x1024
-  xrandr --output eDP1 --off  --output HDMI1 --auto --rotate normal --mode 1920x1080
+wlinux-office-external)
+  # xrandr --output eDP1 --off  --output DP-0 --auto --rotate normal --mode 1280x1024
+  xrandr --output eDP1 --off  --output DP-0 --auto --rotate normal --mode 1600x900
+  # xrandr --output eDP1 --off  --output DP-0 --auto --rotate normal --mode 1600x900
   ;;
 sj-office)
   xrandr --output eDP1 --off  --output DP2 --auto --rotate normal --mode 1920x1080

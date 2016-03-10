@@ -190,7 +190,7 @@ alias np='nano PKGBUILD'
 alias tmux='TERM=linux-assaf tmux'
 alias nvim='TERM=linux-assaf nvim'
 
-export LOCAL=~/local
+export LOCAL=~/.local
 
 add_to_path "$HOME/scripts"
 add_to_path "/usr/bin/vendor_perl/"
@@ -291,6 +291,10 @@ alias into17="cdssh dev64-build17"
 #   eval "$(pyenv virtualenv-init -)"
 # fi
 
+# global / gtags env
+export GTAGSLABEL=pygments
+export GTAGSCONF=/usr/local/share/gtags/gtags.conf
+
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
 
@@ -336,3 +340,8 @@ alias vbash="vim ~/.bashrc"
 #alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export IGZ_ZIGGY_GITHUB_API_TOKEN=350ab665b1944b5cca5debff6290fa25a7e00426
+export IGZ_ZIGGY_PIVOTAL_API_TOKEN=None
+export IGZ_ZIGGY_PROJECT_NAME=engine
+export PATH=$PATH:/home/assafb/iguazio/ziggy
+eval "$(register-python-argcomplete ziggy)"

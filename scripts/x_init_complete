@@ -11,10 +11,7 @@ xset s off -dpms
 
 kbd_home.sh workman
 
-tmuxinator misc 
-#for i in {1..7}
-#do
-#	xfce4-terminal -e 'ssh assafb@dev64-build12'
-#done
-# xfce4-terminal -e "tmux attach-session -t misc"  &
-#tmux attach-session -t misc"
+TERM=linux-assaf tmuxinator misc 
+
+nohup clipit & 
+nohup autokey &

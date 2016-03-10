@@ -34,7 +34,7 @@ workman)
   ;;
 esac
 
-
+xcape -e 'Control_L=Escape;Control_R=Control_R|O'
   # turn on stickykeys. don't let two keys pressed at the same time disable it.
   # turn on "latch lock", ie pressing a modifier key twice "locks" it on.
   # accessx: press shift 5 times to disable sticky behavior

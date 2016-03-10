@@ -8,7 +8,6 @@ syn on
 fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
 Plug 'benmills/vimux'
-Plug 'bernh/pss.vim'
 Plug 'vim-scripts/renamer.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'bling/vim-airline'
@@ -29,17 +28,24 @@ Plug 'wincent/terminus'
 Plug 'tpope/vim-abolish'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+Plug 'bernh/pss.vim'
+
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
 Plug 'multilobyte/gtags-cscope'
 Plug 'mhinz/vim-grepper'
 
+Plug 'airodactyl/neovim-ranger'
+Plug 'tpope/vim-fugitive'
+
+" Plug 'lyuts/vim-rtags'
 " Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'FelikZ/ctrlp-py-matcher'
 " Plug 'vim-scripts/cscope_dynamic'
@@ -537,6 +543,9 @@ call expand_region#custom_text_objects({
       \ 'ii' :0, 
       \ 'ai' :0, 
       \ })
+
+" rtags
+let g:rtagsUseLocationList = 0
 
 " vimux config
 let g:VimuxRunnerType = "window"

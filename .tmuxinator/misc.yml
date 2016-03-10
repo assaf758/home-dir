@@ -1,8 +1,5 @@
 # ~/.tmuxinator/misc.yml
 
-name: misc
-root: ~/Downloads
-
 # Optional tmux socket
 # socket_name: foo
 
@@ -18,8 +15,11 @@ root: ~/Downloads
 # Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
 # tmux_command: byobu
 
+name: misc
+root: ~/iguazio
+
 windows:
-  - bash: 
-  - root: su - 
+  - nvim: 
+#  - root: su - 
 
     
