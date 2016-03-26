@@ -208,10 +208,7 @@ case "`cat ~/hostname.txt`" in
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
-        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
-        alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
-        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
+        alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -269,7 +266,6 @@ case "`cat ~/hostname.txt`" in
 esac
 
 
-alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
 alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
 alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
 alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"

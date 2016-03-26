@@ -1,0 +1,17 @@
+super + alt+ F5
+    gxmessage hi
+
+super + t 
+    termite
+
+super + F2 
+  gmrun
+
+super + Escape
+	pkill -USR1 -x sxhkd
+
+super + shift + F3
+  ~/scripts/kbd_home.sh workman
+
+super + F3
+  ~/scripts/kbd_home.sh qwerty
