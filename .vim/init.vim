@@ -31,17 +31,17 @@ Plug 'bogado/file-line'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
+Plug 'benekastah/neomake'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
-Plug 'bernh/pss.vim'
 
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
 Plug 'multilobyte/gtags-cscope'
 Plug 'mhinz/vim-grepper'
-
+Plug 'Olical/vim-enmasse'
 Plug 'airodactyl/neovim-ranger'
 Plug 'tpope/vim-fugitive'
 
@@ -175,32 +175,6 @@ fun! Hosttype()
   return hostname
 endfun!
 
-function! RangeChooser()
-    let temp = tempname()
-    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
-    " with ranger 1.4.2 through 1.5.0 instead.
-    "exec 'silent !ranger --choosefile=' . shellescape(temp)
-    exec 'silent terminal ranger --choosefiles=' . termescape()(temp)
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'edit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-
 fun! My_mappings()
   redir! > ~/vim_maps.txt
   verbose map
@@ -274,14 +248,12 @@ nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
+nnoremap <silent> <leader>4 :resize 40<cr>
+nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 40 <cr>
 nnoremap Y y$
 
-" Add ranger as a file chooser in vim
-" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
-" files, press enter and ranger will quit again and vim will open the selected
-" files.
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<C-U>RangerChooser<CR>
+" Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
+nnoremap <silent> <leader>r :e %:p:h<CR>
 
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
@@ -504,6 +476,10 @@ try
   catch /E539: Illegal character/
 endtry
 
+" neomake
+nnoremap <leader>m :Neomake!<cr>
+let &makeprg = '[[ -f Makefile ]] && make || make -j 3 -C build/x86_64/Debug'
+
 " bookmarks
 highlight SignColumn ctermbg=black
 
@@ -516,8 +492,23 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " FZF
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>F :Files<cr>
-nnoremap <leader>f :Files apps/asm<cr>
+nnoremap <leader>F :Files ..<cr>
+nnoremap <leader>f :Files<cr>
+let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
+
+"grepper
+
+let g:grepper = {
+    \ 'tools': ['pss','ag'],
+    \ 'pss': {
+    \   'grepprg':    'pss',
+    \   'grepformat': '%f:%l:%m',
+    \   'escape':     '\+*^$()[]',
+    \ }}
+" example:
+" run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
+" pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
+
 
 " " CtrlP
 " let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir

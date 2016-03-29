@@ -341,3 +341,8 @@ export IGZ_ZIGGY_PIVOTAL_API_TOKEN=None
 export IGZ_ZIGGY_PROJECT_NAME=engine
 export PATH=$PATH:/home/assafb/iguazio/ziggy
 eval "$(register-python-argcomplete ziggy)"
+export IGZ_ZIGGY_GITHUB_API_TOKEN=603a89efde4d6be387352f28d897586d83b547c7
+export IGZ_ZIGGY_PIVOTAL_API_TOKEN=
+export IGZ_ZIGGY_PROJECT_NAME=engine
+export PATH=$PATH:/home/assafb/iguazio/ziggy
+eval "$(register-python-argcomplete ziggy)"
