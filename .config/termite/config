@@ -14,10 +14,10 @@ search_wrap = true
 
 # fc-list -f '%{style[0]}\n' "Source Code Pro"
 #font = Monospace 12
-#font = Droid Sans Mono 12
+font = Droid Sans Mono 12
 #font = Fira Mono Bold 13
 #font = Fantasque Sans Mono  13
-font = Source Code Pro 12
+#font = Source Code Pro 12
 
 # "system", "on" or "off"
 cursor_blink = system

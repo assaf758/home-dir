@@ -20,6 +20,5 @@ root: ~/Downloads
 
 windows:
   - bash: 
-  - root: su - 
 
     

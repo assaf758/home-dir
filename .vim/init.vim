@@ -37,7 +37,7 @@ Plug 'morhetz/gruvbox'
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
-Plug 'assaf758/gtags-cscope' "Plug 'multilobyte/gtags-cscope'
+Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-fugitive'
 Plug 'panickbr/neovim-ranger'
@@ -425,12 +425,9 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
+let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 set background=dark
-" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
-" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
-" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
-" highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 
 
 " tabs & indentation

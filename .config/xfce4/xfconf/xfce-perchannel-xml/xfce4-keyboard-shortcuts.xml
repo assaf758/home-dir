@@ -46,9 +46,6 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="xfce4-terminal --drop-down"/>
       <property name="&lt;Shift&gt;Print" type="string" value="xfce4-screenshooter -w"/>
       <property name="&lt;Super&gt;Escape" type="string" value="xfce4-popup-whiskermenu"/>
-      <property name="&lt;Shift&gt;&lt;Super&gt;F5" type="string" value="nohup wingo --replace &amp; exit"/>
-      <property name="&lt;Super&gt;F4" type="string" value="$HOME/scripts/screen-set internal"/>
-      <property name="&lt;Shift&gt;&lt;Alt&gt;&lt;Super&gt;F4" type="string" value="/home/assafb/scripts/screen-set external-office"/>
       <property name="&lt;Shift&gt;&lt;Alt&gt;&lt;Super&gt;F3" type="string" value="/home/assafb/scripts/kbd_home.sh qwerty"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;F3" type="string" value="/home/assaf/scripts/kbd_home.sh workman"/>
       <property name="&lt;Super&gt;F3" type="string" value="/home/assaf/scripts/kbd_home.sh qwerty-c"/>
