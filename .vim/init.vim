@@ -296,6 +296,7 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 
 " open quickfix window
 copen 
+wincmd k 
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
@@ -496,8 +497,12 @@ nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
 let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 
-"grepper
+" fugitive bindings
+nnoremap <leader>gau :Git add -u<CR>
+nnoremap <leader>gs :Gstatus<CR>
 
+"Grepper
+nnoremap <leader>gr :Grepper<CR>
 let g:grepper = {
     \ 'tools': ['pss','ag'],
     \ 'pss': {
