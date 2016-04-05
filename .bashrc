@@ -223,7 +223,7 @@ case "`cat ~/hostname.txt`" in
         export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_STORAGE}/DL
         export JUNEST_HOME=${WS_STORAGE}/junest_home
-	if [ -z ${JUNEST_ENV+x} ]; then
+        if [ -z ${JUNEST_ENV+x} ]; then
             MYVIM=${LOCAL}/bin/vim
 	    add_to_path "$HOME/junest/bin/"
 	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
@@ -336,13 +336,5 @@ alias vbash="vim ~/.bashrc"
 #alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export IGZ_ZIGGY_GITHUB_API_TOKEN=350ab665b1944b5cca5debff6290fa25a7e00426
-export IGZ_ZIGGY_PIVOTAL_API_TOKEN=None
-export IGZ_ZIGGY_PROJECT_NAME=engine
-export PATH=$PATH:/home/assafb/iguazio/ziggy
-eval "$(register-python-argcomplete ziggy)"
-export IGZ_ZIGGY_GITHUB_API_TOKEN=603a89efde4d6be387352f28d897586d83b547c7
-export IGZ_ZIGGY_PIVOTAL_API_TOKEN=
-export IGZ_ZIGGY_PROJECT_NAME=engine
-export PATH=$PATH:/home/assafb/iguazio/ziggy
-eval "$(register-python-argcomplete ziggy)"
+
+[ -f ~/.iguazio.bashrc ] && source ~/.iguazio.bashrc
