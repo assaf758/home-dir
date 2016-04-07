@@ -320,6 +320,7 @@ ws_set() {
         export WS=`pwd`
 }
 
+
 # Set $LAST to output of last command
 # make it only for interactive somehow? mess yaourt output
 #PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x); log_bash_persistent_history'
@@ -335,6 +336,9 @@ alias vbash="vim ~/.bashrc"
 #unalias vs 2>/dev/null
 #alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
 
+
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/.iguazio.bashrc ] && source ~/.iguazio.bashrc
+
