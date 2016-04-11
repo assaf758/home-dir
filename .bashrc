@@ -90,7 +90,8 @@ function test_identities {
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings () {
-    eval `keychain --eval assafb_a10_id_dsa assafb_a10 assaf758_id_rsa`
+    # eval `keychain --eval assafb_a10 id_rsa`
+    eval `keychain --eval id_rsa`
 }
 
 function old_ssh_settings {
