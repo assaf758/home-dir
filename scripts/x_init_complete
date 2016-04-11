@@ -1,16 +1,23 @@
 #!/bin/sh
+
+set -x
+
 mkdir -p $HOME/var/log
 nohup wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 & 
 sleep 4
 #wingo-settings
-xrdb -merge ~/.Xresources
+# xrdb -merge ~/.Xresources
 xbindkeys 
+
+clipit &  
+sxhkd & 
 
 # disable screen blank
 xset s off -dpms
 
 kbd_home.sh workman
 
+<<<<<<< HEAD
 TERM=linux-assaf tmuxinator misc 
 #for i in {1..7}
 #do
@@ -18,3 +25,12 @@ TERM=linux-assaf tmuxinator misc
 #done
 # xfce4-terminal -e "tmux attach-session -t misc"  &
 #tmux attach-session -t misc"
+=======
+wingo-cmd 'RenameWorkspace "1" "laptop"' 
+wingo-cmd 'AddWorkspace "desktop 2" "code"' 
+# wingo-cmd 'RemoveWorkspace "desktop 3"'
+# wingo-cmd 'RemoveWorkspace "desktop 4"'
+
+TERM=linux-assaf tmuxinator misc 
+
+>>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f

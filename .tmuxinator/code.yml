@@ -15,12 +15,18 @@
 # Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
 tmux_command: TERM=linux-assaf tmux
 
-name: laptop
-root: ~/ws/
+name: code
+root: ~/iguazio/engine/zeek
 windows:
-<<<<<<< HEAD
-  - bash: 
-=======
-  - vagrant: 
->>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
+        - nvim:
+                nvim
+        - build: 
+        - int-test:
+        - stuff:
+            layout: main-vertical
+            panes:
+                - periodic-tags:
+                    periodic_tagger.py
+
+
 

@@ -64,6 +64,8 @@
 ## Control + mouse button 2 release event starts rxvt
 #"rxvt"
 #  Control + b:2 + Release
+gmrun
+Shift+Mod4 + F5
 
 ##################################
 # End of xbindkeys configuration #

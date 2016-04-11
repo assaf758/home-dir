@@ -1,17 +1,15 @@
 [user]
-	name = assaf758
-	email = assaf758@hlinux.hlinux
-[reviewboard]
-	url = http://cmp-cdr-srv1.cmpsys.com
+	name = Assaf Ben Amitai
+	email = assaf758@gmail.com
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 [alias]
+    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
     meld = !git-meld.pl
     ci = commit
     co = checkout
-    st = status
     br = branch 
     df = diff
     dc = diff --cached
@@ -20,10 +18,13 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-files
     rso = remote show origin
-
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
-
+    st = status -sb
+    # list aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+    edit-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; vim `f`"
+    add-unmerged = "!f() { git diff --name-status --diff-filter=U | cut -f2 ; }; git add `f`"
 [merge]
 	tool = git-meld.pl
 [diff]

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=x48
-Comment=The world's greatest calculator
-Exec=x48 -rom ~/bin/gxrom-r -connFont -misc-fixed-bold-r-normal--13-120-75-75-c-70-iso8859-16 -smallFont -misc-fixed-bold-r-normal--13-120-75-75-c-70-iso8859-16 -mediumFont -misc-fixed-bold-r-normal--14-130-75-75-c-70-iso8859-16 -largeFont -misc-fixed-bold-r-normal--15-140-75-75-c-90-iso8859-16
-Icon=accessories-calculator
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Utility;Calculator;

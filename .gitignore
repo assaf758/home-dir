@@ -1,3 +1,11 @@
+.iguazio.bashrc
+.fzf.bash
+.fzf.zsh
+.fzf/
+.persistent_history
+.sudo_as_admin_successful
+.vim/plugged/
+iguazio/
 .vim/autoload/plug.vim
 PlayOnLinux/
 .audacity-data/

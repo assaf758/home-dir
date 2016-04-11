@@ -90,36 +90,7 @@ function test_identities {
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings () {
-    # eval `keychain --eval assafb_a10 id_rsa`
-    eval `keychain --eval id_rsa`
-}
-
-function old_ssh_settings {
-    SSH_ENV="$HOME/.ssh/environment"
-    if [ -n "$SSH_AGENT_PID" ]; then
-        ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-        if [ $? -eq 0 ]; then
-            test_identities
-        fi
-    # if $SSH_AGENT_PID is not properly set, we might be able to load one from
-    # $SSH_ENV
-    else
-        if [ -f "$SSH_ENV" ]; then
-        . "$SSH_ENV" > /dev/null
-        fi
-        ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-        if [ $? -eq 0 ]; then
-            test_identities
-        else
-            start_agent
-        fi
-    fi
-}
-
-function ttu {
-SRC_FILE_LIST=file_list.in
-#ctags -L "$SRC_FILE_LIST"
-cscope -Rbq -i $SRC_FILE_LIST -f 'cscope.out'
+    eval `keychain --eval assafb_a10 id_rsa`
 }
 
 function log_bash_persistent_history()
@@ -191,11 +162,11 @@ alias np='nano PKGBUILD'
 alias tmux='TERM=linux-assaf tmux'
 alias nvim='TERM=linux-assaf nvim'
 
-export LOCAL=~/local
+export LOCAL=~/.local
 
 add_to_path "$HOME/scripts"
-add_to_path "/usr/bin/vendor_perl/"
-add_to_path "$LOCAL/go/bin"
+# add_to_path "/usr/bin/vendor_perl/"
+# add_to_path "$LOCAL/go/bin"
 add_to_path "$HOME/bin"
 add_to_path "$LOCAL/bin"
 
@@ -209,10 +180,8 @@ case "`cat ~/hostname.txt`" in
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
-        alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
-        alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
-        alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
+        # alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
+        alias sss='ssh -X -p 2222 assafb@localhost'
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -227,7 +196,7 @@ case "`cat ~/hostname.txt`" in
         export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_STORAGE}/DL
         export JUNEST_HOME=${WS_STORAGE}/junest_home
-	if [ -z ${JUNEST_ENV+x} ]; then
+        if [ -z ${JUNEST_ENV+x} ]; then
             MYVIM=${LOCAL}/bin/vim
 	    add_to_path "$HOME/junest/bin/"
 	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
@@ -270,27 +239,17 @@ case "`cat ~/hostname.txt`" in
 esac
 
 
-alias sss="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
-alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
-alias ss12="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build12"
-alias ss13="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build13"
-alias ss17="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build17"
-alias srv1_s="ssh root@192.168.212.108"
-alias cli1_s="ssh root@192.168.212.109"
-alias cli2_s="ssh root@192.168.212.110"
-alias jnr="junest -p \"-k 3.10\" -f"
-alias jn="run_junest"
-alias into17="cdssh dev64-build17"
+# alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
+# alias jnr="junest -p \"-k 3.10\" -f"
+# alias jn="run_junest"
+# alias into17="cdssh dev64-build17"
 
 # ssh-settings
 
-# # pyenv install
-# export PYENV_ROOT="${HOME}/.pyenv"
-# if [ -d "${PYENV_ROOT}" ]; then
-#   add_to_path "${PYENV_ROOT}/bin"
-#   eval "$(pyenv init -)"
-#   eval "$(pyenv virtualenv-init -)"
-# fi
+
+# global / gtags env
+export GTAGSLABEL=pygments
+export GTAGSCONF=/usr/local/share/gtags/gtags.conf
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 export EDITOR=nvim
@@ -316,15 +275,6 @@ set -o emacs # make bash readline behave as vi
 # stty werase undef
 bind '"\C-g": backward-delete-char'
 
-# Set WS var to current dir
-ws_set() {
-        export WS=`pwd`
-}
-
-# Set $LAST to output of last command
-# make it only for interactive somehow? mess yaourt output
-#PROMPT_COMMAND='LAST="`cat /tmp/x`"; exec >/dev/tty; exec > >(tee /tmp/x); log_bash_persistent_history'
-
 PROMPT_COMMAND='log_bash_persistent_history'
 
 # Aliases config
@@ -332,8 +282,7 @@ unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
 alias vbash="vim ~/.bashrc"
 
-# slickedit
-#unalias vs 2>/dev/null
-#alias csu='( cd $WS/build && cmake ../src &&  ../tools/genver.sh && cd .. && ~/scripts/create_files_list_swapp.sh )'
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[ -f ~/.iguazio.bashrc ] && source ~/.iguazio.bashrc
+

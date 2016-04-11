@@ -8,7 +8,6 @@ syn on
 fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
 Plug 'benmills/vimux'
-Plug 'bernh/pss.vim'
 Plug 'vim-scripts/renamer.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'vim-airline/vim-airline'
@@ -29,19 +28,25 @@ Plug 'wincent/terminus'
 Plug 'tpope/vim-abolish'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
+Plug 'benekastah/neomake'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
+Plug 'Olical/vim-enmasse'
+Plug 'airodactyl/neovim-ranger'
 Plug 'tpope/vim-fugitive'
-Plug 'panickbr/neovim-ranger'
+Plug 'SirVer/ultisnips' 
 
+" Plug 'lyuts/vim-rtags'
 " Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'FelikZ/ctrlp-py-matcher'
 " Plug 'vim-scripts/cscope_dynamic'
@@ -171,32 +176,6 @@ fun! Hosttype()
   return hostname
 endfun!
 
-function! RangeChooser()
-    let temp = tempname()
-    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
-    " with ranger 1.4.2 through 1.5.0 instead.
-    "exec 'silent !ranger --choosefile=' . shellescape(temp)
-    exec 'silent terminal ranger --choosefiles=' . termescape()(temp)
-    if !filereadable(temp)
-        redraw!
-        " Nothing to read.
-        return
-    endif
-    let names = readfile(temp)
-    if empty(names)
-        redraw!
-        " Nothing to open.
-        return
-    endif
-    " Edit the first item.
-    exec 'edit ' . fnameescape(names[0])
-    " Add any remaning items to the arg list/buffer list.
-    for name in names[1:]
-        exec 'argadd ' . fnameescape(name)
-    endfor
-    redraw!
-endfunction
-
 fun! My_mappings()
   redir! > ~/vim_maps.txt
   verbose map
@@ -270,14 +249,12 @@ nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
+nnoremap <silent> <leader>4 :resize 40<cr>
+nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 40 <cr>
 nnoremap Y y$
 
-" Add ranger as a file chooser in vim
-" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
-" files, press enter and ranger will quit again and vim will open the selected
-" files.
-command! -bar RangerChooser call RangeChooser()
-nnoremap <leader>r :<C-U>RangerChooser<CR>
+" Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
+nnoremap <silent> <leader>r :e %:p:h<CR>
 
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
@@ -320,6 +297,7 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 
 " open quickfix window
 copen 
+wincmd k 
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
@@ -497,6 +475,10 @@ try
   catch /E539: Illegal character/
 endtry
 
+" neomake
+nnoremap <leader>m :Neomake!<cr>
+let &makeprg = '[[ -f Makefile ]] && make || make -j 3 -C build/x86_64/Debug'
+
 " bookmarks
 highlight SignColumn ctermbg=black
 
@@ -509,8 +491,49 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " FZF
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>F :Files<cr>
-nnoremap <leader>f :Files apps/asm<cr>
+nnoremap <leader>F :Files ..<cr>
+nnoremap <leader>f :Files<cr>
+let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
+
+" fugitive bindings
+" nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gre :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gau :Git add -u<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gd :Gdiff<CR>
+
+" nnoremap <space>ga :Git add %:p<CR><CR>
+" nnoremap <space>gs :Gstatus<CR>
+" nnoremap <space>gc :Gcommit -v -q<CR>
+" nnoremap <space>gt :Gcommit -v -q %:p<CR>
+" nnoremap <space>gd :Gdiff<CR>
+" nnoremap <space>ge :Gedit<CR>
+" nnoremap <space>gr :Gread<CR>
+" nnoremap <space>gw :Gwrite<CR><CR>
+" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+" nnoremap <space>gp :Ggrep<Space>
+" nnoremap <space>gm :Gmove<Space>
+" nnoremap <space>gb :Git branch<Space>
+" nnoremap <space>go :Git checkout<Space>
+" nnoremap <space>gps :Dispatch! git push<CR>
+" nnoremap <space>gpl :Dispatch! git pull<CR>
+
+
+"Grepper
+nnoremap <leader>gr :Grepper<CR>
+let g:grepper = {
+    \ 'tools': ['pss','ag'],
+    \ 'pss': {
+    \   'grepprg':    'pss',
+    \   'grepformat': '%f:%l:%m',
+    \   'escape':     '\+*^$()[]',
+    \ }}
+" example:
+" run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
+" pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
+
 
 " expand_region 
 call expand_region#custom_text_objects({ 
@@ -521,6 +544,9 @@ call expand_region#custom_text_objects({
       \ 'ii' :0, 
       \ 'ai' :0, 
       \ })
+
+" rtags
+let g:rtagsUseLocationList = 0
 
 " vimux config
 let g:VimuxRunnerType = "window"

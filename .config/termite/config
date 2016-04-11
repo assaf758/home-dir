@@ -13,8 +13,13 @@ search_wrap = true
 #geometry = 640x480
 
 # fc-list -f '%{style[0]}\n' "Source Code Pro"
+<<<<<<< HEAD
 #font = Monospace 12
 font = Droid Sans Mono 12
+=======
+font = Monospace 13
+#font = Droid Sans Mono 12
+>>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
 #font = Fira Mono Bold 13
 #font = Fantasque Sans Mono  13
 #font = Source Code Pro 12
@@ -34,35 +39,36 @@ cursor_shape = block
 # emit escape sequences for other keys modified by Control
 #modify_other_keys = false
 
-[colors]
-#cursor = #dcdccc
-foreground = #dcdccc
-foreground_bold = #ffffff
-background = #3f3f3f
+# Solarized dark color scheme
 
-# 20% background transparency (requires a compositor)
-#background = rgba(63, 63, 63, 0.8)
+[colors]
+foreground = #839496
+foreground_bold = #eee8d5
+#foreground_dim = #888888
+background = #002b36
+cursor = #93a1a1
 
 # if unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #839496
 
 # colors from color0 to color254 can be set
-color0 = #3f3f3f
-color1 = #705050
-color2 = #60b48a
-color3 = #dfaf8f
-color4 = #506070
-color5 = #dc8cc3
-color6 = #8cd0d3
-color7 = #dcdccc
-color8 = #709080
-color9 = #dca3a3
-color10 = #c3bf9f
-color11 = #f0dfaf
-color12 = #94bff3
-color13 = #ec93d3
-color14 = #93e0e3
-color15 = #ffffff
+color0 = #073642
+color1 = #dc322f
+color2 = #859900
+color3 = #b58900
+color4 = #268bd2
+color5 = #d33682
+color6 = #2aa198
+color7 = #eee8d5
+color8 = #002b36
+color9 = #cb4b16
+color10 = #586e75
+color11 = #657b83
+color12 = #839496
+color13 = #6c71c4
+color14 = #93a1a1
+color15 = #fdf6e3
+
 
 [hints]
 font = Monospace 10
