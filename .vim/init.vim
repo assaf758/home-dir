@@ -411,6 +411,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " Colorscheme **************
+let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
 " highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
