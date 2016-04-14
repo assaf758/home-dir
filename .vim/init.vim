@@ -33,19 +33,17 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
 Plug 'benekastah/neomake'
+Plug 'airodactyl/neovim-ranger'
+Plug 'tpope/vim-fugitive'
+Plug 'SirVer/ultisnips'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
-
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope'
 Plug 'mhinz/vim-grepper'
 Plug 'Olical/vim-enmasse'
-Plug 'airodactyl/neovim-ranger'
-Plug 'tpope/vim-fugitive'
-Plug 'SirVer/ultisnips' 
 
 " Plug 'lyuts/vim-rtags'
 " Plug 'MattesGroeger/vim-bookmarks'
@@ -69,7 +67,7 @@ func! Cscope()
             set cscopequickfix=s-,c-,d-,i-,t-,e-
         endif
         " set csprg=gtags-cscope
-        " set cst       " <C-]> will use both cscope and ctag results 
+        " set cst       " <C-]> will use both cscope and ctag results
         " set csto=0    " Search defintion in cscope first , and if nothing found search tag
         " add any database in current directory
         " if filereadable("cscope.out")
@@ -83,14 +81,14 @@ func! Cscope()
         " let g:gutentags_project_root = ['file_list.in']
 
         "find refs to C symbol under cursor
-        nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>  
+        nmap g<C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>
         "find def of M symbol under cursor
-        nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>  
+        nmap g<C-]> :cs find g <C-R>=expand("<cword>")<CR><CR>
         "find file under cursor
         nmap g<C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
 
         " note that "-" and "_" are interchangable when mapping with ctrl
-        nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
+        nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
         nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
         nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
         nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
@@ -173,7 +171,7 @@ endfunc!
 
 " Find the hostname - using my own "proprietry" method
 fun! Hosttype()
-  let hostname = system("cat ~/hostname.txt")	
+  let hostname = system("cat ~/hostname.txt")
   return hostname
 endfun!
 
@@ -191,7 +189,7 @@ call SetupPlug()
 
 let layout = system("layout.sh")
 " change the mapleader from \ to <space>
-let mapleader = "\<space>"  
+let mapleader = "\<space>"
 
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
@@ -243,7 +241,7 @@ else
   nnoremap <c-h> <c-w>h
   nnoremap <c-l> <c-w>l
 endif
- 
+
 nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>Ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
@@ -298,14 +296,14 @@ command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q
 " endw
 
 " open quickfix window
-copen 
-wincmd k 
+copen
+wincmd k
 
 " underline current line with =
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
-" test search object. 
+" test search object.
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
@@ -414,11 +412,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
-" highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white 
-" highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black 
-" highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black 
-" highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
-
 
 " tabs & indentation
 set autoindent    " always set autoindenting on
@@ -446,9 +439,9 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
-" Echo current buffer's Full Pathname to the vim command line 
+" Echo current buffer's Full Pathname to the vim command line
 nnoremap <leader>cfp :echo expand("%:p")<CR>
-" Echo current buffer's Filename (tail) + Line number to the vim command line 
+" Echo current buffer's Filename (tail) + Line number to the vim command line
 nnoremap <leader>cfl :echo expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
@@ -477,7 +470,7 @@ if has("persistent_undo")
     set undofile
 endif
 
-" netrw 
+" netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
 " use gc to change vim cwd to the nerw dir
 
@@ -512,7 +505,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 "***********
 
 " function! FzfWA()
-"     only 
+"     only
 "     copen
 "     wincmd k 
 "     resize 35
@@ -563,22 +556,6 @@ let g:grepper = {
 " run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
 " pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
 
-
-" " CtrlP
-" let g:ctrlp_working_path_mode = ''  "working dir equals vim working dir
-" let g:ctrlp_max_files = 0  " No limit to amount of files to scan
-" let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-"       \ --ignore .git
-"       \ --ignore .svn
-"       \ --ignore .hg
-"       \ --ignore .DS_Store
-"       \ --ignore "**/*.pyc"
-"       \ -g ""'
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-" nnoremap <leader>b :CtrlPBuffer<cr>
-" nnoremap <leader>f :CtrlP<cr>
-" nnoremap <leader>m :CtrlPMixed<cr>
-
 " expand_region 
 call expand_region#custom_text_objects({ 
       \ "\/\\n\\n\<CR>": 1,  
@@ -595,14 +572,8 @@ let g:rtagsUseLocationList = 0
 " vimux config
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
+
 " Command-T config ********************************************
-" let g:CommandTFileScanner="find"
-" let g:CommandTMaxFiles=50000
-" nnoremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-" nnoremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-" The below does not work. Use Ctrl-p?
-" nnoremap <silent> <Leader>c :CommandTTag<CR>
-" Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
 
 " Build and run go program hello.go on specific tmux window
