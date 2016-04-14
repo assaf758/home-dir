@@ -18,9 +18,5 @@ tmux_command: TERM=linux-assafb tmux
 name: laptop
 root: ~/ws/
 windows:
-<<<<<<< HEAD
-  - bash: 
-=======
   - vagrant: 
->>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
 

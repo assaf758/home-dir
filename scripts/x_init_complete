@@ -17,20 +17,20 @@ xset s off -dpms
 
 kbd_home.sh workman
 
-<<<<<<< HEAD
-TERM=linux-assaf tmuxinator misc 
-#for i in {1..7}
-#do
-#	xfce4-terminal -e 'ssh assafb@dev64-build12'
-#done
-# xfce4-terminal -e "tmux attach-session -t misc"  &
-#tmux attach-session -t misc"
-=======
-wingo-cmd 'RenameWorkspace "1" "laptop"' 
-wingo-cmd 'AddWorkspace "desktop 2" "code"' 
-# wingo-cmd 'RemoveWorkspace "desktop 3"'
-# wingo-cmd 'RemoveWorkspace "desktop 4"'
 
-TERM=linux-assaf tmuxinator misc 
 
->>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
+
+# The file ~/hostname.txt is not part of git env (spcific for every machine)
+case "`cat ~/hostname.txt`" in
+    'hlinux')
+        TERM=linux-assafb tmuxinator hlinux
+        wingo-cmd 'RenameWorkspace "1" "hlinux"' 
+        ;;
+    'wlinux' )
+        TERM=linux-assafb tmuxinator laptop
+        wingo-cmd 'RenameWorkspace "1" "laptop"' 
+        wingo-cmd 'RenameWorkspace "2" "code"' 
+        ;;
+    * )
+        ;;
+esac
