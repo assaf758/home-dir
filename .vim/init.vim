@@ -36,8 +36,8 @@ Plug 'benekastah/neomake'
 Plug 'airodactyl/neovim-ranger'
 Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'bbchung/gtags.vim'
