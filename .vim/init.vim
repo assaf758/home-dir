@@ -28,6 +28,7 @@ Plug 'wincent/terminus'
 Plug 'tpope/vim-abolish'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
+Plug 'mbbill/undotree'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'morhetz/gruvbox'
@@ -269,6 +270,7 @@ function! Indenting(indent, what, cols)
   return result
 endfunction
 
+
 " Convert whitespace used for indenting (before first non-whitespace).
 " what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
 " cols = string with number of columns per tab, or empty to use 'tabstop'.
@@ -376,6 +378,12 @@ set guicursor+=i:blinkwait10
 " Viewing  *******************************************************************
 set number 	" turn on line numbers
 nnoremap <silent> <leader>n :set number! number?<cr>
+nnoremap <silent> <leader>N :set rnu! rnu?<cr>
+
+" autocommands for numbers
+autocmd InsertEnter * :set relativenumber!
+autocmd InsertLeave * :set relativenumber
+
 set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
 syntax enable
@@ -459,7 +467,14 @@ autocmd FileType qf nnoremap <buffer> o <CR><C-W><C-P>
 
 call Cscope() " Do cscope config
 "Configure Tagbar winodw display/hide
-nmap <F9> :TagbarToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
+nnoremap <F8> :UndotreeToggle<cr>
+
+"undotree
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
 
 " netrw 
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
@@ -493,10 +508,20 @@ let g:LustyJugglerSuppressRubyWarning = 1
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " FZF
+"***********
+
+" function! FzfWA()
+"     only 
+"     copen
+"     wincmd k 
+"     resize 35
+" endfunction
+" nnoremap <silent> <leader>b :Buffers<cr> :call FzfWA()<CR>
+" nnoremap <silent> <leader>f :execute 'Files' <bar> :call !FzfWA()<CR>
+let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
-let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 
 " fugitive bindings
 " nnoremap <leader>ga :Git add %:p<CR><CR>
