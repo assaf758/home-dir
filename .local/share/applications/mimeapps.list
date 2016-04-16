@@ -1,6 +1,5 @@
 
 [Default Applications]
-<<<<<<< HEAD
 #application/pdf=kde4-okularApplication_pdf.desktop;
 #image/jpeg=kde4-okularApplication_pdf.desktop;
 application/pdf=pdf-xchange.desktop
@@ -45,6 +44,4 @@ x-scheme-handler/file=exo-file-manager.desktop;
 x-scheme-handler/http=exo-web-browser.desktop;
 x-scheme-handler/https=exo-web-browser.desktop;
 x-scheme-handler/trash=exo-file-manager.desktop;
-=======
 text/html=google-chrome.desktop
->>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
