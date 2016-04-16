@@ -13,13 +13,8 @@ search_wrap = true
 #geometry = 640x480
 
 # fc-list -f '%{style[0]}\n' "Source Code Pro"
-<<<<<<< HEAD
 #font = Monospace 12
-font = Droid Sans Mono 12
-=======
-font = Monospace 13
-#font = Droid Sans Mono 12
->>>>>>> ccd27ba3393c1520c5032c7a5563970d232d297f
+font = Droid Sans Mono 11
 #font = Fira Mono Bold 13
 #font = Fantasque Sans Mono  13
 #font = Source Code Pro 12
