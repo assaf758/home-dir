@@ -17,10 +17,20 @@ xset s off -dpms
 
 kbd_home.sh workman
 
-wingo-cmd 'RenameWorkspace "1" "laptop"' 
-wingo-cmd 'AddWorkspace "desktop 2" "code"' 
-# wingo-cmd 'RemoveWorkspace "desktop 3"'
-# wingo-cmd 'RemoveWorkspace "desktop 4"'
 
-TERM=linux-assaf tmuxinator misc 
 
+
+# The file ~/hostname.txt is not part of git env (spcific for every machine)
+case "`cat ~/hostname.txt`" in
+    'hlinux')
+        TERM=linux-assafb tmuxinator hlinux
+        wingo-cmd 'RenameWorkspace "1" "hlinux"' 
+        ;;
+    'wlinux' )
+        TERM=linux-assafb tmuxinator laptop
+        wingo-cmd 'RenameWorkspace "1" "laptop"' 
+        wingo-cmd 'RenameWorkspace "2" "code"' 
+        ;;
+    * )
+        ;;
+esac
