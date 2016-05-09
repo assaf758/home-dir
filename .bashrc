@@ -192,6 +192,9 @@ case "`cat ~/hostname.txt`" in
         alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
+    'iguazio' )
+        PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        ;;
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage
         export DL=${WS_STORAGE}/DL
