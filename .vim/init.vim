@@ -250,7 +250,7 @@ nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
-nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 33 <cr>
+nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 46 <cr>
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -319,6 +319,7 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
+
 
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :Bdelete<CR>
@@ -442,10 +443,14 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
-" Echo current buffer's Full Pathname to the vim command line
-nnoremap <leader>cfp :echo expand("%:p")<CR>
+" Echo current buffer's Full Pathname to the vim command line or clipboard
+nnoremap <leader>efp :echo expand("%:p")<CR>
+nnoremap <leader>cfp :let @+=expand("%:p")<CR>
+nnoremap <leader>cfp2 :redir @2> \| echo expand("%:p") \| redir END<CR>
 " Echo current buffer's Filename (tail) + Line number to the vim command line
-nnoremap <leader>cfl :echo expand("%:t") . ':' . line(".")<CR>
+" or clipboard
+nnoremap <leader>efl :echo expand("%:t") . ':' . line(".")<CR>
+nnoremap <leader>cfl :let @+=expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
