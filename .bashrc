@@ -175,7 +175,7 @@ source ~/scripts/svn_functions.sh
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
-        export GOPATH=$HOME/wspace/go_ws
+        export GOPATH=$HOME/ws/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin

@@ -15,3 +15,12 @@ super + shift + F3
 
 super + F3
   ~/scripts/kbd_home.sh qwerty
+
+super + shift + F4
+  ~/scripts/screen-set wlinux-home-external
+
+super + shift + control + F4
+  ~/scripts/screen-set wlinux-home-external
+
+super + F4 
+  ~/scripts/screen-set wlinux-internal

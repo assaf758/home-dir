@@ -7,10 +7,9 @@ nohup wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 &
 sleep 4
 #wingo-settings
 # xrdb -merge ~/.Xresources
-xbindkeys 
+# xbindkeys 
 
-clipit &  
-sxhkd & 
+# clipit &  
 
 # disable screen blank
 xset s off -dpms
@@ -18,6 +17,8 @@ xset s off -dpms
 kbd_home.sh workman
 
 
+sxhkd & 
+lemonade server &
 
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
@@ -28,8 +29,10 @@ case "`cat ~/hostname.txt`" in
         ;;
     'wlinux' )
         TERM=linux-assafb tmuxinator laptop
-        wingo-cmd 'RenameWorkspace "1" "laptop"' 
-        wingo-cmd 'RenameWorkspace "2" "code"' 
+        wingo-cmd 'RenameWorkspace 1 "laptop"' 
+        wingo-cmd 'RenameWorkspace 2 "code"' 
+        wingo-cmd 'DeleteWorkspace 3' 
+        wingo-cmd 'RenameWorkspace 4' 
         ;;
     * )
         ;;
