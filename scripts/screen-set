@@ -5,7 +5,7 @@ case "$1" in
   echo "Usage: ${0##*/} { inernal-only | external-home | external-office }"
   ;;
 wlinux-internal)
-  xrandr --output eDP-1 --auto --output DP-0  --off --output DP2 --off --output HDMI1 --off
+  xrandr --output eDP-1 --auto --output DP-0  --off 
   ;;
 wlinux-home-external)
   xrandr --output eDP-1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152

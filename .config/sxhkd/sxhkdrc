@@ -20,7 +20,7 @@ super + shift + F4
   ~/scripts/screen-set wlinux-home-external
 
 super + shift + control + F4
-  ~/scripts/screen-set wlinux-home-external
+  ~/scripts/screen-set wlinux-office-external
 
 super + F4 
   ~/scripts/screen-set wlinux-internal

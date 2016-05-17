@@ -102,7 +102,7 @@ function log_bash_persistent_history()
   local command_part="${BASH_REMATCH[2]}"
   if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
   then
-    echo $date_part "|" "$command_part" >> ~/.persistent_history
+    echo $date_part "|" "$command_part" >> ~/Dropbox/.persistent_history
     export PERSISTENT_HISTORY_LAST="$command_part"
   fi
 }
@@ -170,6 +170,9 @@ add_to_path "$HOME/scripts"
 add_to_path "$HOME/bin"
 add_to_path "$LOCAL/bin"
 
+export GOPATH=$HOME/ws/go_ws
+add_to_path $GOPATH/bin
+
 source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
@@ -181,7 +184,8 @@ case "`cat ~/hostname.txt`" in
         add_to_path /opt/junest/bin
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         # alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
-        alias sss='ssh -X -p 2222 assafb@localhost'
+        alias s1504='ssh -X -p 2224 assafb@localhost'
+        alias s1604='ssh -X -p 2223 assafb@localhost'
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -191,6 +195,10 @@ case "`cat ~/hostname.txt`" in
         alias gvim="/c/Program\ Files\ \(x86\)/Vim/vim73/gvim.exe"
         alias emacs='/c/Program\ Files\ \(x86\)/emacs/emacs-24.3/bin/emacs'
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
+        ;;
+    'iguazio' )
+        PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        export IGZ_ROOT='/home/assafb/iguazio/engine/zeek/'
         ;;
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage

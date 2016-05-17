@@ -13,7 +13,7 @@ search_wrap = true
 #geometry = 640x480
 
 # fc-list -f '%{style[0]}\n' "Source Code Pro"
-font = Monospace 11
+font = Monospace 10
 # font = Droid Sans Mono 11
 #font = Fira Mono Bold 13
 #font = Fantasque Sans Mono  13
@@ -40,7 +40,9 @@ cursor_shape = block
 foreground = #839496
 foreground_bold = #eee8d5
 #foreground_dim = #888888
-background = #002b36
+#background = #002b36
+foreground = #dcdccc
+background = rgba(63, 63, 63, 0.8)
 cursor = #93a1a1
 
 # if unset, will reverse foreground and background
