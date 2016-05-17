@@ -1,5 +1,5 @@
 #!/bin/sh
-
+cd ${IGZ_ROOT}
 mkdir -p build/x86_64/Coverage/
 cd build/x86_64/Coverage/
 make -i clean

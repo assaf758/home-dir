@@ -9,7 +9,7 @@ fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
 Plug 'benmills/vimux'
 Plug 'vim-scripts/renamer.vim'
-Plug 'maxbrunsfeld/vim-yankstack'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
@@ -194,8 +194,6 @@ let mapleader = "\<space>"
 let g:ycm_server_keep_logfile = 1
 let g:ycm_server_log_level = 'debug'
 
-call yankstack#setup()
-
 "if layout ==# "us(workman)\n"
 if 1
   nmap ; :
@@ -232,8 +230,8 @@ else
   "with this remapping I lost ;
   nnoremap ; :
   :imap jk <Esc>
-  " Use K in normal mode to add blank line below the current line
-  nnoremap K 0i<C-M><ESC>k
+  " Use K in normal mode to add blank line above the current line
+  nnoremap <silent>K :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
   " easier navigation between split windows
   nnoremap <c-j> <c-w>j
@@ -249,7 +247,7 @@ nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
-nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 40 <cr>
+nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 46 <cr>
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -319,6 +317,7 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :Bdelete<CR>
 
@@ -382,6 +381,8 @@ nnoremap <silent> <leader>N :set rnu! rnu?<cr>
 autocmd InsertEnter * :set relativenumber!
 autocmd InsertLeave * :set relativenumber
 
+autocmd BufWritePost *.py :Neomake flake8
+
 set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
 syntax enable
@@ -439,10 +440,14 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
-" Echo current buffer's Full Pathname to the vim command line
-nnoremap <leader>cfp :echo expand("%:p")<CR>
+" Echo current buffer's Full Pathname to the vim command line or clipboard
+nnoremap <leader>efp :echo expand("%:p")<CR>
+nnoremap <leader>cfp :let @+=expand("%:p")<CR>
+nnoremap <leader>cfp2 :redir @2> \| echo expand("%:p") \| redir END<CR>
 " Echo current buffer's Filename (tail) + Line number to the vim command line
-nnoremap <leader>cfl :echo expand("%:t") . ':' . line(".")<CR>
+" or clipboard
+nnoremap <leader>efl :echo expand("%:t") . ':' . line(".")<CR>
+nnoremap <leader>cfl :let @+=expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
@@ -488,8 +493,8 @@ try
 endtry
 
 " neomake
-nnoremap <leader>m :Neomake!<cr>
-let &makeprg = '[[ -f Makefile ]] && make || make -j 3 -C build/x86_64/Debug'
+nnoremap <leader>m :Neomake<cr>
+ let &makeprg = 'make'
 
 " bookmarks
 highlight SignColumn ctermbg=black
@@ -512,7 +517,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " endfunction
 " nnoremap <silent> <leader>b :Buffers<cr> :call FzfWA()<CR>
 " nnoremap <silent> <leader>f :execute 'Files' <bar> :call !FzfWA()<CR>
-let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
+" let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
