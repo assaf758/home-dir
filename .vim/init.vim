@@ -247,7 +247,8 @@ nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
-nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 46 <cr>
+" nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 46 <cr>
+nnoremap <silent> <leader>h :copen \| :resize 7 \| :wincmd k<cr>
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -443,9 +444,10 @@ nnoremap <leader>J i<CR><ESC>k$
 " Echo current buffer's Full Pathname to the vim command line or clipboard
 nnoremap <leader>efp :echo expand("%:p")<CR>
 nnoremap <leader>cfp :let @+=expand("%:p")<CR>
-nnoremap <leader>cfp2 :redir @2> \| echo expand("%:p") \| redir END<CR>
-" Echo current buffer's Filename (tail) + Line number to the vim command line
-" or clipboard
+" Echo current buffer's relative Pathname to the vim command line or clipboard
+nnoremap <leader>erp :echo expand("%")<CR>
+nnoremap <leader>crp :let @+=expand("%")<CR>
+" Echo current buffer's Filename (tail) + Line number to the vim command line or clipboard
 nnoremap <leader>efl :echo expand("%:t") . ':' . line(".")<CR>
 nnoremap <leader>cfl :let @+=expand("%:t") . ':' . line(".")<CR>
 
