@@ -1,0 +1,2 @@
+#!/bin/bash
+git log --pretty=format:"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]" --decorate --date=short "$@" |  gawk '{printf("%5d : %s\n", NR,$0)}' | less

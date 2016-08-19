@@ -20,6 +20,24 @@ function cdranger {
     rm -f -- "$tempfile"
 }
 
+# updating tmux session imported vars to latest
+# https://gist.github.com/simonjbeaumont/4672606
+tmup () 
+{ 
+    echo -n "Updating to latest tmux environment...";
+    export IFS=",";
+    for line in $(tmux showenv -t $(tmux display -p "#S") | tr "\n" ",");
+    do
+        if [[ $line == -* ]]; then
+            unset $(echo $line | cut -c2-);
+        else
+            export $line;
+        fi;
+    done;
+    unset IFS;
+    echo "Done"
+}
+
 
 # ex - archive extractor
 # usage: ex <file>
@@ -53,6 +71,10 @@ add_to_path ()
         return 0
     fi
     export PATH=$1:$PATH
+}
+
+function hgrep () {
+  cat ~/Dropbox/.persistent_history | grep $1
 }
 
 #################### ssh-agent config
@@ -114,6 +136,9 @@ if [ -z ${ORIG_PATH+x} ]; then
 	# echo "setting ORIG_PATH to $PATH"
 	export ORIG_PATH=$PATH
 fi
+
+export -f hgrep
+
 
 if [ -f /usr/share/bash-completion/bash_completion ] ; then
     source /usr/share/bash-completion/bash_completion
@@ -197,7 +222,8 @@ case "`cat ~/hostname.txt`" in
         ;;
     'iguazio' )
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        export IGZ_ROOT='/home/assafb/iguazio/engine/zeek/'
+        alias killigz='kill -9 `pidof node_runner` `pidof bridge` `pidof v3io_daemon` `pidof log_server` `pidof nginx` >& /dev/null'
+        source ~/scripts/iguazio_common.sh
         ;;
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage
