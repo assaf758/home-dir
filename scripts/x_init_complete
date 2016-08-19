@@ -30,7 +30,7 @@ case "`cat ~/hostname.txt`" in
     'wlinux' )
         TERM=linux-assafb tmuxinator laptop
         wingo-cmd 'RenameWorkspace 1 "laptop"' 
-        wingo-cmd 'RenameWorkspace 2 "code"' 
+        wingo-cmd 'RenameWorkspace 2 "dev"' 
         wingo-cmd 'DeleteWorkspace 3' 
         wingo-cmd 'RenameWorkspace 4' 
         ;;

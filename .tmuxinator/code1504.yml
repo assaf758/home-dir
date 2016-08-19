@@ -1,3 +1,4 @@
+# ~/.tmuxinator/misc.yml
 
 # Optional tmux socket
 # socket_name: foo
@@ -15,7 +16,7 @@
 tmux_command: TERM=linux-assafb tmux
 
 name: code
-root: <%= @settings["workspace"] %>
+root: ~/iguazio/engine/zeek
 windows:
         - nvim:
                 nvim
