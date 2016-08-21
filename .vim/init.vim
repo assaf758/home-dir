@@ -413,6 +413,9 @@ nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+set termguicolors
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " Colorscheme **************
 let g:gruvbox_italic=1
 colorscheme gruvbox
