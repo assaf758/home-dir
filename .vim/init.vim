@@ -378,6 +378,9 @@ set number 	" turn on line numbers
 nnoremap <silent> <leader>n :set number! number?<cr>
 nnoremap <silent> <leader>N :set rnu! rnu?<cr>
 
+set termguicolors
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " autocommands for numbers
 autocmd InsertEnter * :set relativenumber!
 autocmd InsertLeave * :set relativenumber
