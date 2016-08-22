@@ -247,8 +247,8 @@ nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
-" nnoremap <silent> <leader>h :only \| :copen \| :wincmd k \| :resize 46 <cr>
-nnoremap <silent> <leader>h :copen \| :resize 7 \| :wincmd k<cr>
+nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
+nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -374,11 +374,18 @@ set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
 
 " Viewing  *******************************************************************
-set number 	" turn on line numbers
-nnoremap <silent> <leader>n :set number! number?<cr>
-nnoremap <silent> <leader>N :set rnu! rnu?<cr>
+" turn on line numbers, relative
+set number
+set relativenumber " default is relative
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+nnoremap <silent> <leader>n0 :set nonumber \| set nornu <cr>
+nnoremap <silent> <leader>nn :set number \| set rnu!<cr>
+nnoremap <silent> <leader>nr :set number \| : set rnu<cr>
 
+" turn on 24bit colors
 set termguicolors
+" cursor shape at input mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 " autocommands for numbers
