@@ -47,7 +47,6 @@ Plug 'Olical/vim-enmasse'
 
 " Plug 'lyuts/vim-rtags'
 " Plug 'MattesGroeger/vim-bookmarks'
-" Plug 'FelikZ/ctrlp-py-matcher'
 " Plug 'vim-scripts/cscope_dynamic'
 " Plug 'ntnn/vim-gutentags', { 'branch': 'gtags-cscope' }
 " Plug 'vim-scripts/EvalSelection.vim'
@@ -321,6 +320,7 @@ vmap <Leader>P "+P
 
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :Bdelete<CR>
+nnoremap <leader>Bd :Bdelete!<CR>
 
 " Fast buffer selection
 nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
@@ -437,6 +437,9 @@ set smarttab      " insert tabs on the start of a line according to shiftwidth, 
 set expandtab	  " Always expand tabs to corresponding number of spaces
 set tabstop=4     " size of a hard tabstop char
 
+" SuperRetab 8 - Change each 8 spaces to one tab. works on ranges.
+:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+
 " toggle showing of whitespace chars
 nnoremap <leader>sp :set list! list?<cr>
 set listchars=tab:→\ ,trail:·,nbsp:·,eol:¬
@@ -545,6 +548,8 @@ nnoremap <leader>gau :Git add -u<CR>
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gl :Git! log --oneline<CR>
+nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 
 " nnoremap <space>ga :Git add %:p<CR><CR>
 " nnoremap <space>gs :Gstatus<CR>
@@ -566,12 +571,18 @@ nnoremap <leader>gd :Gdiff<CR>
 "Grepper
 nnoremap <leader>gr :Grepper<CR>
 let g:grepper = {
-    \ 'tools': ['pss','ag'],
+    \ 'tools': ['pss','ag', 'pcregrep'],
     \ 'pss': {
     \   'grepprg':    'pss',
     \   'grepformat': '%f:%l:%m',
     \   'escape':     '\+*^$()[]',
-    \ }}
+    \ },
+    \ 'pcregrep': {
+    \   'grepprg':    'pcregrep -Mn',
+    \   'grepformat': '%f:%l:%m',
+    \   'escape':     '\+*^$()[]',
+    \ }
+    \}
 " example:
 " run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
 " pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
