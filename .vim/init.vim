@@ -25,23 +25,23 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
+Plug 'flazz/vim-colorschemes'
+Plug 'benekastah/neomake'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-rsi'
 " Plug 'benmills/vimux'
-" Plug 'vim-scripts/renamer.vim'
-" Plug 'flazz/vim-colorschemes'
-" Plug 'godlygeek/tabular'
 " Plug 'tpope/vim-repeat'
 " Plug 'LustyJuggler'
 " Plug 'tpope/vim-vinegar'
 " Plug 'wesleyche/SrcExpl'
-" Plug 'tpope/vim-rsi'
 " Plug 'wincent/terminus'
-" Plug 'tpope/vim-abolish'
 " Plug 'mbbill/undotree'
 " Plug 'Shougo/deoplete.nvim'
-" Plug 'benekastah/neomake'
 " Plug 'SirVer/ultisnips'
 " Plug 'Shougo/unite.vim'
 " Plug 'hewes/unite-gtags'
+" Plug 'vim-scripts/renamer.vim'
 " Plug 'Olical/vim-enmasse'
 
 call plug#end()
@@ -173,7 +173,21 @@ fun! My_mappings()
   redir END
   e ~/vim_maps.txt
 endfun!
-"******************************************************************************
+
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! Append_register_clipboard()
+    let @+ = @+."\n".s:get_visual_selection()
+endfunction
+
 "              Main
 "******************************************************************************
 call SetupPlug()
@@ -258,7 +272,6 @@ function! Indenting(indent, what, cols)
   return result
 endfunction
 
-
 " Convert whitespace used for indenting (before first non-whitespace).
 " what = 0 (convert spaces to tabs), or 1 (convert tabs to spaces).
 " cols = string with number of columns per tab, or empty to use 'tabstop'.
@@ -275,17 +288,6 @@ command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-arg
 command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
 command! -nargs=? -range=% RetabIndent call IndentConvert(<line1>,<line2>,&et,<q-args>)
 
-
-" " fix meta-keys which generate <Esc>a .. <Esc>z
-" " https://github.com/maxbrunsfeld/vim-yankstack/wiki/Linux-terminal-configurations-for-correct-meta-key-handling
-" let c='a'
-" while c <= 'z'
-"   exec "set <M-".toupper(c).">=\e".c
-"   exec "imap \e".c." <M-".toupper(c).">"
-"   let c = nr2char(1+char2nr(c))
-" endw
-
-" open quickfix window
 copen
 wincmd k
 
@@ -308,7 +310,6 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-
 
 " Provide buffer delete which does not close the window
 nnoremap <leader>bd :Bdelete<CR>
@@ -356,6 +357,12 @@ set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 nnoremap <silent> <leader>q :nohlsearch<CR>
 
+" Colorscheme **************
+let g:gruvbox_italic=1
+colorscheme gruvbox
+set background=dark
+
+
 " Cursor *******************************************************************
 set cursorline 	" highlight current line
 highlight Cursor guifg=white guibg=black
@@ -364,6 +371,15 @@ set guicursor=n-v-c:block-Cursor
 set guicursor+=i:block-Cursor
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
+
+" turn on 24bit colors
+set termguicolors
+" cursor shape at input mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+
+
+
 
 " Viewing  *******************************************************************
 " turn on line numbers, relative
@@ -375,10 +391,10 @@ nnoremap <silent> <leader>n0 :set nonumber \| set nornu <cr>
 nnoremap <silent> <leader>nn :set number \| set rnu!<cr>
 nnoremap <silent> <leader>nr :set number \| : set rnu<cr>
 
-" turn on 24bit colors
-set termguicolors
-" cursor shape at input mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" append to clipboard register
+vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
+
+
 
 " autocommands for numbers
 autocmd InsertEnter * :set relativenumber!
@@ -412,13 +428,7 @@ nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-set termguicolors
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
-" Colorscheme **************
-let g:gruvbox_italic=1
-colorscheme gruvbox
-set background=dark
 
 " tabs & indentation
 set autoindent    " always set autoindenting on
