@@ -30,19 +30,26 @@ Plug 'benekastah/neomake'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
-" Plug 'benmills/vimux'
-" Plug 'tpope/vim-repeat'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'benmills/vimux'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-vinegar'
+Plug 'wesleyche/SrcExpl'
+Plug 'wincent/terminus'
+Plug 'mbbill/undotree'
+Plug 'Shougo/deoplete.nvim'
+Plug 'SirVer/ultisnips'
+Plug 'Shougo/unite.vim'
+Plug 'hewes/unite-gtags'
+Plug 'vim-scripts/renamer.vim'
+Plug 'Olical/vim-enmasse'
+
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'jhidding/VOoM'
+" Plug 'plasticboy/vim-markdown'
+
+" disabled due to bug in ruby interation (i raised on neovim)
 " Plug 'LustyJuggler'
-" Plug 'tpope/vim-vinegar'
-" Plug 'wesleyche/SrcExpl'
-" Plug 'wincent/terminus'
-" Plug 'mbbill/undotree'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'SirVer/ultisnips'
-" Plug 'Shougo/unite.vim'
-" Plug 'hewes/unite-gtags'
-" Plug 'vim-scripts/renamer.vim'
-" Plug 'Olical/vim-enmasse'
 
 call plug#end()
 endfun
@@ -91,19 +98,19 @@ func! Cscope()
 endfunc!
 
 cnoreabbrev <expr> csu
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? '!cscope -Rbq'  : 'csu')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? '!cscope -Rbq'  : 'csu')
 cnoreabbrev <expr> csa
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
 cnoreabbrev <expr> csf
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
 cnoreabbrev <expr> csk
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
 cnoreabbrev <expr> csr
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
 cnoreabbrev <expr> css
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
 cnoreabbrev <expr> csh
-      \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+    \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
 
 " Help functions **************************************************************
 
@@ -111,81 +118,81 @@ cnoreabbrev <expr> csh
 command! -bar Hexmode call ToggleHex()
 " helper function to toggle hex mode
 function! ToggleHex()
-  " hex mode should be considered a read-only operation
-  " save values for modified and read-only for restoration later,
-  " and clear the read-only flag for now
-  let l:modified=&mod
-  let l:oldreadonly=&readonly
-  let &readonly=0
-  let l:oldmodifiable=&modifiable
-  let &modifiable=1
-  if !exists("b:editHex") || !b:editHex
-    " save old options
-    let b:oldft=&ft
-    let b:oldbin=&bin
-    " set new options
-    setlocal binary " make sure it overrides any textwidth, etc.
-    let &ft="xxd"
-    " set status
-    let b:editHex=1
-    " switch to hex editor
-    %!xxd
-  else
-    " restore old options
-    let &ft=b:oldft
-    if !b:oldbin
-      setlocal nobinary
+    " hex mode should be considered a read-only operation
+    " save values for modified and read-only for restoration later,
+    " and clear the read-only flag for now
+    let l:modified=&mod
+    let l:oldreadonly=&readonly
+    let &readonly=0
+    let l:oldmodifiable=&modifiable
+    let &modifiable=1
+    if !exists("b:editHex") || !b:editHex
+        " save old options
+        let b:oldft=&ft
+        let b:oldbin=&bin
+        " set new options
+        setlocal binary " make sure it overrides any textwidth, etc.
+        let &ft="xxd"
+        " set status
+        let b:editHex=1
+        " switch to hex editor
+        %!xxd
+    else
+        " restore old options
+        let &ft=b:oldft
+        if !b:oldbin
+            setlocal nobinary
+        endif
+        " set status
+        let b:editHex=0
+        " return to normal editing
+        %!xxd -r
     endif
-    " set status
-    let b:editHex=0
-    " return to normal editing
-    %!xxd -r
-  endif
-  " restore values for modified and read only state
-  let &mod=l:modified
-  let &readonly=l:oldreadonly
-  let &modifiable=l:oldmodifiable
+    " restore values for modified and read only state
+    let &mod=l:modified
+    let &readonly=l:oldreadonly
+    let &modifiable=l:oldmodifiable
 endfunction
 
 " Solve backspace ignored issue
 func! Backspace()
-  if col('.') == 1
-    if line('.')  != 1
-      return  "\<ESC>kA\<Del>"
-    else
-      return ""
-    endif
-  else
-    return "\<Left>\<Del>"
-  endif
+if col('.') == 1
+if line('.')  != 1
+    return  "\<ESC>kA\<Del>"
+else
+    return ""
+endif
+else
+return "\<Left>\<Del>"
+endif
 endfunc!
 
 " Find the hostname - using my own "proprietry" method
 fun! Hosttype()
-  let hostname = system("cat ~/hostname.txt")
-  return hostname
+let hostname = system("cat ~/hostname.txt")
+return hostname
 endfun!
 
 fun! My_mappings()
-  redir! > ~/vim_maps.txt
-  verbose map
-  verbose map!
-  redir END
-  e ~/vim_maps.txt
+redir! > ~/vim_maps.txt
+verbose map
+verbose map!
+redir END
+e ~/vim_maps.txt
 endfun!
 
 function! s:get_visual_selection()
-  " Why is this not a built-in Vim script function?!
-  let [lnum1, col1] = getpos("'<")[1:2]
-  let [lnum2, col2] = getpos("'>")[1:2]
-  let lines = getline(lnum1, lnum2)
-  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-  let lines[0] = lines[0][col1 - 1:]
-  return join(lines, "\n")
+" Why is this not a built-in Vim script function?!
+let [lnum1, col1] = getpos("'<")[1:2]
+let [lnum2, col2] = getpos("'>")[1:2]
+let lines = getline(lnum1, lnum2)
+let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+let lines[0] = lines[0][col1 - 1:]
+return join(lines, "\n")
 endfunction
 
 function! Append_register_clipboard()
-    let @+ = @+."\n".s:get_visual_selection()
+let @+ = @+."\n".s:get_visual_selection()
 endfunction
 
 "              Main
@@ -201,48 +208,50 @@ let g:ycm_server_log_level = 'debug'
 
 "if layout ==# "us(workman)\n"
 if 1
-  nmap ; :
-  vmap ; :
-  "with this remapping I lost commands t,e,k
-  "left/right is done with h/t
-  nnoremap t l
-  vnoremap t l
-  nnoremap n j
-  vnoremap n j
-  nnoremap e k
-  vnoremap e k
-  nnoremap k n
-  nnoremap K N
-  ":imap ii <Esc>
-  " Use E in normal mode to add blank line below the current line
-  nnoremap E 0i<C-M><ESC>k
-  "easier navigation between split windows
-  "nnoremap <c-n> <c-y>
-  "nnoremap <c-e> <c-w>k
-  "nnoremap <c-h> <c-w>h
-  " lost <c-t>:
-  "nnoremap <c-t> <c-w>l
+nmap ; :
+vmap ; :
+"with this remapping I lost commands t,e,k
+"left/right is done with h/t
+noremap t l
+noremap n j
+noremap e k
+" noremap h - unneeded - h is used the same (qwerty/workman) for left move
 
-  " easier navigation between split windows
-  let g:tmux_navigator_no_mappings = 1
-  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-  nnoremap <silent> <c-n> :TmuxNavigateDown<cr>
-  nnoremap <silent> <c-e> :TmuxNavigateUp<cr>
-  nnoremap <silent> <c-t> :TmuxNavigateRight<cr>
-  nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+" vnoremap t l
+" nnoremap n j
+" nnoremap e k
+nnoremap k n
+nnoremap K N
+":imap ii <Esc>
+" Use E in normal mode to add blank line above the current line
+nnoremap E 0i<C-M><ESC>k
+"easier navigation between split windows
+"nnoremap <c-n> <c-y>
+"nnoremap <c-e> <c-w>k
+"nnoremap <c-h> <c-w>h
+" lost <c-t>:
+"nnoremap <c-t> <c-w>l
+
+" easier navigation between split windows
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-n> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-e> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-t> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 
 else
-  "with this remapping I lost ;
-  nnoremap ; :
-  :imap jk <Esc>
-  " Use K in normal mode to add blank line above the current line
-  nnoremap <silent>K :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"with this remapping I lost ;
+nnoremap ; :
+:imap jk <Esc>
+" Use K in normal mode to add blank line above the current line
+nnoremap <silent>K :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
-  " easier navigation between split windows
-  nnoremap <c-j> <c-w>j
-  nnoremap <c-k> <c-w>k
-  nnoremap <c-h> <c-w>h
-  nnoremap <c-l> <c-w>l
+" easier navigation between split windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 endif
 
 nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
@@ -254,6 +263,7 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
 nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
+nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -263,13 +273,13 @@ nnoremap <silent> <leader>r :e %:p:h<CR>
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
 " When converting to tabs, result has no redundant spaces.
 function! Indenting(indent, what, cols)
-  let spccol = repeat(' ', a:cols)
-  let result = substitute(a:indent, spccol, '\t', 'g')
-  let result = substitute(result, ' \+\ze\t', '', 'g')
-  if a:what == 1
-    let result = substitute(result, '\t', spccol, 'g')
-  endif
-  return result
+let spccol = repeat(' ', a:cols)
+let result = substitute(a:indent, spccol, '\t', 'g')
+let result = substitute(result, ' \+\ze\t', '', 'g')
+if a:what == 1
+let result = substitute(result, '\t', spccol, 'g')
+endif
+return result
 endfunction
 
 " Convert whitespace used for indenting (before first non-whitespace).
@@ -278,11 +288,11 @@ endfunction
 " The cursor position is restored, but the cursor will be in a different
 " column when the number of characters in the indent of the line is changed.
 function! IndentConvert(line1, line2, what, cols)
-  let savepos = getpos('.')
-  let cols = empty(a:cols) ? &tabstop : a:cols
-  execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
-  call histdel('search', -1)
-  call setpos('.', savepos)
+let savepos = getpos('.')
+let cols = empty(a:cols) ? &tabstop : a:cols
+execute a:line1 . ',' . a:line2 . 's/^\s\+/\=Indenting(submatch(0), a:what, cols)/e'
+call histdel('search', -1)
+call setpos('.', savepos)
 endfunction
 command! -nargs=? -range=% Space2Tab call IndentConvert(<line1>,<line2>,0,<q-args>)
 command! -nargs=? -range=% Tab2Space call IndentConvert(<line1>,<line2>,1,<q-args>)
@@ -391,14 +401,22 @@ nnoremap <silent> <leader>n0 :set nonumber \| set nornu <cr>
 nnoremap <silent> <leader>nn :set number \| set rnu!<cr>
 nnoremap <silent> <leader>nr :set number \| : set rnu<cr>
 
+" markdown syntax
+hi link markdownError Normal  
+
 " append to clipboard register
 vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
 
+" turn on spell-checker for md files
+autocmd BufRead,BufNewFile *.md setlocal spell
+" complete from speller when doing ctrl-p/n 
+set complete+=kspell
+" ignore words that looks like code symbol
+syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell
 
-
-" autocommands for numbers
-autocmd InsertEnter * :set relativenumber!
-autocmd InsertLeave * :set relativenumber
+" " automatically save/restore code block folds
+" au BufWinLeave * mkview
+" au BufWinEnter * silent loadview<Paste>
 
 autocmd BufWritePost *.py :Neomake flake8
 
@@ -488,6 +506,7 @@ call Cscope() " Do cscope config
 "Configure Tagbar winodw display/hide
 nnoremap <F9> :TagbarToggle<CR>
 nnoremap <F8> :UndotreeToggle<cr>
+nnoremap <F7> :VoomToggle markdown<cr>
 
 "undotree
 if has("persistent_undo")
@@ -569,6 +588,8 @@ nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 " nnoremap <space>gps :Dispatch! git push<CR>
 " nnoremap <space>gpl :Dispatch! git pull<CR>
 
+"Easymotion
+nmap s <Plug>(easymotion-overwin-f2)
 
 "Grepper
 nnoremap <leader>gr :Grepper<CR>
