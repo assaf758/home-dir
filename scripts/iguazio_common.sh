@@ -7,6 +7,8 @@ igset_ws_root ()
     export IGZ_WS_NAME=$(basename $(pwd))
     export IGZ_WS=$(pwd)
     export IGZ_ZEEK=${IGZ_WS}/engine/zeek
+    export ROOT_SRC_DIR=${IGZ_ZEEK}
+    export ROOT_BIN_DIR=${ROOT_SRC_DIR}/build/x86_64/Debug
     igc
 }
 
@@ -15,49 +17,77 @@ igc ()
     echo "IGZ_WS_NAME = ${IGZ_WS_NAME}"
     echo "IGZ_WS = ${IGZ_WS}"
     echo "IGZ_ZEEK = ${IGZ_ZEEK}"
+    echo "ROOT_SRC_DIR = ${ROOT_SRC_DIR}"
+    echo "ROOT_BIN_DIR = ${ROOT_BIN_DIR}"
 }
 
 check_IGZ_WS ()
 {
     local result=0
-    if [ -z ${IGZ_WS+x} ]; then echo "IGZ_WS is unset. Please set it to workspace root (for ex. ~/iguazio/ws)."; local result=1;  fi
+    if [ -z ${IGZ_WS+x} ]; then echo "IGZ_WS is unset. Please set it to workspace root (for ex. ~/iguazio/ws). igset_ws_root() can be used"; local result=1;  fi
     return ${result}
+}
+
+igtmux ()
+{
+    check_IGZ_WS
+    if [ $? -ne 0 ] ; then return 1; fi
+    tmuxinator start code  -n ${IGZ_WS_NAME} workspace=$IGZ_ZEEK
+}
+
+igkillall ()
+{
+    kill -9 `pidof v3io_adapters_fuse` `pidof bridge` >& /dev/null
+    kill -9 `pidof v3io_daemon` `pidof log_server` >& /dev/null
+    kill -9 `pidof nginx` `pidof xio_mule`  >& /dev/null
+    kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
+    kill -9 `pidof fio` >& /dev/null
+    pkill -9 node_runner >& /dev/null
+    rm -f /dev/shm/*_stats_* # remove old stats files
+    rm -rf /tmp/fuse_mount /tmp_fuse_mount_all
 }
 
 # change-dir shortcuts
 
-cdw ()
+cdws ()
 {
     check_IGZ_WS
     if [ $? -ne 0 ] ; then return 1; fi
     cd ${IGZ_WS}
 }
 
-cdr ()
+cdzeek ()
 {
     check_IGZ_WS
     if [ $? -ne 0 ] ; then return 1; fi
     cd ${IGZ_ZEEK}
 }
 
-cdd ()
+cdbuild ()
+{
+    check_IGZ_WS
+    if [ $? -ne 0 ] ; then return 1; fi
+    cd ${IGZ_ZEEK}/build
+}
+
+cdrelease ()
+{
+    check_IGZ_WS
+    if [ $? -ne 0 ] ; then return 1; fi
+    cd ${IGZ_ZEEK}/build/x86_64/Release
+}
+
+cddebug ()
 {
     check_IGZ_WS
     if [ $? -ne 0 ] ; then return 1; fi
     cd ${IGZ_ZEEK}/build/x86_64/Debug
 }
 
-igtmux ()
+cdtesting ()
 {
-    tmuxinator start code  -n ${IGZ_WS_NAME} workspace=$IGZ_ZEEK
+    check_IGZ_WS
+    if [ $? -ne 0 ] ; then return 1; fi
+    cd ${IGZ_ZEEK}/testing/integration
 }
-
-#ex - setting string return val
-# check_IGZ_WS ()
-# {
-#     local __resultvar=$1
-#     local __myresult='0'
-#     if [ -z ${IGZ_WS+x} ]; then echo "IGZ_WS is unset. Please set it to workspace root (for ex. ~/iguazio/ws)."; myresult='1' ;fi
-#     eval $__resultvar="'$myresult'"
-# }
 

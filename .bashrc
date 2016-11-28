@@ -160,7 +160,9 @@ xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
 
-shopt -s cdspell
+# dont enable by default - bad when debugging fuse.. :-)
+# shopt -s cdspell
+
 shopt -s checkwinsize
 shopt -s cmdhist
 shopt -s dotglob
@@ -223,7 +225,6 @@ case "`cat ~/hostname.txt`" in
         ;;
     'iguazio' )
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        alias killigz='kill -9 `pidof node_runner` `pidof bridge` `pidof v3io_daemon` `pidof log_server` `pidof nginx` >& /dev/null'
         source ~/scripts/iguazio_common.sh
         ;;
     'a10' )
