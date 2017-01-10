@@ -19,7 +19,7 @@ def do_every(period,f,*args):
 def call_global(s):
     i = datetime.datetime.now()
     print('%s: %s# gtags -i -f proj_file_list.in' % (i,os.getcwd()))
-    subprocess.call(['gtags','-i', '-f' 'proj_file_list.in'])
+    subprocess.call(['tag_build.sh'])
     print("Done.")
 
 do_every(20*60,call_global,'x')
