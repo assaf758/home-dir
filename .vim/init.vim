@@ -570,6 +570,8 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
+let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
+
 
 " fugitive bindings
 " nnoremap <leader>ga :Git add %:p<CR><CR>
