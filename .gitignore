@@ -439,3 +439,10 @@ xterm.tar.gz
 xx
 yinat.diff
 .zshrc
+.docker/
+.undodir/
+.vim/spell/en.utf-8.add.spl
+.ziggy/
+manof/
+ziggy/
+

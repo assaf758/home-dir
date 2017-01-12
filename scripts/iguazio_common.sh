@@ -84,6 +84,13 @@ cddebug ()
     cd ${IGZ_ZEEK}/build/x86_64/Debug
 }
 
+cdfio ()
+{
+    check_IGZ_WS
+    if [ $? -ne 0 ] ; then return 1; fi
+    cd ${IGZ_ZEEK}/build/x86_64/Fio
+}
+
 cdtesting ()
 {
     check_IGZ_WS

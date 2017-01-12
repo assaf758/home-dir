@@ -20,8 +20,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
@@ -31,20 +31,20 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 Plug 'justinmk/vim-syntax-extra'
+Plug 'aklt/plantuml-syntax'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-vinegar'
 Plug 'wesleyche/SrcExpl'
 Plug 'wincent/terminus'
-Plug 'mbbill/undotree'
 Plug 'Shougo/deoplete.nvim'
-Plug 'SirVer/ultisnips'
-Plug 'Shougo/unite.vim'
-Plug 'hewes/unite-gtags'
+" Plug 'mbbill/undotree'
+" Plug 'SirVer/ultisnips'
+" Plug 'Shougo/unite.vim'
+" Plug 'hewes/unite-gtags'
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
-Plug 'aklt/plantuml-syntax'
-
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'jhidding/VOoM'
 " Plug 'plasticboy/vim-markdown'
@@ -218,12 +218,8 @@ noremap n j
 noremap e k
 " noremap h - unneeded - h is used the same (qwerty/workman) for left move
 
-" vnoremap t l
-" nnoremap n j
-" nnoremap e k
 nnoremap k n
 nnoremap K N
-":imap ii <Esc>
 " Use E in normal mode to add blank line above the current line
 nnoremap E 0i<C-M><ESC>k
 "easier navigation between split windows
@@ -265,6 +261,7 @@ nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
 nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
+
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
@@ -390,8 +387,6 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 
 
-
-
 " Viewing  *******************************************************************
 " turn on line numbers, relative
 set number
@@ -410,10 +405,13 @@ vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
 
 " turn on spell-checker for md files
 autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.c,*.h setlocal spell
 " complete from speller when doing ctrl-p/n 
 set complete+=kspell
 " ignore words that looks like code symbol
 syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell
+" dont warn on sentence starting with non-capital letter
+set spellcapcheck= 
 
 " " automatically save/restore code block folds
 " au BufWinLeave * mkview
@@ -467,6 +465,10 @@ set listchars=tab:→\ ,trail:·,nbsp:·,eol:¬
 
 set hidden	" allow switching from unsaved buffer
 
+"""""""""""""""""""""
+" edit config
+"""""""""""""""""""""
+
 " Solve paste issue
 nnoremap \<F2> :set invpaste paste?<CR>
 set pastetoggle=\<F2>
@@ -478,6 +480,13 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Press <leader>J  whenever you want to split a line
 nnoremap <leader>J i<CR><ESC>k$
+
+nnoremap - ddj0P
+nnoremap _ dd<c-p>0P
+
+imap <c-u> <esc>viwUi
+nmap <c-u> viwU
+
 " Echo current buffer's Full Pathname to the vim command line or clipboard
 nnoremap <leader>efp :echo expand("%:p")<CR>
 nnoremap <leader>cfp :let @+=expand("%:p")<CR>
@@ -485,8 +494,8 @@ nnoremap <leader>cfp :let @+=expand("%:p")<CR>
 nnoremap <leader>erp :echo expand("%")<CR>
 nnoremap <leader>crp :let @+=expand("%")<CR>
 " Echo current buffer's Filename (tail) + Line number to the vim command line or clipboard
-nnoremap <leader>efl :echo expand("%:t") . ':' . line(".")<CR>
-nnoremap <leader>cfl :let @+=expand("%:t") . ':' . line(".")<CR>
+nnoremap <leader>elp :echo expand("%:t") . ':' . line(".")<CR>
+nnoremap <leader>clp :let @+=expand("%:t") . ':' . line(".")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
@@ -561,6 +570,8 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
+let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
+
 
 " fugitive bindings
 " nnoremap <leader>ga :Git add %:p<CR><CR>
