@@ -18,8 +18,9 @@ tmux_command: TERM=linux-assafb tmux
 name: laptop
 root: ~/ws/
 windows:
-  - misc:
+  - vagrant:
+      root: ~/ws/vagrant/ubuntu1604
       layout: main-vertical
       panes:
-          - bash
-          - bash
+          - # (bash)
+          - 

@@ -2,7 +2,7 @@
 [Default Applications]
 #application/pdf=kde4-okularApplication_pdf.desktop;
 #image/jpeg=kde4-okularApplication_pdf.desktop;
-application/pdf=pdf-xchange.desktop
+application/pdf=/home/assafb/.local/share/applications/wine-extension-pdf.desktop
 application/x-bittorrent=fatrat.desktop;
 application/x-cb7=kde4-okularApplication_pdf.desktop;
 application/x-cbr=kde4-okularApplication_pdf.desktop;

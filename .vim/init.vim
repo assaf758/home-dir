@@ -43,6 +43,7 @@ Plug 'Shougo/unite.vim'
 Plug 'hewes/unite-gtags'
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
+Plug 'aklt/plantuml-syntax'
 
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'jhidding/VOoM'

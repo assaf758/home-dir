@@ -86,7 +86,9 @@ Mod4-c := Close (GetActive)
 Mod1-Shift-c := Quit
 Mod4-x := ToggleMaximize (GetActive)
 Mod4-i := Iconify (GetActive)
-Mod1-f := ToggleFloating (GetActive)
+
+#changed from -f to allow vim-rsi functionality
+Mod1-x := ToggleFloating (GetActive)
 Mod1-s := ToggleSticky (GetActive)
 
 # WingoExec will allow you to execute *any* Wingo command.
@@ -196,8 +198,10 @@ Mod1-z := AutoCycle (GetWorkspace)
 Mod1-h := AutoResizeMaster (GetWorkspace) -0.02
 Mod1-l := AutoResizeMaster (GetWorkspace) 0.02
 Mod1-b := AutoResizeWindow (GetWorkspace) -0.02
-#Mod1-n conflicts with vim-rsi plugin 
+
+#Mod1-n conflicts with vim-rsi plugin, changed to Mod1-v
 Mod1-v := AutoResizeWindow (GetWorkspace) 0.02
+
 Mod1-k := AutoNext (GetWorkspace)
 Mod1-j := AutoPrev (GetWorkspace)
 Mod1-Shift-k := AutoSwitchNext (GetWorkspace)

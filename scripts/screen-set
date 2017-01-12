@@ -8,10 +8,10 @@ wlinux-internal)
   xrandr --output eDP-1 --auto --output DP-0  --off 
   ;;
 wlinux-home-external)
-  xrandr --output eDP-1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152
+  xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152
   ;;
 wlinux-office-external)
-  xrandr --output eDP-1 --off  --output DP-0 --auto --rotate normal --mode 1920x1080
+  xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 1920x1080
   ;;
 sj-office)
   xrandr --output eDP1 --off  --output DP2 --auto --rotate normal --mode 1920x1080
