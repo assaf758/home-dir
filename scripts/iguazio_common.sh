@@ -4,11 +4,13 @@
 
 igset_ws_root ()
 {
+    [ $# -eq 0 ] && { echo "Usage: ${FUNCNAME} target // target = [Debug | Fiu | Release]"; return 1; }
+    local target="$1"
     export IGZ_WS_NAME=$(basename $(pwd))
     export IGZ_WS=$(pwd)
     export IGZ_ZEEK=${IGZ_WS}/engine/zeek
     export ROOT_SRC_DIR=${IGZ_ZEEK}
-    export ROOT_BIN_DIR=${ROOT_SRC_DIR}/build/x86_64/Debug
+    export ROOT_BIN_DIR=${ROOT_SRC_DIR}/build/x86_64/${target}
     igc
 }
 
@@ -84,11 +86,11 @@ cddebug ()
     cd ${IGZ_ZEEK}/build/x86_64/Debug
 }
 
-cdfio ()
+cdfiu ()
 {
     check_IGZ_WS
     if [ $? -ne 0 ] ; then return 1; fi
-    cd ${IGZ_ZEEK}/build/x86_64/Fio
+    cd ${IGZ_ZEEK}/build/x86_64/Fiu
 }
 
 cdtesting ()
