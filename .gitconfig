@@ -1,8 +1,6 @@
 [user]
-    name = Assaf Ben Amitai
-	email = assafb@gmail.com
-	name = Assaf
-	name = Assaf
+	name = Assaf Ben Amitai
+	email = assaf758@gmail.com
 [color]
     diff = auto
     status = auto
@@ -11,12 +9,13 @@
     st = status
     s = status -sb
 
-    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    l = !git logn
+    ll = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%an/%cn]" --decorate --date=short
+
     lg = log -p
     last = log -1 HEAD
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    logn = !git logn
 
     df = diff
     dc = diff --cached

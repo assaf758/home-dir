@@ -20,8 +20,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
+
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
