@@ -12,45 +12,59 @@ Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'morhetz/gruvbox'
+
 Plug 'airodactyl/neovim-ranger'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
+Plug 'wesleyche/SrcExpl'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
 
+Plug 'tpope/vim-fugitive'
+
+" consider with later version of neovim, or keep lightline
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'flazz/vim-colorschemes'
 
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
-Plug 'flazz/vim-colorschemes'
 Plug 'benekastah/neomake'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'aklt/plantuml-syntax'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-vinegar'
-Plug 'wesleyche/SrcExpl'
 Plug 'wincent/terminus'
 Plug 'Shougo/deoplete.nvim'
+Plug 'vim-scripts/renamer.vim'
+Plug 'Olical/vim-enmasse'
+Plug 'vim-scripts/ReplaceWithRegister'
+
+Plug 'justinmk/vim-syntax-extra'
+Plug 'aklt/plantuml-syntax'
+" taskpaper syntax and todo handling
+Plug 'davidoc/taskpaper.vim'
+" markdown
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'vim-voom/VOoM'
+" Plug 'plasticboy/vim-markdown'
+Plug 'jtratner/vim-flavored-markdown'
+" support for restructuredtext. riv.vim has an issue when pressing enter
+Plug 'coddingtonbear/riv.vim'
+Plug 'Rykka/InstantRst'
+
+" retry with later version of neovim
 " Plug 'mbbill/undotree'
 " Plug 'SirVer/ultisnips'
 " Plug 'Shougo/unite.vim'
 " Plug 'hewes/unite-gtags'
-Plug 'vim-scripts/renamer.vim'
-Plug 'Olical/vim-enmasse'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'jhidding/VOoM'
-" Plug 'plasticboy/vim-markdown'
 
 " disabled due to bug in ruby interation (i raised on neovim)
 " Plug 'LustyJuggler'
@@ -421,6 +435,11 @@ set spellcapcheck=
 " au BufWinEnter * silent loadview<Paste>
 
 autocmd BufWritePost *.py :Neomake flake8
+
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
 
 set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
