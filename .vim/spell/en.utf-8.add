@@ -27,3 +27,16 @@ prv
 md
 retval
 enum
+url
+msg
+refcount
+valgrind
+iguazio
+realloc
+urls
+conn
+vnlist
+resync
+inodes
+acked
+init

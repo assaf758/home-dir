@@ -3,7 +3,7 @@ if !has('nvim')
 endif 
 
 filetype indent plugin on   " load plugins and set indentation per file type
-syn on
+" syn on
 
 fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
@@ -25,13 +25,6 @@ Plug 'mhinz/vim-grepper'
 
 Plug 'tpope/vim-fugitive'
 
-" consider with later version of neovim, or keep lightline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
-Plug 'flazz/vim-colorschemes'
-
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
@@ -47,18 +40,36 @@ Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
 Plug 'vim-scripts/ReplaceWithRegister'
 
-Plug 'justinmk/vim-syntax-extra'
+" consider with later version of neovim, or keep lightline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+
+" colorschemes
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'flazz/vim-colorschemes'
+
+Plug 'NLKNguyen/c-syntax.vim'
+" Plug 'justinmk/vim-syntax-extra'
 Plug 'aklt/plantuml-syntax'
 " taskpaper syntax and todo handling
 Plug 'davidoc/taskpaper.vim'
+
 " markdown
-Plug 'mzlogin/vim-markdown-toc'
+" using my own fork, for trying to solve toc md support
+" Plug 'mzlogin/vim-markdown-toc'
+Plug 'assaf758/vim-markdown-toc'
 Plug 'vim-voom/VOoM'
 " Plug 'plasticboy/vim-markdown'
 Plug 'jtratner/vim-flavored-markdown'
 " support for restructuredtext. riv.vim has an issue when pressing enter
 Plug 'coddingtonbear/riv.vim'
 Plug 'Rykka/InstantRst'
+
+" until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
+" Plug 'vimwiki/vimwiki'
+Plug 'mzlogin/vimwiki'
 
 " retry with later version of neovim
 " Plug 'mbbill/undotree'
@@ -546,6 +557,22 @@ if has("persistent_undo")
     set undofile
 endif
 
+"vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
+    \ 'index': 'Home',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md',
+    \ 'markdown_toc' : 1,
+    \ 'auto_toc':1, 
+    \ }]
+
+:nmap <Leader>wwt <Plug>VimwikiTabIndex
+:nmap <Leader>wwq <Plug>VimwikiUISelect
+:nmap <Leader>wwi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
+:nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
+:nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
+
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
 " use gc to change vim cwd to the nerw dir
@@ -643,6 +670,16 @@ let g:grepper = {
 " example:
 " run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
 " pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
+
+" Set The Silver Searcher as our grep program
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+" bind \ (backward slash) to grep shortcut
+" command -nargs=+ -complete=file -bar Ag1 silent! grep! <args>|cwindow|redraw!
+" nnoremap \ :Ag1<SPACE>
 
 " expand_region 
 call expand_region#custom_text_objects({ 

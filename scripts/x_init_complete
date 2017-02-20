@@ -19,6 +19,8 @@ kbd_home.sh workman
 sxhkd & 
 lemonade server &
 
+~/.dropbox-dist/dropboxd & 
+
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
