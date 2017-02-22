@@ -73,6 +73,9 @@ add_to_path ()
     export PATH=$1:$PATH
 }
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 PERSISTENT_HISTORY=~/Dropbox/persistent_history
 
 function hgrep () {
@@ -342,8 +345,6 @@ PROMPT_COMMAND='log_bash_persistent_history'
 unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
 alias vbash="vim ~/.bashrc"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/.iguazio.bashrc ] && source ~/.iguazio.bashrc
 
