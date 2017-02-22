@@ -2,7 +2,7 @@ if !has('nvim')
   set nocompatible
 endif 
 
-filetype indent plugin on   " load plugins and set indentation per file type
+filetype plugin indent on   " load plugins and set indentation per file type
 " syn on
 
 fun! SetupPlug()
@@ -35,7 +35,11 @@ Plug 'tpope/vim-rsi'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
+
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neoinclude.vim'
+Plug 'zchee/deoplete-clang'
+
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -68,8 +72,8 @@ Plug 'coddingtonbear/riv.vim'
 Plug 'Rykka/InstantRst'
 
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
-" Plug 'vimwiki/vimwiki'
-Plug 'mzlogin/vimwiki'
+Plug 'vimwiki/vimwiki'
+"Plug 'mzlogin/vimwiki'
 
 " retry with later version of neovim
 " Plug 'mbbill/undotree'
@@ -82,6 +86,13 @@ Plug 'mzlogin/vimwiki'
 
 call plug#end()
 endfun
+
+function! SetMarkdownOptions()
+    setlocal ts=2
+    setlocal filetype=ghmarkdown
+    setlocal spell
+    silent loadview
+endfunction
 
 " Cscope **********************************************************************
 func! Cscope()
@@ -389,6 +400,7 @@ imap <esc>OF <end>
 " Searching *******************************************************************
 set hlsearch   " highlight search
 set incsearch  " incremental search, search as you type
+set inccommand=nosplit "show effects of command as you type
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 nnoremap <silent> <leader>q :nohlsearch<CR>
@@ -432,7 +444,6 @@ hi link markdownError Normal
 vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
 
 " turn on spell-checker for md files
-autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.c,*.h setlocal spell
 " complete from speller when doing ctrl-p/n 
 set complete+=kspell
@@ -442,6 +453,11 @@ syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell
 set spellcapcheck= 
 
 " " automatically save/restore code block folds
+" Useful for my Quick Notes feature in my tmuxrc
+" augroup Notes
+"     au BufWritePost,BufLeave,WinLeave ?* mkview
+"     au BufReadPre ?* silent loadview
+" augroup END
 " au BufWinLeave * mkview
 " au BufWinEnter * silent loadview<Paste>
 
@@ -449,7 +465,8 @@ autocmd BufWritePost *.py :Neomake flake8
 
 augroup markdown
     au!
-    au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+    au BufNewFile,BufRead *.md,*.markdown call SetMarkdownOptions()
+    au BufWinLeave *.md,*.markdown mkview
 augroup END
 
 set numberwidth=5 " We are good up to 99999 lines
@@ -572,6 +589,9 @@ let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
 :nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
+let g:vimwiki_folding = 'expr'
+let vimwiki_prevent_cr_remap = 1
+let g:vimwiki_global_ext = 0
 
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
@@ -697,6 +717,11 @@ let g:rtagsUseLocationList = 0
 " vimux config
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
+
+"deoplete config
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-3.8/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/include/"
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
