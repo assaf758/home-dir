@@ -73,8 +73,58 @@ add_to_path ()
     export PATH=$1:$PATH
 }
 
+
+
+PERSISTENT_HISTORY=~/Dropbox/persistent_history
+
 function hgrep () {
-  cat ~/Dropbox/.persistent_history | grep $1
+  cat ${PERSISTENT_HISTORY} | grep $1
+}
+
+function log_bash_persistent_history()
+{
+  [[
+    $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$
+  ]]
+  local date_part="${BASH_REMATCH[1]}"
+  local command_part="${BASH_REMATCH[2]}"
+  if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
+  then
+    echo $date_part "|" "$command_part" >> ${PERSISTENT_HISTORY}
+    export PERSISTENT_HISTORY_LAST="$command_part"
+  fi
+}
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# _fzf_compgen_path() {
+#   ag -g "" "$1"
+# }
+
+
+# bind hgrep to to ctrl-r
+bind '"\C-r": "\C-x1\e^\er"'
+bind -x '"\C-x1": __fzf_history';
+
+__fzf_history ()
+{
+__ehc $(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+}
+
+__ehc()
+{
+if
+        [[ -n $1 ]]
+then
+        bind '"\er": redraw-current-line'
+        bind '"\e^": magic-space'
+        READLINE_LINE=${READLINE_LINE:+${READLINE_LINE:0:READLINE_POINT}}${1}${READLINE_LINE:+${READLINE_LINE:READLINE_POINT}}
+        READLINE_POINT=$(( READLINE_POINT + ${#1} ))
+else
+        bind '"\er":'
+        bind '"\e^":'
+fi
 }
 
 #################### ssh-agent config
@@ -113,20 +163,6 @@ function test_identities {
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings () {
     eval `keychain --eval assafb_a10 id_rsa`
-}
-
-function log_bash_persistent_history()
-{
-  [[
-    $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$
-  ]]
-  local date_part="${BASH_REMATCH[1]}"
-  local command_part="${BASH_REMATCH[2]}"
-  if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
-  then
-    echo $date_part "|" "$command_part" >> ~/Dropbox/.persistent_history
-    export PERSISTENT_HISTORY_LAST="$command_part"
-  fi
 }
 
 
@@ -316,8 +352,6 @@ PROMPT_COMMAND='log_bash_persistent_history'
 unalias ls &>/dev/null
 alias sbash="pushd .  > /dev/null && source ~/.bashrc && popd  > /dev/null"
 alias vbash="vim ~/.bashrc"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/.iguazio.bashrc ] && source ~/.iguazio.bashrc
 

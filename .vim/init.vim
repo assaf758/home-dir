@@ -2,8 +2,8 @@ if !has('nvim')
   set nocompatible
 endif 
 
-filetype indent plugin on   " load plugins and set indentation per file type
-syn on
+filetype plugin indent on   " load plugins and set indentation per file type
+" syn on
 
 fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
@@ -12,45 +12,74 @@ Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'morhetz/gruvbox'
+
 Plug 'airodactyl/neovim-ranger'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar'
+Plug 'wesleyche/SrcExpl'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
 
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
 
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
-Plug 'flazz/vim-colorschemes'
 Plug 'benekastah/neomake'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'aklt/plantuml-syntax'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-vinegar'
-Plug 'wesleyche/SrcExpl'
 Plug 'wincent/terminus'
+
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neoinclude.vim'
+Plug 'zchee/deoplete-clang'
+
+Plug 'vim-scripts/renamer.vim'
+Plug 'Olical/vim-enmasse'
+Plug 'vim-scripts/ReplaceWithRegister'
+
+" consider with later version of neovim, or keep lightline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+
+" colorschemes
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'flazz/vim-colorschemes'
+
+Plug 'NLKNguyen/c-syntax.vim'
+" Plug 'justinmk/vim-syntax-extra'
+Plug 'aklt/plantuml-syntax'
+" taskpaper syntax and todo handling
+Plug 'davidoc/taskpaper.vim'
+
+" markdown
+" using my own fork, for trying to solve toc md support
+" Plug 'mzlogin/vim-markdown-toc'
+Plug 'assaf758/vim-markdown-toc'
+Plug 'vim-voom/VOoM'
+" Plug 'plasticboy/vim-markdown'
+Plug 'jtratner/vim-flavored-markdown'
+" support for restructuredtext. riv.vim has an issue when pressing enter
+Plug 'coddingtonbear/riv.vim'
+Plug 'Rykka/InstantRst'
+
+" until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
+Plug 'vimwiki/vimwiki'
+"Plug 'mzlogin/vimwiki'
+
+" retry with later version of neovim
 " Plug 'mbbill/undotree'
 " Plug 'SirVer/ultisnips'
 " Plug 'Shougo/unite.vim'
 " Plug 'hewes/unite-gtags'
-Plug 'vim-scripts/renamer.vim'
-Plug 'Olical/vim-enmasse'
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'jhidding/VOoM'
-" Plug 'plasticboy/vim-markdown'
 
 Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
 
@@ -59,6 +88,13 @@ Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
 
 call plug#end()
 endfun
+
+function! SetMarkdownOptions()
+    setlocal ts=2
+    setlocal filetype=ghmarkdown
+    setlocal spell
+    silent loadview
+endfunction
 
 " Cscope **********************************************************************
 func! Cscope()
@@ -366,6 +402,7 @@ imap <esc>OF <end>
 " Searching *******************************************************************
 set hlsearch   " highlight search
 set incsearch  " incremental search, search as you type
+set inccommand=nosplit "show effects of command as you type
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 nnoremap <silent> <leader>q :nohlsearch<CR>
@@ -409,7 +446,6 @@ hi link markdownError Normal
 vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
 
 " turn on spell-checker for md files
-autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.c,*.h setlocal spell
 " complete from speller when doing ctrl-p/n 
 set complete+=kspell
@@ -419,10 +455,21 @@ syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell
 set spellcapcheck= 
 
 " " automatically save/restore code block folds
+" Useful for my Quick Notes feature in my tmuxrc
+" augroup Notes
+"     au BufWritePost,BufLeave,WinLeave ?* mkview
+"     au BufReadPre ?* silent loadview
+" augroup END
 " au BufWinLeave * mkview
 " au BufWinEnter * silent loadview<Paste>
 
 autocmd BufWritePost *.py :Neomake flake8
+
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown call SetMarkdownOptions()
+    au BufWinLeave *.md,*.markdown mkview
+augroup END
 
 set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
@@ -529,6 +576,25 @@ if has("persistent_undo")
     set undofile
 endif
 
+"vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
+    \ 'index': 'Home',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md',
+    \ 'markdown_toc' : 1,
+    \ 'auto_toc':1, 
+    \ }]
+
+:nmap <Leader>wwt <Plug>VimwikiTabIndex
+:nmap <Leader>wwq <Plug>VimwikiUISelect
+:nmap <Leader>wwi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
+:nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
+:nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
+let g:vimwiki_folding = 'expr'
+let vimwiki_prevent_cr_remap = 1
+let g:vimwiki_global_ext = 0
+
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
 " use gc to change vim cwd to the nerw dir
@@ -627,6 +693,16 @@ let g:grepper = {
 " run :Grepper. enter in the pss prompt args, and the regex pattern enclosed in ''
 " pss> --cc 'mds_(clear|get|set)_policy_(mount|last_in)'
 
+" Set The Silver Searcher as our grep program
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+" bind \ (backward slash) to grep shortcut
+" command -nargs=+ -complete=file -bar Ag1 silent! grep! <args>|cwindow|redraw!
+" nnoremap \ :Ag1<SPACE>
+
 " expand_region 
 call expand_region#custom_text_objects({ 
       \ "\/\\n\\n\<CR>": 1,  
@@ -643,6 +719,11 @@ let g:rtagsUseLocationList = 0
 " vimux config
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
+
+"deoplete config
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-3.8/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/include/"
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
