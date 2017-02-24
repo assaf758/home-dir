@@ -21,6 +21,9 @@ lemonade server &
 
 ~/.dropbox-dist/dropboxd & 
 
+# redshift -l 32.1578:34.8077 -t 5700:3600 -g 0.8 -m randr -v
+nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
+
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in

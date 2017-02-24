@@ -1,31 +1,38 @@
 #! /bin/bash
 
+function usage() {
+  echo "Usage: ${0##*/} { wlinux-internal | external-home | external-office }"
+}
+
 case "$1" in 
-"") 
-  echo "Usage: ${0##*/} { inernal-only | external-home | external-office }"
-  ;;
-wlinux-internal)
-  xrandr --output eDP-1 --auto --output DP-0  --off 
-  ;;
-wlinux-home-external)
-  xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152
-  ;;
-wlinux-office-external)
-  xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 1920x1080
-  ;;
-sj-office)
-  xrandr --output eDP1 --off  --output DP2 --auto --rotate normal --mode 1920x1080
-  ;;
-side-by-side)
-  xrandr  --output eDP1 --left-of DP2 --output DP2 --auto
-  ;;
-mirror)
-  xrandr  --output eDP1 --auto --same-as DP2   --output DP2 --auto
-  ;;
-*)
-  echo "Parameter value $1 is not supported"
-  echo "Usage: ${0##*/} { inernal-only | external-home | external-office }"
-  ;;
+    "") 
+        usage
+        ;;
+    wlinux-internal)
+        xrandr --output eDP-1 --auto --output DP-0  --off 
+        ;;
+    wlinux-home-external)
+        xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 2048x1152
+        ;;
+    wlinux-home-both)
+        xrandr --output eDP-1-1 --auto --left-of DP-0  --output DP-0 --auto --rotate normal --mode 2048x1152
+        ;;
+    wlinux-office-external)
+        xrandr --output eDP-1-1 --off  --output DP-0 --auto --rotate normal --mode 1920x1080
+        ;;
+    side-by-side)
+        xrandr  --output eDP1 --left-of DP2 --output DP2 --auto
+        ;;
+    wlinux-preso)
+        xrandr --output eDP-1-1 --auto  --output DP-1 --auto --rotate normal --mode 1680x1050
+        ;;
+    mirror)
+        xrandr  --output eDP1 --auto --same-as DP2   --output DP2 --auto
+        ;;
+    *)
+        echo "Parameter value $1 is not supported"
+        usage
+        ;;
 esac
 
 

@@ -52,6 +52,8 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'jhidding/VOoM'
 " Plug 'plasticboy/vim-markdown'
 
+Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
+
 " disabled due to bug in ruby interation (i raised on neovim)
 " Plug 'LustyJuggler'
 
