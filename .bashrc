@@ -74,7 +74,6 @@ add_to_path ()
 }
 
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 PERSISTENT_HISTORY=~/Dropbox/persistent_history
 
@@ -95,6 +94,14 @@ function log_bash_persistent_history()
     export PERSISTENT_HISTORY_LAST="$command_part"
   fi
 }
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# _fzf_compgen_path() {
+#   ag -g "" "$1"
+# }
+
 
 # bind hgrep to to ctrl-r
 bind '"\C-r": "\C-x1\e^\er"'
