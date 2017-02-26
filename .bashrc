@@ -109,7 +109,7 @@ bind -x '"\C-x1": __fzf_history';
 
 __fzf_history ()
 {
-__ehc $(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | perl -ne 'm/^\s*([0-9]+)/ and print "!$1"')
+__ehc "$(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | cut -d\| -s --complement -f1)"
 }
 
 __ehc()
