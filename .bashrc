@@ -103,13 +103,9 @@ function log_bash_persistent_history()
 # }
 
 
-# bind hgrep to to ctrl-r
-bind '"\C-r": "\C-x1\e^\er"'
-bind -x '"\C-x1": __fzf_history';
-
 __fzf_history ()
 {
-__ehc "$(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | cut -d\| -s --complement -f1)"
+__ehc "$(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | cut -d\| -s --complement -f1 | cut -b1 --complement)"
 }
 
 __ehc()
@@ -341,10 +337,12 @@ set -o emacs # make bash readline behave as vi
 # Use jk as ESC mode replacement
 # bind -m vi-insert '"jk": vi-movement-mode'
 
-# bind readline ^g to delete char
-#http://superuser.com/a/212455
-# stty werase undef
-bind '"\C-g": backward-delete-char'
+# disable ctrl-s / ctrl-q
+tty -s && stty -ixon
+
+# bind hgrep to ctrl-r
+bind '"\C-r": "\C-x1\e^\er"'
+bind -x '"\C-x1": __fzf_history';
 
 PROMPT_COMMAND='log_bash_persistent_history'
 

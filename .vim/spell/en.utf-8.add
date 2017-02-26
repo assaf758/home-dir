@@ -52,3 +52,6 @@ resync
 inodes
 acked
 init
+cmds
+attr
+yan

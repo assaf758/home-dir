@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'bbchung/gtags.vim'
 Plug 'assaf758/gtags-cscope' "forked from 'multilobyte/gtags-cscope' to hide failure to find gtag file
 Plug 'mhinz/vim-grepper'
+Plug 'kana/vim-altr'
 
 Plug 'tpope/vim-fugitive'
 
@@ -702,6 +703,12 @@ endif
 " bind \ (backward slash) to grep shortcut
 " command -nargs=+ -complete=file -bar Ag1 silent! grep! <args>|cwindow|redraw!
 " nnoremap \ :Ag1<SPACE>
+
+" open alternative files
+nmap <leader>a  <Plug>(altr-forward)
+nmap <leader>A  <Plug>(altr-back)
+" iguazio 'classes in c' pattern
+call altr#define('%.c','%.h','%_prv.h')
 
 " expand_region 
 call expand_region#custom_text_objects({ 
