@@ -55,3 +55,6 @@ init
 cmds
 attr
 yan
+backend
+xclip
+github
