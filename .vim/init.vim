@@ -464,7 +464,8 @@ set spellcapcheck=
 " au BufWinLeave * mkview
 " au BufWinEnter * silent loadview<Paste>
 
-autocmd BufWritePost *.py :Neomake flake8
+"disabled due to some nvim bug
+" autocmd BufWritePost *.py :Neomake flake8
 
 augroup markdown
     au!

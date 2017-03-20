@@ -21,11 +21,7 @@ windows:
                 nvim
         - build: 
         - int-test:
-        - stuff:
-            layout: main-vertical
-            panes:
-                - periodic-tags:
-                    periodic_tagger.py
+        - stuff: periodic_tagger.py
 
 
 
