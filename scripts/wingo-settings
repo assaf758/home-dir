@@ -5,15 +5,7 @@ for i in {0..7}
     wingo-cmd "RenameWorkspace ${i} \"tttr-${i}\""
 done
 
-wingo-cmd 'RenameWorkspace 0 "local"'
-wingo-cmd 'RenameWorkspace 1 "virtualBox"'
-wingo-cmd 'RenameWorkspace 2 "x2go"'
-wingo-cmd 'RenameWorkspace 3 "devices"'
-wingo-cmd 'RenameWorkspace 4 "4acos"'
-wingo-cmd 'RenameWorkspace 5 "policy"'
-wingo-cmd 'RenameWorkspace 6 "http"'
-wingo-cmd 'RenameWorkspace 7 "temp"'
-wingo-cmd 'RenameWorkspace 8 "internet"'
-wingo-cmd 'RenameWorkspace 9 "brute"'
-wingo-cmd 'RenameWorkspace 10 "31acos"'
-wingo-cmd 'RenameWorkspace 11 "272acos"'
+wingo-cmd 'RenameWorkspace 0 "aux-loptop"'
+wingo-cmd 'RenameWorkspace 1 "main-laptop"'
+wingo-cmd 'RenameWorkspace 2 "ha"'
+wingo-cmd 'RenameWorkspace 3 "staging"'
