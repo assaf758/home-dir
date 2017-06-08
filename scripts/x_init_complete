@@ -3,9 +3,8 @@
 set -x
 
 mkdir -p $HOME/var/log
-nohup wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 & 
-sleep 4
-#wingo-settings
+nohup wingo --replace -p 1 --log-level 3 > $HOME/wingo.log 2>&1 & 
+
 # xrdb -merge ~/.Xresources
 # xbindkeys 
 
@@ -18,8 +17,6 @@ kbd_home.sh workman
 
 sxhkd & 
 lemonade server &
-
-# ~/.dropbox-dist/dropboxd &   // for ubuntu host
 
 nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
 
@@ -40,3 +37,6 @@ case "`cat ~/hostname.txt`" in
     * )
         ;;
 esac
+
+sleep 4
+wingo-settings
