@@ -25,11 +25,13 @@ Plug 'mhinz/vim-grepper'
 Plug 'kana/vim-altr'
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
 Plug 'benekastah/neomake'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
@@ -46,9 +48,9 @@ Plug 'Olical/vim-enmasse'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " consider with later version of neovim, or keep lightline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'itchyny/lightline.vim'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -72,6 +74,7 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'coddingtonbear/riv.vim'
 Plug 'Rykka/InstantRst'
 
+Plug 'kopischke/vim-stay'
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
 Plug 'vimwiki/vimwiki'
 "Plug 'mzlogin/vimwiki'
@@ -467,6 +470,12 @@ set spellcapcheck=
 "disabled due to some nvim bug
 " autocmd BufWritePost *.py :Neomake flake8
 
+"airline
+let g:airline_powerline_fonts = 1
+
+"vim-stay
+set viewoptions=cursor,folds,slash,unix
+
 augroup markdown
     au!
     au BufNewFile,BufRead *.md,*.markdown call SetMarkdownOptions()
@@ -571,6 +580,9 @@ call Cscope() " Do cscope config
 nnoremap <F9> :TagbarToggle<CR>
 nnoremap <F8> :UndotreeToggle<cr>
 nnoremap <F7> :VoomToggle markdown<cr>
+nnoremap <F5> :AsyncRun make -C build/x86_64/Debug -j 6<cr>
+" Build and run go program hello.go on specific tmux window
+" nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
 "undotree
 if has("persistent_undo")
@@ -579,7 +591,7 @@ if has("persistent_undo")
 endif
 
 "vimwiki
-let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
+let g:vimwiki_list = [{
     \ 'index': 'Home',
     \ 'syntax': 'markdown',
     \ 'ext': '.md',
@@ -677,6 +689,7 @@ nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 nmap s <Plug>(easymotion-overwin-f2)
 
 "Grepper
+nnoremap <leader>gb :Grepper-buffer<CR>
 nnoremap <leader>gr :Grepper<CR>
 let g:grepper = {
     \ 'tools': ['pss','ag', 'pcregrep'],
@@ -737,8 +750,6 @@ let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/inc
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
-" Build and run go program hello.go on specific tmux window
-nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
 " disable soft-wrap (run after all plugins have ran)
 autocmd VimEnter * set nowrap 

@@ -43,8 +43,9 @@ igkillall ()
     kill -9 `pidof v3io_daemon` `pidof log_server` >& /dev/null
     kill -9 `pidof nginx` `pidof xio_mule`  >& /dev/null
     kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
+    kill -9 `pidof run_node_services.sh` `pidof valgrind` >& /dev/null
     kill -9 `pidof fio` >& /dev/null
-    pkill -9 node_runner >& /dev/null
+    pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files
     rm -rf /tmp/fuse_mount /tmp_fuse_mount_all
 }
