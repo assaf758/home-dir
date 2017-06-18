@@ -1,0 +1,15 @@
+conky.config = {
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	out_to_x = false,
+	out_to_console = true,
+	out_to_stderr = false,
+	update_interval = 1.0,
+	uppercase = false,
+	use_spacer = 'none',
+}
+
+conky.text = [[
+${exec tail -n1 /tmp/workspaces}
+]]
+

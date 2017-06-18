@@ -74,7 +74,11 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'coddingtonbear/riv.vim'
 Plug 'Rykka/InstantRst'
 
-Plug 'kopischke/vim-stay'
+"messes view - create lcd 
+" dont create lcd in views in ~/.local/share/nvim/view/
+" https://stackoverflow.com/questions/18205941/fold-settings-seem-to-screw-up-vims-pwd-in-certain-circumstances
+" Plug 'kopischke/vim-stay'
+
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
 Plug 'vimwiki/vimwiki'
 "Plug 'mzlogin/vimwiki'
@@ -605,9 +609,10 @@ let g:vimwiki_list = [{
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
 :nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
-let g:vimwiki_folding = 'expr'
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
+"folding
+let g:vimwiki_folding = 'expr'
 
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
@@ -655,6 +660,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
+nnoremap <leader>T :Tags<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
 
 
