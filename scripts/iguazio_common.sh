@@ -37,6 +37,19 @@ igtmux ()
     tmuxinator start code  -n ${IGZ_WS_NAME} workspace=$IGZ_ZEEK
 }
 
+igrun_test ()
+{
+    check_IGZ_WS
+    if [ $# -ne 1 ] ; then echo "plese provide path for test to run"; return 1; fi
+    cd ${IGZ_ZEEK}
+    source ${ROOT_SRC_DIR}/venv/bin/activate
+    igkillall 
+    rm /dev/shm/*_stats_*
+    find /tmp -name 'data_policy_container_*' -delete
+    LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$1" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR}
+    deactivate 
+}
+
 igkillall ()
 {
     kill -9 `pidof v3io_adapters_fuse` `pidof bridge` >& /dev/null

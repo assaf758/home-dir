@@ -33,6 +33,7 @@ Plug 'bogado/file-line'
 Plug 'benekastah/neomake'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'godlygeek/tabular'
+Plug 'wellle/targets.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 Plug 'benmills/vimux'
@@ -433,7 +434,7 @@ set guicursor+=i:blinkwait10
 " turn on 24bit colors
 set termguicolors
 " cursor shape at input mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 
 
