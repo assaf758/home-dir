@@ -40,6 +40,9 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
 
+
+Plug 'airblade/vim-rooter'
+
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'zchee/deoplete-clang'
@@ -311,6 +314,7 @@ nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
 nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
+nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
 
 nnoremap Y y$
 
@@ -478,8 +482,7 @@ set spellcapcheck=
 "airline
 let g:airline_powerline_fonts = 1
 
-"vim-stay
-set viewoptions=cursor,folds,slash,unix
+
 
 augroup markdown
     au!
@@ -612,8 +615,10 @@ let g:vimwiki_list = [{
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
-"folding
 let g:vimwiki_folding = 'expr'
+
+"folding
+set viewoptions=cursor,folds,slash,unix
 
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
@@ -752,6 +757,10 @@ let g:VimuxUseNearest = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-3.8/lib/libclang.so"
 let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/include/"
+
+" rooter
+let g:rooter_patterns = ['proj_file_list.in']
+let g:rooter_change_directory_for_non_project_files = ''
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
