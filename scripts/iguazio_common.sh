@@ -60,7 +60,7 @@ igkillall ()
     kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
     kill -9 `pidof -x run_node_services.sh` `pidof valgrind` >& /dev/null
     # kill -9 `pidof -x integration.sh` `pidof -x run.py` >& /dev/null
-    kill -9 $(ps axu | awk '/integration\.sh|run\.py/ {print $2}' | xargs)
+    ps axu | awk '/integration\.sh/ {print $2}' | xargs kill -9
     kill -9 `pidof fio` >& /dev/null
     pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files

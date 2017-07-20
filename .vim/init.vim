@@ -81,7 +81,7 @@ Plug 'Rykka/InstantRst'
 "messes view - create lcd 
 " dont create lcd in views in ~/.local/share/nvim/view/
 " https://stackoverflow.com/questions/18205941/fold-settings-seem-to-screw-up-vims-pwd-in-certain-circumstances
-" Plug 'kopischke/vim-stay'
+Plug 'kopischke/vim-stay'
 
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
 Plug 'vimwiki/vimwiki'
