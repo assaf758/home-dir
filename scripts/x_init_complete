@@ -4,6 +4,8 @@ set -x
 
 mkdir -p $HOME/var/log
 nohup wingo --replace -p 1 --log-level 3 > $HOME/wingo.log 2>&1 & 
+sleep 4
+wingo-settings
 
 # xrdb -merge ~/.Xresources
 # xbindkeys 
@@ -41,5 +43,3 @@ case "`cat ~/hostname.txt`" in
         ;;
 esac
 
-sleep 4
-wingo-settings

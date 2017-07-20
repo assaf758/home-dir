@@ -6,8 +6,8 @@
     status = auto
     branch = auto
 [alias]
-    st = status
-    s = status -sb
+    s = status
+    sb = status -sb
 
     l = !git logn
     ll = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%an/%cn]" --decorate --date=short

@@ -184,7 +184,7 @@ if [[ -n $SSH_CONNECTION ]] ; then
     # http://pkgs.fedoraproject.org/cgit/coreutils.git/tree/
     eval `dircolors --sh "/etc/DIR_COLORS.256color"`
 else
-        export TERM=linux
+        export TERM=tmux
     eval `dircolors`
 fi
 
@@ -218,8 +218,8 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
-alias tmux='TERM=linux-assafb tmux'
-alias nvim='TERM=linux-assafb nvim'
+alias tmux='TERM=tmux-256color tmux'
+alias nvim='TERM=tmux-256color nvim'
 
 export LOCAL=~/.local
 

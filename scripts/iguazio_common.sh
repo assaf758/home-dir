@@ -37,14 +37,32 @@ igtmux ()
     tmuxinator start code  -n ${IGZ_WS_NAME} workspace=$IGZ_ZEEK
 }
 
+igrun_test ()
+{
+    check_IGZ_WS
+    if [ $# -lt 1 ] ; then echo "plese provide path for test to run (and optional params to it)"; return 1; fi
+    test=$1
+    shift
+    cd ${IGZ_ZEEK}
+    source ${ROOT_SRC_DIR}/venv/bin/activate
+    igkillall 
+    rm /dev/shm/*_stats_*
+    find /tmp -name 'data_policy_container_*' -delete
+    LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
+    deactivate 
+}
+
 igkillall ()
 {
     kill -9 `pidof v3io_adapters_fuse` `pidof bridge` >& /dev/null
     kill -9 `pidof v3io_daemon` `pidof log_server` >& /dev/null
     kill -9 `pidof nginx` `pidof xio_mule`  >& /dev/null
     kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
+    kill -9 `pidof -x run_node_services.sh` `pidof valgrind` >& /dev/null
+    # kill -9 `pidof -x integration.sh` `pidof -x run.py` >& /dev/null
+    ps axu | awk '/integration\.sh/ {print $2}' | xargs kill -9
     kill -9 `pidof fio` >& /dev/null
-    pkill -9 node_runner >& /dev/null
+    pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files
     rm -rf /tmp/fuse_mount /tmp_fuse_mount_all
 }

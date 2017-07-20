@@ -1,0 +1,21 @@
+#!/bin/sh
+# Find the shared libraries that define specific symbol
+# arg 1 - the root directory from which to search
+# arg 2 - the symbol to search for.
+find $1 -name '*\.a' > lib_list.txt
+
+{ make -j 6  2>&1 1>&3 | grep "undefined reference to" | grep -o "\`.*\'"  | gawk  --field-separator=[\`\'] '{ print $2 }' | sort -u | tee undefined.txt 1>&2; } 3>&1
+
+cat lib_list.txt | xargs nm --defined-only  --print-file-name '{}' ';' 2>/dev/null > nm_symbols.txt
+
+rm libs_dup.txt
+
+for i in $(cat undefined.txt); do 
+    #echo resolving $i
+    #cat lib_list.txt | xargs nm --defined-only  --print-file-name '{}' ';' 2>/dev/null | grep " [^ U] ""$i" | grep -v mock | grep "/.*.a:"
+     cat nm_symbols.txt | grep " [^ U] ""$i" | grep -v mock | grep -E -o '\/[_[:alnum:]]+\.' | sed 's/.$//' | sed 's/^\/lib//' >> libs_dup.txt
+done
+
+printf "\nrequired libs:\n"
+cat libs_dup.txt | sort -u | tee  libs_required.txt
+# find $1 -name '*\.a' -exec nm --defined-only  --print-file-name '{}' ';' | grep " [^ U] ""$2"
