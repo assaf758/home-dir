@@ -1,11 +1,19 @@
 #/bin/sh
 
+prefix=$(printf '%(%s)T\n' -1)
+
 for i in {0..7} 
-    do
-    wingo-cmd "RenameWorkspace ${i} \"tttr-${i}\""
+do
+    wingo-cmd "RenameWorkspace ${i} \"${prefix}-${i}\""
 done
 
-wingo-cmd 'RenameWorkspace 0 "aux-loptop"'
-wingo-cmd 'RenameWorkspace 1 "main-laptop"'
-wingo-cmd 'RenameWorkspace 2 "ha"'
-wingo-cmd 'RenameWorkspace 3 "staging"'
+declare -a ws_list=("aux-laptop" 
+                "ha" "staging"
+                "misc"
+                )
+i=0
+for ws in "${ws_list[@]}"
+do
+    wingo-cmd "RenameWorkspace ${i} \"${ws}\""
+    ((i++))
+done

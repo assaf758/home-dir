@@ -16,7 +16,10 @@ xset s off -dpms
 kbd_home.sh workman
 
 sxhkd & 
-lemonade server &
+
+
+lemonade server  --port=2489 &
+
 
 nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
 
