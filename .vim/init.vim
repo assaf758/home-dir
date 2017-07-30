@@ -613,7 +613,7 @@ let g:vimwiki_list = [{
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
 :nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
-:nmap <Leader>wwt <Plug>VimwikiToggleListItem
+:nmap <Leader>wwtt <Plug>VimwikiToggleListItem
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
