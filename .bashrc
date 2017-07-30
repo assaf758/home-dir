@@ -231,6 +231,7 @@ add_to_path "$LOCAL/bin"
 
 export GOPATH=$HOME/ws/go_ws
 add_to_path $GOPATH/bin
+add_to_path /usr/local/go/bin
 
 source ~/scripts/svn_functions.sh
 
@@ -258,6 +259,16 @@ case "`cat ~/hostname.txt`" in
     'iguazio' )
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         source ~/scripts/iguazio_common.sh
+	    add_to_path "~/.local/share/junest/bin"
+        if [ -n "${JUNEST_ENV}" ]; then
+            EFFECTIVE_UID=$(id -u)
+            if [ ${EFFECTIVE_UID} -eq 0 ]; then
+                JN_STATE="jnr"
+            else
+                JN_STATE="jn"
+            fi
+            PS1+="(${JN_STATE})"       
+        fi
         ;;
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage
@@ -355,9 +366,14 @@ alias vbash="vim ~/.bashrc"
 
 source ~/.git-completion.bash
 
+#ubuntu
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     source /etc/bash_completion
     source /usr/share/bash-completion/completions/git
+fi
+#centos
+if [ -d /etc/bash_completion.d ] ; then
+    source /etc/bash_completion.d/git
 fi
 
 function_exists() {
