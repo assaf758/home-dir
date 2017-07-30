@@ -244,8 +244,8 @@ case "`cat ~/hostname.txt`" in
         add_to_path /opt/junest/bin
 	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         # alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
-        alias s1504='ssh -X -p 2224 assafb@localhost'
         alias s1604='ssh -X -p 2223 assafb@localhost'
+        alias sc='ssh -X assafb@assafb-centos'
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
