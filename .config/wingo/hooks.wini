@@ -76,7 +76,7 @@ match := True
 #startup := Shell "xterm"
 startup := Shell "/home/assafb/.config/wingo/scripts/recent-ws/recent-ws"
 startup := Shell "/home/assafb/.config/wingo/scripts/dzen-workspaces/dzen-workspaces > /tmp/workspaces"
-startup := Shell "conky --config=/home/assafb/.conkyrc2 | dzen2 -dock -ta r"
+startup := Shell "conky --config=/home/assafb/.conkyrc2 | dzen2 -dock -y $(screen_height) -ta r -xs 1"
 # You can add more by just adding another definition of "startup".
 #startup := Shell "gkrellm"
 

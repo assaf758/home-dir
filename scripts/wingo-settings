@@ -1,5 +1,15 @@
 #/bin/sh
 
+declare -a ws_list=(
+                "aux-laptop" 
+                "ha"
+                "staging"
+                "misc"
+                "resync"
+                )
+
+ws_list_count = ${#ws_list[@]}
+
 prefix=$(printf '%(%s)T\n' -1)
 
 for i in {0..7} 
@@ -7,10 +17,6 @@ do
     wingo-cmd "RenameWorkspace ${i} \"${prefix}-${i}\""
 done
 
-declare -a ws_list=("aux-laptop" 
-                "ha" "staging"
-                "misc"
-                )
 i=0
 for ws in "${ws_list[@]}"
 do
