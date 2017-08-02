@@ -10,7 +10,7 @@ wingo-settings
 # xrdb -merge ~/.Xresources
 # xbindkeys 
 
-# clipit &  
+clipit &  
 
 # disable screen blank
 xset s off -dpms
