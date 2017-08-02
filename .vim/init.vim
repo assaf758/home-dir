@@ -39,7 +39,7 @@ Plug 'tpope/vim-rsi'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
-
+Plug 'kopischke/vim-fetch'
 
 Plug 'airblade/vim-rooter'
 
@@ -84,7 +84,7 @@ Plug 'Rykka/InstantRst'
 Plug 'kopischke/vim-stay'
 
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch' : 'dev'}
 "Plug 'mzlogin/vimwiki'
 
 " retry with later version of neovim
@@ -600,6 +600,7 @@ endif
 
 "vimwiki
 let g:vimwiki_list = [{
+    \ 'path': '~/Dropbox/wiki',
     \ 'index': 'Home',
     \ 'syntax': 'markdown',
     \ 'ext': '.md',
@@ -607,11 +608,12 @@ let g:vimwiki_list = [{
     \ 'auto_toc':1, 
     \ }]
 
-:nmap <Leader>wwt <Plug>VimwikiTabIndex
+:nmap <Leader>wwi <Plug>VimwikiIndex
+:nmap <Leader>wwti <Plug>VimwikiTabIndex
 :nmap <Leader>wwq <Plug>VimwikiUISelect
-:nmap <Leader>wwi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwdi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwgr <Plug>VimwikiDiaryGenerateLinks
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
-:nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
 :nmap <Leader>wwtt <Plug>VimwikiToggleListItem
 let vimwiki_prevent_cr_remap = 1
@@ -756,8 +758,8 @@ let g:VimuxUseNearest = 0
 
 "deoplete config
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-3.8/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/include/"
+let g:deoplete#sources#clang#libclang_path="/usr/lib64/llvm/libclang.so"
+let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
 
 " rooter
 let g:rooter_patterns = ['proj_file_list.in']
@@ -767,6 +769,8 @@ let g:rooter_change_directory_for_non_project_files = ''
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
+
+let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
 
 " disable soft-wrap (run after all plugins have ran)
 autocmd VimEnter * set nowrap 
