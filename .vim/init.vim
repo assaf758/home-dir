@@ -600,6 +600,7 @@ endif
 
 "vimwiki
 let g:vimwiki_list = [{
+    \ 'path': '~/Dropbox/wiki',
     \ 'index': 'Home',
     \ 'syntax': 'markdown',
     \ 'ext': '.md',
@@ -607,13 +608,14 @@ let g:vimwiki_list = [{
     \ 'auto_toc':1, 
     \ }]
 
-:nmap <Leader>wwt <Plug>VimwikiTabIndex
+:nmap <Leader>wwi <Plug>VimwikiIndex
+:nmap <Leader>wwti <Plug>VimwikiTabIndex
 :nmap <Leader>wwq <Plug>VimwikiUISelect
-:nmap <Leader>wwi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwdi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwgr <Plug>VimwikiDiaryGenerateLinks
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
-:nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
-:nmap <Leader>wwt <Plug>VimwikiToggleListItem
+:nmap <Leader>wwtt <Plug>VimwikiToggleListItem
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
