@@ -4,7 +4,6 @@ After=network.target
 
 [Service]
 Type=simple  
-User=%i
 WorkingDirectory=/home/assafb/Dropbox/tiddly_wiki
 ExecStart=/usr/bin/tiddlywiki --server 
 Restart=on-abort
