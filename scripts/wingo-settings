@@ -8,7 +8,7 @@ declare -a ws_list=(
                 "resync"
                 )
 
-ws_list_count = ${#ws_list[@]}
+ws_list_count=${#ws_list[@]}
 
 prefix=$(printf '%(%s)T\n' -1)
 
