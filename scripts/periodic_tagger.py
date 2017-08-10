@@ -3,6 +3,7 @@ import time
 import subprocess
 import os
 import datetime
+from distutils.spawn import find_executable
 
 def do_every(period,f,*args):
     def g_tick():
@@ -20,6 +21,9 @@ def call_global(s):
     i = datetime.datetime.now()
     print('%s: %s# gtags -i -f proj_file_list.in' % (i,os.getcwd()))
     subprocess.call(['tag_build.sh'])
+    print('ctags -R..')
+    ctags_path = find_executable('ctags')
+    subprocess.call([ctags_path, '-R'])
     print("Done.")
 
 do_every(20*60,call_global,'x')

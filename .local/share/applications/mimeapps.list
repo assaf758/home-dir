@@ -33,6 +33,7 @@ video/x-msvideo=vlc.desktop;
 video/x-theora+ogg=vlc.desktop;
 x-scheme-handler/http=google-chrome.desktop
 x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/mailto=exo-mail-reader.desktop
 [Added Associations]
 application/octet-stream=gedit.desktop;
 application/pdf=pdf-xchange.desktop;raktpdf.desktop;kde4-okularApplication_pdf.desktop;7zFM.desktop;

@@ -3,13 +3,14 @@
 set -x
 
 mkdir -p $HOME/var/log
-nohup wingo --replace -p 1 --log-level 3 > $HOME/var/log/wingo.log 2>&1 & 
+nohup wingo --replace -p 1 --log-level 3 > $HOME/wingo.log 2>&1 & 
 sleep 4
-#wingo-settings
+wingo-settings
+
 # xrdb -merge ~/.Xresources
 # xbindkeys 
 
-# clipit &  
+clipit &  
 
 # disable screen blank
 xset s off -dpms
@@ -17,11 +18,9 @@ xset s off -dpms
 kbd_home.sh workman
 
 sxhkd & 
-lemonade server &
 
-# ~/.dropbox-dist/dropboxd & 
+lemonade server  --port=2489 &
 
-# redshift -l 32.1578:34.8077 -t 5700:3600 -g 0.8 -m randr -v
 nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
 
 # disable double-tap in the laptop's touchpad
@@ -31,13 +30,11 @@ synclient TapButton1=0
 case "`cat ~/hostname.txt`" in
     'hlinux' )
         TERM=linux-assafb tmuxinator hlinux
-        wingo-cmd 'RenameWorkspace "1" "hlinux"' 
         ;;
     'wlinux' )
         TERM=linux-assafb tmuxinator laptop
-        # wingo-cmd 'RenameWorkspace 1 "laptop"' 
-        # wingo-cmd 'RenameWorkspace 2 "dev"' 
         ;;
     * )
         ;;
 esac
+

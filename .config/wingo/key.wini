@@ -82,6 +82,9 @@
 
 # Some basic window manager commands. Closing/maximizing can also be done with
 # buttons on fully decorated windows.
+Mod4-Tab := Script "recent-ws/recent-ws-switch -g"
+Mod4-Shift-Tab := Script "recent-ws/recent-ws-switch -g -c"
+
 Mod4-c := Close (GetActive)
 Mod1-Shift-c := Quit
 Mod4-x := ToggleMaximize (GetActive)

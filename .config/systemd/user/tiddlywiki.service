@@ -1,0 +1,12 @@
+[Unit]
+Description=Tiddlywiki server  
+After=network.target
+
+[Service]
+Type=simple  
+WorkingDirectory=/home/assafb/Dropbox/tiddly_wiki
+ExecStart=/usr/bin/tiddlywiki --server 
+Restart=on-abort
+
+[Install]
+WantedBy=default.target

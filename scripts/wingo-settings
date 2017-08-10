@@ -1,19 +1,25 @@
 #/bin/sh
 
+declare -a ws_list=(
+                "aux-laptop" 
+                "ha"
+                "staging"
+                "misc"
+                "resync"
+                )
+
+ws_list_count=${#ws_list[@]}
+
+prefix=$(printf '%(%s)T\n' -1)
+
 for i in {0..7} 
-    do
-    wingo-cmd "RenameWorkspace ${i} \"tttr-${i}\""
+do
+    wingo-cmd "RenameWorkspace ${i} \"${prefix}-${i}\""
 done
 
-wingo-cmd 'RenameWorkspace 0 "local"'
-wingo-cmd 'RenameWorkspace 1 "virtualBox"'
-wingo-cmd 'RenameWorkspace 2 "x2go"'
-wingo-cmd 'RenameWorkspace 3 "devices"'
-wingo-cmd 'RenameWorkspace 4 "4acos"'
-wingo-cmd 'RenameWorkspace 5 "policy"'
-wingo-cmd 'RenameWorkspace 6 "http"'
-wingo-cmd 'RenameWorkspace 7 "temp"'
-wingo-cmd 'RenameWorkspace 8 "internet"'
-wingo-cmd 'RenameWorkspace 9 "brute"'
-wingo-cmd 'RenameWorkspace 10 "31acos"'
-wingo-cmd 'RenameWorkspace 11 "272acos"'
+i=0
+for ws in "${ws_list[@]}"
+do
+    wingo-cmd "RenameWorkspace ${i} \"${ws}\""
+    ((i++))
+done

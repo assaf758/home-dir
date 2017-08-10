@@ -43,20 +43,20 @@ tmup ()
 # usage: ex <file>
 function ex ()
 {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.tar.xz)    tar xJf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
+  if [ -f "$1" ] ; then
+    case "$1" in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.tar.xz)    tar xJf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"     ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -158,7 +158,7 @@ function test_identities {
 
 # check for running ssh-agent with proper $SSH_AGENT_PID
 function ssh_settings () {
-    eval `keychain --eval assafb_a10 id_rsa`
+    eval `keychain --eval id_rsa`
 }
 
 
@@ -184,7 +184,7 @@ if [[ -n $SSH_CONNECTION ]] ; then
     # http://pkgs.fedoraproject.org/cgit/coreutils.git/tree/
     eval `dircolors --sh "/etc/DIR_COLORS.256color"`
 else
-        export TERM=linux
+        export TERM=tmux
     eval `dircolors`
 fi
 
@@ -210,16 +210,16 @@ export HISTFILESIZE=${HISTSIZE}
 export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT="%F %T  "
 
-alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
-alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias ls='ls --group-directories-first --time-style=+"%Y.%m.%d %H:%M" --color=auto -F'
+alias ll='ls -l --group-directories-first --time-style=+"%Y.%m.%d %H:%M" --color=auto -F'
+alias la='ls -la --group-directories-first --time-style=+"%Y.%m.%d %H:%M" --color=auto -F'
 alias grep='grep --color=tty -d skip'
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
-alias tmux='TERM=linux-assafb tmux'
-alias nvim='TERM=linux-assafb nvim'
+alias tmux='TERM=tmux-256color tmux'
+alias nvim='TERM=tmux-256color nvim'
 
 export LOCAL=~/.local
 
@@ -232,8 +232,8 @@ add_to_path "$LOCAL/bin"
 export GOPATH=$HOME/ws/go_ws
 add_to_path $GOPATH/bin
 add_to_path "$(ruby -e 'print Gem.user_dir')/bin"
-
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+add_to_path /usr/local/go/bin
 
 source ~/scripts/svn_functions.sh
 
@@ -243,8 +243,8 @@ case "`cat ~/hostname.txt`" in
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin
-	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias s1604='ssh -X -p 2223 assafb@localhost'
+        alias sc='ssh -X assafb@assafb-centos'
         ;;
     'assaf-win' )
         export PATH=$PATH:"/c/Program Files (x86)/Java/jre7/bin/"
@@ -258,6 +258,16 @@ case "`cat ~/hostname.txt`" in
     'iguazio' )
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         source ~/scripts/iguazio_common.sh
+	    add_to_path "~/.local/share/junest/bin"
+        if [ -n "${JUNEST_ENV}" ]; then
+            EFFECTIVE_UID=$(id -u)
+            if [ ${EFFECTIVE_UID} -eq 0 ]; then
+                JN_STATE="jnr"
+            else
+                JN_STATE="jn"
+            fi
+            PS1+="(${JN_STATE})"       
+        fi
         ;;
     'a10' )
         export WS_STORAGE=~/ws/assafb_storage
@@ -335,9 +345,14 @@ alias vbash="vim ~/.bashrc"
 
 source ~/.git-completion.bash
 
+#ubuntu
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     source /etc/bash_completion
     source /usr/share/bash-completion/completions/git
+fi
+#centos
+if [ -d /etc/bash_completion.d ] ; then
+    source /etc/bash_completion.d/git
 fi
 
 function_exists() {

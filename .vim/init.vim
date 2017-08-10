@@ -25,17 +25,23 @@ Plug 'mhinz/vim-grepper'
 Plug 'kana/vim-altr'
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 Plug 'majutsushi/tagbar'
 Plug 'moll/vim-bbye'
 Plug 'bogado/file-line'
 Plug 'benekastah/neomake'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'godlygeek/tabular'
+Plug 'wellle/targets.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rsi'
 Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
+Plug 'kopischke/vim-fetch'
+
+Plug 'airblade/vim-rooter'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoinclude.vim'
@@ -46,9 +52,9 @@ Plug 'Olical/vim-enmasse'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " consider with later version of neovim, or keep lightline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'itchyny/lightline.vim'
 
 " colorschemes
 Plug 'morhetz/gruvbox'
@@ -72,8 +78,13 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'coddingtonbear/riv.vim'
 Plug 'Rykka/InstantRst'
 
+"messes view - create lcd 
+" dont create lcd in views in ~/.local/share/nvim/view/
+" https://stackoverflow.com/questions/18205941/fold-settings-seem-to-screw-up-vims-pwd-in-certain-circumstances
+Plug 'kopischke/vim-stay'
+
 " until pr https://github.com/vimwiki/vimwiki/pull/296 (for markdown toc) is accepted
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch' : 'dev'}
 "Plug 'mzlogin/vimwiki'
 
 " retry with later version of neovim
@@ -303,6 +314,7 @@ nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
 nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
+nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
 
 nnoremap Y y$
 
@@ -426,7 +438,7 @@ set guicursor+=i:blinkwait10
 " turn on 24bit colors
 set termguicolors
 " cursor shape at input mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 
 
@@ -464,7 +476,13 @@ set spellcapcheck=
 " au BufWinLeave * mkview
 " au BufWinEnter * silent loadview<Paste>
 
-autocmd BufWritePost *.py :Neomake flake8
+"disabled due to some nvim bug
+" autocmd BufWritePost *.py :Neomake flake8
+
+"airline
+let g:airline_powerline_fonts = 1
+
+
 
 augroup markdown
     au!
@@ -570,6 +588,9 @@ call Cscope() " Do cscope config
 nnoremap <F9> :TagbarToggle<CR>
 nnoremap <F8> :UndotreeToggle<cr>
 nnoremap <F7> :VoomToggle markdown<cr>
+nnoremap <F5> :AsyncRun make -C build/x86_64/Debug -j 6<cr>
+" Build and run go program hello.go on specific tmux window
+" nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
 "undotree
 if has("persistent_undo")
@@ -578,7 +599,8 @@ if has("persistent_undo")
 endif
 
 "vimwiki
-let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
+let g:vimwiki_list = [{
+    \ 'path': '~/Dropbox/wiki',
     \ 'index': 'Home',
     \ 'syntax': 'markdown',
     \ 'ext': '.md',
@@ -586,15 +608,20 @@ let g:vimwiki_list = [{'path': '~/Dropbox/wiki',
     \ 'auto_toc':1, 
     \ }]
 
-:nmap <Leader>wwt <Plug>VimwikiTabIndex
+:nmap <Leader>wwi <Plug>VimwikiIndex
+:nmap <Leader>wwti <Plug>VimwikiTabIndex
 :nmap <Leader>wwq <Plug>VimwikiUISelect
-:nmap <Leader>wwi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwdi <Plug>VimwikiDiaryIndex
+:nmap <Leader>wwgr <Plug>VimwikiDiaryGenerateLinks
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
-:nmap <Leader>wwdt <Plug>VimwikiTabMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
-let g:vimwiki_folding = 'expr'
+:nmap <Leader>wwtt <Plug>VimwikiToggleListItem
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
+let g:vimwiki_folding = 'expr'
+
+"folding
+set viewoptions=cursor,folds,slash,unix
 
 " netrw
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
@@ -642,6 +669,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>F :Files ..<cr>
 nnoremap <leader>f :Files<cr>
+nnoremap <leader>T :Tags<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
 
 
@@ -676,6 +704,7 @@ nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 nmap s <Plug>(easymotion-overwin-f2)
 
 "Grepper
+nnoremap <leader>gb :Grepper-buffer<CR>
 nnoremap <leader>gr :Grepper<CR>
 let g:grepper = {
     \ 'tools': ['pss','ag', 'pcregrep'],
@@ -729,15 +758,19 @@ let g:VimuxUseNearest = 0
 
 "deoplete config
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-3.8/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-3.8/lib/clang/3.8.0/include/"
+let g:deoplete#sources#clang#libclang_path="/usr/lib64/llvm/libclang.so"
+let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
+
+" rooter
+let g:rooter_patterns = ['proj_file_list.in']
+let g:rooter_change_directory_for_non_project_files = ''
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
-" Build and run go program hello.go on specific tmux window
-nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
+
+let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
 
 " disable soft-wrap (run after all plugins have ran)
 autocmd VimEnter * set nowrap 
