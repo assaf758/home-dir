@@ -231,19 +231,19 @@ add_to_path "$LOCAL/bin"
 
 export GOPATH=$HOME/ws/go_ws
 add_to_path $GOPATH/bin
+add_to_path "$(ruby -e 'print Gem.user_dir')/bin"
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 source ~/scripts/svn_functions.sh
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
-        export GOPATH=$HOME/ws/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin
-	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        # alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
-        alias s1504='ssh -X -p 2224 assafb@localhost'
+	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         alias s1604='ssh -X -p 2223 assafb@localhost'
         ;;
     'assaf-win' )
@@ -265,54 +265,34 @@ case "`cat ~/hostname.txt`" in
         export JUNEST_HOME=${WS_STORAGE}/junest_home
         if [ -z ${JUNEST_ENV+x} ]; then
             MYVIM=${LOCAL}/bin/vim
-	    add_to_path "$HOME/junest/bin/"
-	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+            add_to_path "$HOME/junest/bin/"
+            PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
 
             if [ -f ~/.cwdfile ]; then
-		cd $(cat ~/.cwdfile)
-		if [ $? -ne 0 ]; then
-		    cd ~/ws
-		fi
-	        rm ~/.cwdfile
-	    else
-		cd ~/ws
-	    fi
-        else
+                cd $(cat ~/.cwdfile)
+                if [ $? -ne 0 ]; then
+                    cd ~/ws
+                fi
+                rm ~/.cwdfile
+            else
+                cd ~/ws
+            fi
+
             MYVIM=vim
             export PATH=${ORIG_PATH}
             add_to_path "$HOME/scripts"
-	    EFFECTIVE_UID=$(id -u)
-	    if [ ${EFFECTIVE_UID} -eq 0 ]; then
-		JPR="jnr"
-	    else
-		JPR="jn"
-	    fi
-	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h(${JPR}):\w\n$ "
-	fi
-        export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
-        export DIR_STO="target/sources/sto/"
-        alias cdws="cd $WS"
-        alias stbuild20="rm -f *build && sudo make MOD=20 64BIT=yes all"
-        alias stbuild52="rm -f *build && sudo make MOD=52 64BIT=yes all"
-        alias stdist20="sudo make MOD=20 64BIT=yes distclean"
-        alias stdist52="sudo make MOD=52 64BIT=yes distclean"
-        alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
-	alias nvim="TERM=screen-256color nvim"
-        alias stnvim="nvim --cmd 'cd target/sources/sto'"
-        alias sttag="(cd target/sources/sto/ && rm cscope.* ; ttf ; ttu)"
+            EFFECTIVE_UID=$(id -u)
+            if [ ${EFFECTIVE_UID} -eq 0 ]; then
+                JPR="jnr"
+            else
+                JPR="jn"
+            fi
+            PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h(${JPR}):\w\n$ "
+        fi
         ;;
     * )
         ;;
 esac
-
-
-# alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
-# alias jnr="junest -p \"-k 3.10\" -f"
-# alias jn="run_junest"
-# alias into17="cdssh dev64-build17"
-
-# ssh-settings
-
 
 # global / gtags env
 export GTAGSLABEL=pygments

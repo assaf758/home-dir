@@ -19,7 +19,7 @@ kbd_home.sh workman
 sxhkd & 
 lemonade server &
 
-~/.dropbox-dist/dropboxd & 
+# ~/.dropbox-dist/dropboxd & 
 
 # redshift -l 32.1578:34.8077 -t 5700:3600 -g 0.8 -m randr -v
 nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
@@ -29,7 +29,7 @@ synclient TapButton1=0
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
-    'hlinux')
+    'hlinux' )
         TERM=linux-assafb tmuxinator hlinux
         wingo-cmd 'RenameWorkspace "1" "hlinux"' 
         ;;
