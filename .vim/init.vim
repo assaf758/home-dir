@@ -764,6 +764,7 @@ let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
 " rooter
 let g:rooter_patterns = ['proj_file_list.in']
 let g:rooter_change_directory_for_non_project_files = ''
+let rooter_silent_chdir = 1
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
