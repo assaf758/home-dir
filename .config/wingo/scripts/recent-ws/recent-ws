@@ -1,0 +1,37 @@
+#!/usr/bin/env python2
+
+# A script for the Wingo window manager to track the
+# most recent visited (and no longer visible) workspace.
+#
+# See README.md for details and usage examples.
+
+import sys
+
+import pywingo
+
+prev = ""
+cur  = ""
+visible = []
+W = pywingo.Wingo()
+
+@W.bind('ChangedVisibleWorkspace')
+def cvw(s):
+    global prev, cur, visible
+
+    # if we're just switching to the same ws, ignore event
+    now_visible = W.GetVisibleWorkspaceList()
+    now_ws = W.GetWorkspace()
+    if now_visible == visible:
+	# corner case: if we're just moving focus to a new screen,
+	# then update cur so the next assignment to prev is correct
+	if cur != now_ws:
+	    cur = now_ws
+        return
+
+    visible = now_visible
+    prev = cur
+    cur = now_ws
+
+    W.TagSet(0, "recent_ws", prev)
+
+W.loop()

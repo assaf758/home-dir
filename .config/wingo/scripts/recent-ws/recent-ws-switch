@@ -1,0 +1,34 @@
+#!/usr/bin/env python2
+
+# A script for the Wingo window manager to track the
+# most recent visited (and no longer visible) workspace.
+#
+# See README.md for details and usage examples.
+
+import sys
+import argparse
+import pywingo
+
+# Handle command-line
+parser = argparse.ArgumentParser()
+parser.add_argument("-c", "--with-client", action="store_true",
+	help="bring active client to destination workspace")
+parser.add_argument("-g", "--greedy", action="store_true",
+	help="do a greedy workspace switch")
+args = parser.parse_args()
+
+W = pywingo.Wingo()
+recent_ws = W.TagGet(0, "recent_ws")
+
+if args.with_client:
+    if args.greedy:
+	W.WorkspaceGreedyWithClient(recent_ws, W.GetActive())
+    else:
+	W.WorkspaceWithClient(recent_ws, W.GetActive())
+else:
+    if args.greedy:
+	W.WorkspaceGreedy(recent_ws)
+    else:
+	W.Workspace(recent_ws)
+
+sys.exit(0)
