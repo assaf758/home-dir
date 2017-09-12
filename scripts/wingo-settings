@@ -2,7 +2,6 @@
 
 declare -a ws_list=(
                 "aux-laptop" 
-                "ha"
                 "staging"
                 "misc"
                 "resync"
