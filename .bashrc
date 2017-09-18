@@ -83,6 +83,7 @@ function hgrep () {
 
 function log_bash_persistent_history()
 {
+  local command_result=$?
   [[
     $(history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$
   ]]
@@ -90,7 +91,7 @@ function log_bash_persistent_history()
   local command_part="${BASH_REMATCH[2]}"
   if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
   then
-    echo $date_part "|" "$command_part" >> ${PERSISTENT_HISTORY}
+    echo $date_part "|" $command_result "|"  "$command_part" >> ${PERSISTENT_HISTORY}
     export PERSISTENT_HISTORY_LAST="$command_part"
   fi
 }
@@ -105,7 +106,7 @@ function log_bash_persistent_history()
 
 __fzf_history ()
 {
-__ehc "$(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | cut -d\| -s --complement -f1 | cut -b1 --complement)"
+__ehc "$(cat ${PERSISTENT_HISTORY}| fzf --tac --tiebreak=index | cut -d\| -s --complement -f1,2 | cut -b1 --complement)"
 }
 
 __ehc()
