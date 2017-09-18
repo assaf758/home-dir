@@ -87,8 +87,9 @@ Plug 'kopischke/vim-stay'
 Plug 'vimwiki/vimwiki', {'branch' : 'dev'}
 "Plug 'mzlogin/vimwiki'
 
+Plug 'simnalamburt/vim-mundo'
+
 " retry with later version of neovim
-" Plug 'mbbill/undotree'
 " Plug 'SirVer/ultisnips'
 " Plug 'Shougo/unite.vim'
 " Plug 'hewes/unite-gtags'
@@ -589,6 +590,7 @@ nnoremap <F9> :TagbarToggle<CR>
 nnoremap <F8> :UndotreeToggle<cr>
 nnoremap <F7> :VoomToggle markdown<cr>
 nnoremap <F5> :AsyncRun make -C build/x86_64/Debug -j 6<cr>
+nnoremap <F4> :MundoToggle<CR>
 " Build and run go program hello.go on specific tmux window
 " nnoremap <F5> :silent !tmux send-keys -t 'kernel-dev':go.1 'go run golang_tour.go' C-m <CR>
 
@@ -667,7 +669,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " nnoremap <silent> <leader>f :execute 'Files' <bar> :call !FzfWA()<CR>
 " let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>F :Files ..<cr>
+nnoremap <leader>F :Files ../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
@@ -764,7 +766,7 @@ let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
 " rooter
 let g:rooter_patterns = ['proj_file_list.in']
 let g:rooter_change_directory_for_non_project_files = ''
-let rooter_silent_chdir = 1
+" let rooter_silent_chdir = 1
 
 " Command-T uses vim's wildignore to set a comma seperated list of globs to ignore in listings
 set wildignore+=*.o,*.obj,.git,.svn
