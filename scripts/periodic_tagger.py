@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time
 import subprocess
 import os
@@ -20,10 +20,18 @@ def do_every(period,f,*args):
 def call_global(s):
     i = datetime.datetime.now()
     print('%s: %s# gtags -i -f proj_file_list.in' % (i,os.getcwd()))
-    subprocess.call(['tag_build.sh'])
+
+    result = subprocess.run(['tag_build.sh'], stderr=subprocess.DEVNULL)
+    if result.returncode != 0:
+        print('retudncode = %d, doing full tag bulid!!' % result.returncode)
+        result = subprocess.run(['tag_build.sh', '-n'], stderr=subprocess.DEVNULL)
+        if result.returncode != 0:
+            print('new tag build failed rc=%d, aborting script' % result.returncode)
+            sys.exit()
+
     print('ctags -R..')
     ctags_path = find_executable('ctags')
-    subprocess.call([ctags_path, '-R'])
+    subprocess.run([ctags_path, '-R'], stderr=subprocess.DEVNULL)
     print("Done.")
 
 do_every(20*60,call_global,'x')
