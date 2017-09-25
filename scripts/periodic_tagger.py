@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 import time
 import subprocess
 import os
 import datetime
 from distutils.spawn import find_executable
+import signal
 
 def do_every(period,f,*args):
     def g_tick():
@@ -17,7 +18,7 @@ def do_every(period,f,*args):
         time.sleep(next(g))
         f(*args)
 
-def call_global(s):
+def call_global():
     i = datetime.datetime.now()
     print('%s: %s# gtags -i -f proj_file_list.in' % (i,os.getcwd()))
 
@@ -34,7 +35,11 @@ def call_global(s):
     subprocess.run([ctags_path, '-R'], stderr=subprocess.DEVNULL)
     print("Done.")
 
-do_every(20*60,call_global,'x')
+def handler(signum, frame):
+    call_global()
+
+signal.signal(signal.SIGUSR2,handler)
+do_every(10*60,call_global)
 
 
 # def hello(s):
