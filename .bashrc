@@ -219,8 +219,8 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
-alias tmux='TERM=tmux-256color tmux'
-alias nvim='TERM=tmux-256color nvim'
+# alias tmux='TERM=linux-assafb tmux'
+# alias nvim='TERM=tmux-256color nvim'
 
 export LOCAL=~/.local
 

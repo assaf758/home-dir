@@ -15,7 +15,6 @@ class WaitProcess (gdb.Command):
         except subprocess.CalledProcessError:
             continue
       gdb.execute("attach " + str(pid))
-      gdb.execute("b mds_container_create_job_stage_1_execute")
-      gdb.execute("continue")
+      # gdb.execute("continue") 
 WaitProcess()
 

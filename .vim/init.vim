@@ -9,11 +9,14 @@ fun! SetupPlug()
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
-Plug 'terryma/vim-expand-region'
+" Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'justinmk/vim-sneak'
+Plug 'machakann/vim-highlightedyank'
 
-Plug 'airodactyl/neovim-ranger'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'wesleyche/SrcExpl'
 
@@ -41,7 +44,7 @@ Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
 Plug 'kopischke/vim-fetch'
 
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoinclude.vim'
@@ -101,6 +104,35 @@ Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
 
 call plug#end()
 endfun
+
+function! Layout_for_log()
+    " execute "vertical" (winwidth(0)-10)."split"
+    execute "vertical" (31)."split"
+    setlocal virtualedit=all " global config
+    " left window config
+    0
+    set scrollbind
+    " right window config
+    wincmd l
+    set scrollbind
+    set nostartofline
+    set norelativenumber
+    set nonumber
+endfunction
+command! -bar LayoutLog call Layout_for_log()
+
+function! LayoutCoding()
+    topleft split
+    only
+    set noscrollbind
+    set virtualedit=
+    set startofline
+    copen
+    resize 10
+    wincmd k
+endfunction
+command! -bar LayoutCoding call LayoutCoding()
+
 
 function! SetMarkdownOptions()
     setlocal ts=2
@@ -312,15 +344,19 @@ nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>map :silent call My_mappings()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
-nnoremap <silent> <leader>h :topleft split \| :only \| :copen \| :resize 10 \| :wincmd k  <cr>
+nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
+
+nnoremap <silent> <leader>h :LayoutCoding<CR>
 nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
-nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
+nnoremap <Leader>log :LayoutLog<CR>
+
 
 nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
-nnoremap <silent> <leader>r :e %:p:h<CR>
+let g:ranger_map_keys = 0
+nnoremap <silent> <leader>r :Ranger<CR>
 
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
@@ -358,11 +394,6 @@ wincmd k
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
-" test search object.
-vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-omap s :normal vs<CR>
-
 " Toggle hex mode
 nnoremap <Leader>H :Hexmode<CR>
 
@@ -379,7 +410,7 @@ nnoremap <leader>bd :Bdelete<CR>
 nnoremap <leader>Bd :Bdelete!<CR>
 
 " Fast buffer selection
-nnoremap <leader>l :ls<CR>:pwd<CR>:b<Space>
+nnoremap <leader>B :ls<CR>:pwd<CR>:b<Space>
 
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
@@ -422,6 +453,10 @@ set smartcase  " Ignore case when searching lowercase
 nnoremap <silent> <leader>q :nohlsearch<CR>
 
 " Colorscheme **************
+set fillchars+=vert:\ 
+
+let g:gruvbox_vert_split='gray'
+
 let g:gruvbox_italic=1
 colorscheme gruvbox
 set background=dark
@@ -702,8 +737,11 @@ nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 " nnoremap <space>gps :Dispatch! git push<CR>
 " nnoremap <space>gpl :Dispatch! git pull<CR>
 
-"Easymotion
-nmap s <Plug>(easymotion-overwin-f2)
+"EasyMotion
+nmap <leader><leader>s <Plug>(easymotion-overwin-f2)
+
+"Vim-sneak
+let g:sneak#s_next = 1
 
 "Grepper
 nnoremap <leader>gb :Grepper-buffer<CR>
@@ -741,15 +779,15 @@ nmap <leader>A  <Plug>(altr-back)
 " iguazio 'classes in c' pattern
 call altr#define('%.c','%.h','%_prv.h')
 
-" expand_region 
-call expand_region#custom_text_objects({ 
-      \ "\/\\n\\n\<CR>": 1,  
-      \ 'a]' :1,  
-      \ 'ab' :1,  
-      \ 'aB' :1, 
-      \ 'ii' :0, 
-      \ 'ai' :0, 
-      \ })
+" " expand_region 
+" call expand_region#custom_text_objects({ 
+"       \ "\/\\n\\n\<CR>": 1,  
+"       \ 'a]' :1,  
+"       \ 'ab' :1,  
+"       \ 'aB' :1, 
+"       \ 'ii' :0, 
+"       \ 'ai' :0, 
+"       \ })
 
 " rtags
 let g:rtagsUseLocationList = 0
@@ -772,7 +810,7 @@ let g:rooter_change_directory_for_non_project_files = ''
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
-
+let g:python_host_prog = '/home/assafb/.pyenv/versions/neovim2/bin/python'
 let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
 
 " disable soft-wrap (run after all plugins have ran)
