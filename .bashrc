@@ -1,5 +1,39 @@
 #!/bin/bash
 
+function dist_name()
+{
+    if [ -f /etc/os-release ]; then
+        # freedesktop.org and systemd
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif type lsb_release >/dev/null 2>&1; then
+        # linuxbase.org
+        OS=$(lsb_release -si)
+        VER=$(lsb_release -sr)
+    elif [ -f /etc/lsb-release ]; then
+        # For some versions of Debian/Ubuntu without lsb_release command
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+        VER=$DISTRIB_RELEASE
+    elif [ -f /etc/debian_version ]; then
+        # Older Debian/Ubuntu/etc.
+        OS=Debian
+        VER=$(cat /etc/debian_version)
+    elif [ -f /etc/SuSe-release ]; then
+        # Older SuSE/etc.
+        ...
+    elif [ -f /etc/redhat-release ]; then
+        # Older Red Hat, CentOS, etc.
+        ...
+    else
+        # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+        OS=$(uname -s)
+        VER=$(uname -r)
+    fi
+    export OS=$OS
+}
+
 function deferred_exit()
 {
     echo "exit if not ctrl-c.."
@@ -173,10 +207,6 @@ fi
 export -f hgrep
 
 
-if [ -f /usr/share/bash-completion/bash_completion ] ; then
-    source /usr/share/bash-completion/bash_completion
-fi
-
 if [[ -n $SSH_CONNECTION ]] ; then
            export TERM=linux
    elif [[ $COLORTERM == xfce4-terminal ]] ; then
@@ -237,6 +267,8 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 add_to_path /usr/local/go/bin
 
 source ~/scripts/svn_functions.sh
+
+dist_name
 
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
@@ -346,15 +378,25 @@ alias vbash="vim ~/.bashrc"
 
 source ~/.git-completion.bash
 
-#ubuntu
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    source /etc/bash_completion
-    source /usr/share/bash-completion/completions/git
-fi
-#centos
-if [ -d /etc/bash_completion.d ] ; then
-    source /etc/bash_completion.d/git
-fi
+
+case "$OS" in
+    'Manjaro Linux' | 'arch linux' )
+        if [ -f /usr/share/bash-completion/bash_completion ] ; then
+            source /usr/share/bash-completion/bash_completion
+        fi
+        ;;
+    'ubuntu')
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        source /etc/bash_completion
+        source /usr/share/bash-completion/completions/git
+    fi
+    ;;
+    'centos')
+    if [ -d /etc/bash_completion.d ] ; then
+        source /etc/bash_completion.d/git
+    fi
+    ;;
+esac
 
 function_exists() {
     declare -f -F $1 > /dev/null
