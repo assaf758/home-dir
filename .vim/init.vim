@@ -810,8 +810,8 @@ let g:rooter_change_directory_for_non_project_files = ''
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
-let g:python_host_prog = '/home/assafb/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
+" let g:python_host_prog = '/home/assafb/.pyenv/versions/neovim2/bin/python'
+" let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
 
 " disable soft-wrap (run after all plugins have ran)
 autocmd VimEnter * set nowrap 
