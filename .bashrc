@@ -1,5 +1,39 @@
 #!/bin/bash
 
+function dist_name()
+{
+    if [ -f /etc/os-release ]; then
+        # freedesktop.org and systemd
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif type lsb_release >/dev/null 2>&1; then
+        # linuxbase.org
+        OS=$(lsb_release -si)
+        VER=$(lsb_release -sr)
+    elif [ -f /etc/lsb-release ]; then
+        # For some versions of Debian/Ubuntu without lsb_release command
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+        VER=$DISTRIB_RELEASE
+    elif [ -f /etc/debian_version ]; then
+        # Older Debian/Ubuntu/etc.
+        OS=Debian
+        VER=$(cat /etc/debian_version)
+    elif [ -f /etc/SuSe-release ]; then
+        # Older SuSE/etc.
+        ...
+    elif [ -f /etc/redhat-release ]; then
+        # Older Red Hat, CentOS, etc.
+        ...
+    else
+        # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+        OS=$(uname -s)
+        VER=$(uname -r)
+    fi
+    export OS=$OS
+}
+
 function deferred_exit()
 {
     echo "exit if not ctrl-c.."
@@ -173,10 +207,6 @@ fi
 export -f hgrep
 
 
-if [ -f /usr/share/bash-completion/bash_completion ] ; then
-    source /usr/share/bash-completion/bash_completion
-fi
-
 if [[ -n $SSH_CONNECTION ]] ; then
            export TERM=linux
    elif [[ $COLORTERM == xfce4-terminal ]] ; then
@@ -232,19 +262,20 @@ add_to_path "$LOCAL/bin"
 
 export GOPATH=$HOME/ws/go_ws
 add_to_path $GOPATH/bin
+add_to_path "$(ruby -e 'print Gem.user_dir')/bin"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 add_to_path /usr/local/go/bin
 
 source ~/scripts/svn_functions.sh
 
+dist_name
+
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
     'hlinux' | 'wlinux' )
-        export GOPATH=$HOME/ws/go_ws
         add_to_path $GOPATH/bin
         PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
         add_to_path /opt/junest/bin
-	PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
-        # alias sss='cd ~/ws/vagrant/ubuntu-1504; vagrant ssh'
         alias s1604='ssh -X -p 2223 assafb@localhost'
         alias sc='ssh -X assafb@assafb-centos'
         ;;
@@ -277,54 +308,34 @@ case "`cat ~/hostname.txt`" in
         export JUNEST_HOME=${WS_STORAGE}/junest_home
         if [ -z ${JUNEST_ENV+x} ]; then
             MYVIM=${LOCAL}/bin/vim
-	    add_to_path "$HOME/junest/bin/"
-	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+            add_to_path "$HOME/junest/bin/"
+            PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
 
             if [ -f ~/.cwdfile ]; then
-		cd $(cat ~/.cwdfile)
-		if [ $? -ne 0 ]; then
-		    cd ~/ws
-		fi
-	        rm ~/.cwdfile
-	    else
-		cd ~/ws
-	    fi
-        else
+                cd $(cat ~/.cwdfile)
+                if [ $? -ne 0 ]; then
+                    cd ~/ws
+                fi
+                rm ~/.cwdfile
+            else
+                cd ~/ws
+            fi
+
             MYVIM=vim
             export PATH=${ORIG_PATH}
             add_to_path "$HOME/scripts"
-	    EFFECTIVE_UID=$(id -u)
-	    if [ ${EFFECTIVE_UID} -eq 0 ]; then
-		JPR="jnr"
-	    else
-		JPR="jn"
-	    fi
-	    PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h(${JPR}):\w\n$ "
-	fi
-        export DIR_WAS="target/sources/sto/apps/asm/dplane/waf/"
-        export DIR_STO="target/sources/sto/"
-        alias cdws="cd $WS"
-        alias stbuild20="rm -f *build && sudo make MOD=20 64BIT=yes all"
-        alias stbuild52="rm -f *build && sudo make MOD=52 64BIT=yes all"
-        alias stdist20="sudo make MOD=20 64BIT=yes distclean"
-        alias stdist52="sudo make MOD=52 64BIT=yes distclean"
-        alias stvim="${MYVIM} --cmd 'cd target/sources/sto'"
-	alias nvim="TERM=screen-256color nvim"
-        alias stnvim="nvim --cmd 'cd target/sources/sto'"
-        alias sttag="(cd target/sources/sto/ && rm cscope.* ; ttf ; ttu)"
+            EFFECTIVE_UID=$(id -u)
+            if [ ${EFFECTIVE_UID} -eq 0 ]; then
+                JPR="jnr"
+            else
+                JPR="jn"
+            fi
+            PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h(${JPR}):\w\n$ "
+        fi
         ;;
     * )
         ;;
 esac
-
-
-# alias ss8="ssh -oCiphers=arcfour -oClearAllForwardings=yes dev64-build8"
-# alias jnr="junest -p \"-k 3.10\" -f"
-# alias jn="run_junest"
-# alias into17="cdssh dev64-build17"
-
-# ssh-settings
-
 
 # global / gtags env
 export GTAGSLABEL=pygments
@@ -367,15 +378,25 @@ alias vbash="vim ~/.bashrc"
 
 source ~/.git-completion.bash
 
-#ubuntu
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    source /etc/bash_completion
-    source /usr/share/bash-completion/completions/git
-fi
-#centos
-if [ -d /etc/bash_completion.d ] ; then
-    source /etc/bash_completion.d/git
-fi
+
+case "$OS" in
+    'Manjaro Linux' | 'arch linux' )
+        if [ -f /usr/share/bash-completion/bash_completion ] ; then
+            source /usr/share/bash-completion/bash_completion
+        fi
+        ;;
+    'ubuntu')
+    if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        source /etc/bash_completion
+        source /usr/share/bash-completion/completions/git
+    fi
+    ;;
+    'centos')
+    if [ -d /etc/bash_completion.d ] ; then
+        source /etc/bash_completion.d/git
+    fi
+    ;;
+esac
 
 function_exists() {
     declare -f -F $1 > /dev/null
