@@ -208,14 +208,14 @@ export -f hgrep
 
 
 if [[ -n $SSH_CONNECTION ]] ; then
-           export TERM=linux
-   elif [[ $COLORTERM == xfce4-terminal ]] ; then
+    export TERM=xterm-termite
+elif [[ $COLORTERM == xfce4-terminal ]] ; then
     # http://vim.wikia.com/wiki/256_colors_in_vim
     export TERM=gnome-256color
     # http://pkgs.fedoraproject.org/cgit/coreutils.git/tree/
     eval `dircolors --sh "/etc/DIR_COLORS.256color"`
 else
-        export TERM=xterm-termite
+    export TERM=xterm-termite
     eval `dircolors`
 fi
 
