@@ -215,7 +215,7 @@ if [[ -n $SSH_CONNECTION ]] ; then
     # http://pkgs.fedoraproject.org/cgit/coreutils.git/tree/
     eval `dircolors --sh "/etc/DIR_COLORS.256color"`
 else
-        export TERM=linux-assafb
+        export TERM=xterm-termite
     eval `dircolors`
 fi
 
