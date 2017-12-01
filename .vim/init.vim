@@ -28,6 +28,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'kana/vim-altr'
 
 Plug 'tpope/vim-fugitive'
+Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'majutsushi/tagbar'
