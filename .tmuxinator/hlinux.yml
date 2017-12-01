@@ -13,9 +13,9 @@
 # tmux_options: -f ~/.tmux.mac.conf
 
 # Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
-tmux_command: TERM=linux-assafb tmux
+tmux_command: tmux
 
-name: laptop
+name: hlinux
 root: ~/ws/
 windows:
   - vagrant: 

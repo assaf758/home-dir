@@ -8,7 +8,7 @@ super + F2
   gmrun
 
 super + Escape
-	pkill -USR1 -x sxhkd
+  pkill -USR1 -x sxhkd
 
 super + shift + F3
   ~/scripts/kbd_home.sh workman
@@ -17,7 +17,7 @@ super + F3
   ~/scripts/kbd_home.sh qwerty
 
 super + shift + F4
-  ~/scripts/screen-set wlinux-home-external
+  ~/scripts/screen-set hlinux-home-external
 
 super + shift + control + F4
   ~/scripts/screen-set wlinux-office-external

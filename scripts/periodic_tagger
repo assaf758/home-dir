@@ -1,0 +1,2 @@
+#!/bin/bash
+PYENV_VERSION=periodic_tagger python ~/scripts/periodic_tagger.py

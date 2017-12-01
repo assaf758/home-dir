@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/python
 import time
 import subprocess
 import os
@@ -37,6 +37,9 @@ def call_global():
 
 def handler(signum, frame):
     call_global()
+
+import sys
+print(sys.version, '\n')
 
 signal.signal(signal.SIGUSR2,handler)
 do_every(10*60,call_global)
