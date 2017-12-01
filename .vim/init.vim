@@ -47,9 +47,14 @@ Plug 'kopischke/vim-fetch'
 
 " Plug 'airblade/vim-rooter'
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'zchee/deoplete-clang'
+"trying to use completion-manager instead
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/neoinclude.vim'
+" Plug 'zchee/deoplete-clang'
+
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/ncm-clang'
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
