@@ -385,13 +385,13 @@ case "$OS" in
             source /usr/share/bash-completion/bash_completion
         fi
         ;;
-    'ubuntu')
+    'Ubuntu')
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
         source /etc/bash_completion
         source /usr/share/bash-completion/completions/git
     fi
     ;;
-    'centos')
+    'CentOS Linux')
     if [ -d /etc/bash_completion.d ] ; then
         source /etc/bash_completion.d/git
     fi
