@@ -21,7 +21,7 @@ windows:
                 nvim
         - build: 
         - int-test:
-        - stuff: periodic_tagger.py
+        - stuff: periodic_tagger
 
 
 
