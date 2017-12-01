@@ -29,10 +29,10 @@ synclient TapButton1=0
 # The file ~/hostname.txt is not part of git env (spcific for every machine)
 case "`cat ~/hostname.txt`" in
     'hlinux' )
-        TERM=linux-assafb tmuxinator hlinux
+        tmuxinator hlinux
         ;;
     'wlinux' )
-        TERM=linux-assafb tmuxinator laptop
+        tmuxinator laptop
         ;;
     * )
         ;;
