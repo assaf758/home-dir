@@ -334,7 +334,7 @@ else
 nnoremap ; :
 :imap jk <Esc>
 " Use K in normal mode to add blank line above the current line
-nnoremap <silent>K :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent>K wincmd O<Esc>
 
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
@@ -816,8 +816,8 @@ let g:rooter_change_directory_for_non_project_files = ''
 set wildignore+=*.o,*.obj,.git,.svn
 set tabstop=4     " size of a hard tabstop char
 
-" let g:python_host_prog = '/home/assafb/.pyenv/versions/neovim2/bin/python'
-" let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog = '/home/assafb/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/home/assafb/.pyenv/versions/neovim3/bin/python'
 
 " disable soft-wrap (run after all plugins have ran)
 autocmd VimEnter * set nowrap 

@@ -49,7 +49,9 @@ igrun_test ()
     rm /dev/shm/*_stats_*
     find /tmp -name 'data_policy_container_*' -delete
     LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
+    local result=$?
     deactivate 
+    return ${result}
 }
 
 igkillall ()
