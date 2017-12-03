@@ -208,8 +208,8 @@ export -f hgrep
 
 
 if [[ -n $SSH_CONNECTION ]] ; then
-    # echo;
-    export TERM=xterm-termite # needed for current version of git - WARNING: terminal is not fully functional
+    echo;
+    # export TERM=xterm-termite # needed for current version of git - WARNING: terminal is not fully functional
 elif [[ $COLORTERM == xfce4-terminal ]] ; then
     # http://vim.wikia.com/wiki/256_colors_in_vim
     # export TERM=gnome-256color
