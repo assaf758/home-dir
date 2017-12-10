@@ -1,8 +1,8 @@
 super + alt+ F5
-    gxmessage hi
+  gxmessage hi
 
 super + t 
-    termite
+  alacritty
 
 super + F2 
   gmrun
