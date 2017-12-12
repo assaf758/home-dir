@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple  
-ExecStart=/usr/bin/gollum --show-all --live-preview --allow-uploads dir "/home/assafb/Dropbox/wiki"  
+ExecStart=/home/assafb/bin/gollum --show-all --live-preview --allow-uploads dir "/home/assafb/Dropbox/wiki"
 Restart=on-abort
 
 [Install]
