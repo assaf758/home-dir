@@ -659,9 +659,13 @@ let g:vimwiki_list = [{
 :nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
 :nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
 :nmap <Leader>wwtt <Plug>VimwikiToggleListItem
+:vmap <Leader>wwtt <Plug>VimwikiToggleListItem
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
+let g:vimwiki_auto_chdir = 0
+let g:vimwiki_url_maxsave = 0
+
 
 "folding
 set viewoptions=cursor,folds,slash,unix

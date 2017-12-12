@@ -25,7 +25,7 @@ def call_global():
     result = subprocess.run(['tag_build.sh'], stderr=subprocess.DEVNULL)
     if result.returncode != 0:
         print('retudncode = %d, doing full tag bulid!!' % result.returncode)
-        result = subprocess.run(['tag_build.sh', '-n'], stderr=subprocess.DEVNULL)
+        result = subprocess.run(['tag_build.sh', '-n'])
         if result.returncode != 0:
             print('new tag build failed rc=%d, aborting script' % result.returncode)
             sys.exit()
