@@ -456,7 +456,7 @@ set incsearch  " incremental search, search as you type
 set inccommand=nosplit "show effects of command as you type
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
-nnoremap <silent> <leader>q :nohlsearch<CR>
+nnoremap <silent> <leader>qh :nohlsearch<CR>
 
 " Colorscheme **************
 set fillchars+=vert:\ 
@@ -535,7 +535,7 @@ augroup END
 set numberwidth=5 " We are good up to 99999 lines
 nnoremap <leader>G :echo expand('%:p')<cr>
 syntax enable
-nnoremap <silent> <leader>s :if exists("g:syntax_on") <Bar>
+nnoremap <silent> <leader>qs :if exists("g:syntax_on") <Bar>
 	\   syntax off <Bar>
 	\ else <Bar>
 	\   syntax enable <Bar>
@@ -573,7 +573,7 @@ set tabstop=4     " size of a hard tabstop char
 :command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
 
 " toggle showing of whitespace chars
-nnoremap <leader>sp :set list! list?<cr>
+nnoremap <leader>qsp :set list! list?<cr>
 set listchars=tab:→\ ,trail:·,nbsp:·,eol:¬
 
 set hidden	" allow switching from unsaved buffer
@@ -651,21 +651,20 @@ let g:vimwiki_list = [{
     \ 'auto_toc':1, 
     \ }]
 
-:nmap <Leader>wwi <Plug>VimwikiIndex
-:nmap <Leader>wwti <Plug>VimwikiTabIndex
-:nmap <Leader>wwq <Plug>VimwikiUISelect
-:nmap <Leader>wwdi <Plug>VimwikiDiaryIndex
-:nmap <Leader>wwgr <Plug>VimwikiDiaryGenerateLinks
-:nmap <Leader>wwd <Plug>VimwikiMakeDiaryNote
-:nmap <Leader>wwdy <Plug>VimwikiMakeYesterdayDiaryNote
-:nmap <Leader>wwtt <Plug>VimwikiToggleListItem
-:vmap <Leader>wwtt <Plug>VimwikiToggleListItem
+:nmap <Leader>sw  <Plug>VimwikiIndex
+:nmap <Leader>sdi <Plug>VimwikiDiaryIndex
+:nmap <Leader>sd  <Plug>VimwikiMakeDiaryNote
+:nmap <Leader>sdy <Plug>VimwikiMakeYesterdayDiaryNote
+:nmap <Leader>sgr <Plug>VimwikiDiaryGenerateLinks
+:nmap <Leader>st <Plug>VimwikiToggleListItem
+:vmap <Leader>st <Plug>VimwikiToggleListItem
+:nmap <Leader>sD <Plug>VimwikiDeleteLink
+:nmap <Leader>sR <Plug>VimwikiRenameLink
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_auto_chdir = 0
 let g:vimwiki_url_maxsave = 0
-
 
 "folding
 set viewoptions=cursor,folds,slash,unix
