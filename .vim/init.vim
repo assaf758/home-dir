@@ -746,9 +746,6 @@ nnoremap <leader>gcf yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 " nnoremap <space>gps :Dispatch! git push<CR>
 " nnoremap <space>gpl :Dispatch! git pull<CR>
 
-"EasyMotion
-nmap <leader><leader>s <Plug>(easymotion-overwin-f2)
-
 "Vim-sneak
 let g:sneak#s_next = 1
 

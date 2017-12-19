@@ -1,0 +1,2 @@
+:nunmap <Leader>wt
+
