@@ -660,6 +660,7 @@ let g:vimwiki_list = [{
 :vmap <Leader>st <Plug>VimwikiToggleListItem
 :nmap <Leader>sD <Plug>VimwikiDeleteLink
 :nmap <Leader>sR <Plug>VimwikiRenameLink
+:nmap <Leader>sz <Plug>VimwikiTabIndex
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
