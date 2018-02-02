@@ -23,8 +23,8 @@ qwerty-c)
   ;;
 workman)
   printf "\nLayout set to workman:\n"
-  setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, ' -option 'shift:both_capslock', 'grp_led:scroll','caps:ctrl_modifier ', 'grp:sclk_toggle '
-  xcape -e 'Control_L=Escape;Control_R=Control_R|O'
+  setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, ' -option 'shift:both_capslock', 'grp_led:scroll','caps:ctrl_modifier ', 'grp:sclk_toggle ', 'ctrl:nocaps'
+  xcape -e 'Control_L=Escape'
   # see man xkeyboard-config for complete description
   # setxkbmap -rules evdev -model logitech_base -layout 'us,il' -variant 'workman, ' -option 'ctrl:nocaps', 'grp:shifts_toggle'
   setxkbmap -query
