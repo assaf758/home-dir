@@ -1,0 +1,11 @@
+[Unit]
+Description=Dynamic DNS refresh service
+After=network.target
+
+[Service]
+Type=simple  
+ExecStart=/bin/sh -c '/usr/bin/wget -O - http://freedns.afraid.org/dynamic/update.php?Vjk4ZHBhYkVLRHpkeWVza202cUM6OTI2NjY1Mg== >> /tmp/freedns_assaf758_mooo_com.log 2>&1'
+Restart=on-abort
+
+[Install]
+WantedBy=default.target

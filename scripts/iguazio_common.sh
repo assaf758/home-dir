@@ -45,11 +45,17 @@ igrun_test ()
     shift
     cd ${IGZ_ZEEK}
     source ${ROOT_SRC_DIR}/venv/bin/activate
-    igkillall 
-    rm /dev/shm/*_stats_*
-    find /tmp -name 'data_policy_container_*' -delete
-    LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
-    local result=$?
+    local iter
+    local result
+    if [ -z ${ITERATIONS:+x} ]; then iter=1; else iter=$ITERATIONS; fi
+    for ((i=1;i<=$iter;i++))
+    do
+        igkillall
+        printf "running iteration #%d/%d\n" ${i} ${iter}
+        LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
+        result=$?
+        if (($result!=0)); then printf "test number %d failed rc=%d" ${i} ${result}; break; fi
+    done
     deactivate 
     return ${result}
 }
@@ -66,6 +72,7 @@ igkillall ()
     pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files
     rm -rf /tmp/fuse_mount /tmp_fuse_mount_all
+    find /tmp -name 'data_policy_container_*' -delete
 }
 
 # change-dir shortcuts

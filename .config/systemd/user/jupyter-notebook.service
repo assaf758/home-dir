@@ -1,0 +1,12 @@
+[Unit]
+Description=Jupyter-notebook service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/assafb/Dropbox/notebooks
+ExecStart=/usr/bin/jupyter-notebook 
+Restart=on-abort
+
+[Install]
+WantedBy=default.target
