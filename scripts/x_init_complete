@@ -19,7 +19,7 @@ kbd_home.sh workman
 
 sxhkd & 
 
-lemonade server  --port=2489 &
+lemonade server --port=2489 2>/dev/null &
 
 nohup redshift -l geoclue2 -t 5700:3600 -g 0.8 -m randr -v &
 
