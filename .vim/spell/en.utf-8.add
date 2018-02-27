@@ -122,3 +122,15 @@ backends
 etc
 unsetting
 offsite
+sliceSeqSkippedCount
+igz1
+igz3
+precommit
+pthread
+libc
+lib64
+usr
+igz
+fgrep
+igz0
+pid

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# prevent interfering with remote commands (scp etc)
+[ -z "$PS1" ] && return
+
 function dist_name()
 {
     if [ -f /etc/os-release ]; then
