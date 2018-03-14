@@ -310,8 +310,11 @@ noremap n j
 noremap e k
 " noremap h - unneeded - h is used the same (qwerty/workman) for left move
 
+" use k/K to search next
 nnoremap k n
 nnoremap K N
+" search keyword under cursor using kyeword program
+noremap <leader> K
 " Use E in normal mode to add blank line above the current line
 nnoremap E 0i<C-M><ESC>k
 "easier navigation between split windows

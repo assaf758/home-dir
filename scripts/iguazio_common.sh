@@ -41,6 +41,7 @@ igrun_test ()
 {
     check_IGZ_WS
     if [ $# -lt 1 ] ; then echo "plese provide path for test to run (and optional params to it)"; return 1; fi
+    igkillall
     test=$1
     shift
     cd ${IGZ_ZEEK}
@@ -63,6 +64,7 @@ igrun_test ()
 igkillall ()
 {
     kill -9 `pidof v3io_adapters_fuse` `pidof bridge` >& /dev/null
+    kill -9 `pidof object_put_spammer` >& /dev/null
     kill -9 `pidof v3io_daemon` `pidof log_server` >& /dev/null
     kill -9 `pidof nginx` `pidof xio_mule`  >& /dev/null
     kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
