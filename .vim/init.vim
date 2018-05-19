@@ -652,6 +652,8 @@ let g:vimwiki_list = [{
     \ 'ext': '.md',
     \ 'markdown_toc' : 1,
     \ 'auto_toc':1, 
+    \ 'path_html': '~/wiki_site',
+    \ 'custom_wiki2html': '~/scripts/wiki2html.sh'
     \ }]
 
 :nmap <Leader>sw  <Plug>VimwikiIndex
