@@ -1,31 +1,34 @@
-;; .emacs
+;;; init.el --- Spacemacs Initialization File
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
 
-; tell me if there's something wrong
-(setq debug-on-error t)
+;; Without this comment emacs25 adds (package-initialize) here
+;; (package-initialize)
 
-(server-start)
+;; Increase gc-cons-threshold, depending on your system you may set it back to a
+;; lower value in your dotfile (function `dotspacemacs/user-config')
+(setq gc-cons-threshold 100000000)
 
+(defconst spacemacs-version         "0.200.10" "Spacemacs version.")
+(defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
 
-(add-to-list 'load-path (expand-file-name "~/elisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
-
-; evil minor mode (vim eumlation)
-(add-to-list 'load-path "~/.emacs.d/evil") ; only without ELPA/el-get
-  (require 'evil)
-  (evil-mode 1)
-
-
-; Disable non-emacs stuff:
-;(menu-bar-mode -1)       ;hide menu-bar
-(scroll-bar-mode -1)     ;hide scroll-bar
-(tool-bar-mode -1)       ;hide tool-bar
-
-; do not wrap long lines
-(setq-default truncate-lines t)
-; show column number in status line
-(column-number-mode 1)
-
-(setq inhibit-startup-echo-area-message t)                                      
-(setq initial-scratch-message nil)                                              
-(setq inhibit-splash-screen t)                                                  
-(setq inhibit-startup-message t)
+(if (not (version<= spacemacs-emacs-min-version emacs-version))
+    (error (concat "Your version of Emacs (%s) is too old. "
+                   "Spacemacs requires Emacs version %s or above.")
+           emacs-version spacemacs-emacs-min-version)
+  (load-file (concat (file-name-directory load-file-name)
+                     "core/core-load-paths.el"))
+  (require 'core-spacemacs)
+  (spacemacs/init)
+  (configuration-layer/sync)
+  (spacemacs-buffer/display-startup-note)
+  (spacemacs/setup-startup-hook)
+  (require 'server)
+  (unless (server-running-p) (server-start)))
