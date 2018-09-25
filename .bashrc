@@ -7,11 +7,12 @@ get_crtime() {
 
   for target in "${@}"; do
     inode=$(stat -c %i "${target}")
-    fs=$(df  --output=source "${target}"  | tail -1)
+    # fs=$(df  --output=source "${target}"  | tail -1)
+    fs=$(df "${target}" | awk '{a=$1}END{print a}')
     crtime=$(sudo debugfs -R 'stat <'"${inode}"'>' "${fs}" 2>/dev/null | grep -oP 'crtime.*--\s*\K.*')
     printf "%s\t%s\n" "${target}" "${crtime}"
   done
-    }
+}
 
 function dist_name()
 {
@@ -138,7 +139,7 @@ function log_bash_persistent_history()
   local command_part="${BASH_REMATCH[2]}"
   if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
   then
-    echo $date_part "|" $command_result "|"  "$command_part" >> ${PERSISTENT_HISTORY}
+    echo $date_part "|" $command_result "|"  "$command_part" | sed  's/[ \t]*$//' >> ${PERSISTENT_HISTORY}
     export PERSISTENT_HISTORY_LAST="$command_part"
   fi
 }

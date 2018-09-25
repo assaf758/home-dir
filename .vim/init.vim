@@ -44,17 +44,23 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-repeat'
 Plug 'wincent/terminus'
 Plug 'kopischke/vim-fetch'
+Plug 'lambdalisue/suda.vim'
 
 " Plug 'airblade/vim-rooter'
 
-"trying to use completion-manager instead
+"trying to use ncm2 instead
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'Shougo/neoinclude.vim'
 " Plug 'zchee/deoplete-clang'
 
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/ncm-clang'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-pyclang'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-bufword'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
 
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
@@ -99,7 +105,6 @@ Plug 'vimwiki/vimwiki', {'branch' : 'dev'}
 Plug 'simnalamburt/vim-mundo'
 
 " retry with later version of neovim
-" Plug 'SirVer/ultisnips'
 " Plug 'Shougo/unite.vim'
 " Plug 'hewes/unite-gtags'
 
@@ -646,7 +651,7 @@ endif
 
 "vimwiki
 let g:vimwiki_list = [{
-    \ 'path': '~/Dropbox/wiki',
+    \ 'path': '~/Drive/assaf758@gmail.com/wiki',
     \ 'index': 'Home',
     \ 'syntax': 'markdown',
     \ 'ext': '.md',
@@ -677,18 +682,6 @@ set viewoptions=cursor,folds,slash,unix
 "let g:netrw_keepdir=0  " let vim cdr follow netrw browser dir
 " use gc to change vim cwd to the nerw dir
 
-" Completion menu
-"set pumheight=15
-set completeopt=menu,menuone
-let g:SuperTabDefaultCompletionType = "context"
-
-" YouCompleteMe config
-" Do not display "Pattern not found" messages during YouCompleteMe completion
-" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
-try
-  set shortmess+=c
-  catch /E539: Illegal character/
-endtry
 
 " neomake
 nnoremap <leader>m :Neomake<cr>
@@ -760,6 +753,7 @@ let g:grepper = {
     \ 'tools': ['pss','ag', 'pcregrep'],
     \ 'pss': {
     \   'grepprg':    'pss',
+    \   'grepprgbuf': 'pss $* $.',
     \   'grepformat': '%f:%l:%m',
     \   'escape':     '\+*^$()[]',
     \ },
@@ -799,15 +793,39 @@ call altr#define('%.c','%.h','%_prv.h')
 "       \ 'ai' :0, 
 "       \ })
 
+" ncm2
+
+" Completion menu IMPORTANTE: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" ncm2-pyclang
+let g:ncm2_pyclang#library_path = "/usr/lib64/llvm/libclang.so"
+let g:ncm2_pyclang#database_path = [
+            \ 'build/x86_64/Debug/compile_commands.json'
+            \ ]
+autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+" Use <TAB> to select the popup menu:
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c
+
+" ultisnip
+let g:UltiSnipsExpandTrigger="<Tab>"
+
 " rtags
 let g:rtagsUseLocationList = 0
+
+" magit
+let g:magit_discard_untracked_do_delete = 1
 
 " vimux config
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
 
 "deoplete config
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 let g:deoplete#sources#clang#libclang_path="/usr/lib64/llvm/libclang.so"
 let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
 

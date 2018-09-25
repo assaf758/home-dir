@@ -17,3 +17,5 @@ eval "$(pyenv virtualenv-init -)"
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 eval "$(rbenv init -)"
+
+export PATH="$HOME/.cargo/bin:$PATH"

@@ -37,6 +37,14 @@ igtmux ()
     tmuxinator start code  -n ${IGZ_WS_NAME} workspace=$IGZ_ZEEK
 }
 
+
+igws ()
+{
+    if [ $# -lt 1 ] ; then echo "plese provide workspace name to run (ex. resync)"; return 1; fi
+    cd ~/iguazio/$1 && igset_ws_root Debug && export DISPLAY="" && igtmux
+}
+
+
 igrun_test ()
 {
     check_IGZ_WS
@@ -52,6 +60,7 @@ igrun_test ()
     for ((i=1;i<=$iter;i++))
     do
         igkillall
+        # rm ${ROOT_BIN_DIR}/valgrind_results/*
         printf "running iteration #%d/%d\n" ${i} ${iter}
         LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
         result=$?
@@ -69,6 +78,7 @@ igkillall ()
     kill -9 `pidof nginx` `pidof xio_mule`  >& /dev/null
     kill -9 `pidof valgrind.bin` `pidof valgrind` >& /dev/null
     kill -9 `pidof -x run_node_services.sh` `pidof valgrind` >& /dev/null
+    pkill -9  >& /dev/null
     ps axu | awk '/integration\.sh/ {print $2}' | xargs kill -9 >& /dev/null
     kill -9 `pidof fio` >& /dev/null
     pkill -9 node_runner* >& /dev/null
