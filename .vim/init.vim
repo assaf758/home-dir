@@ -617,6 +617,9 @@ nnoremap <leader>crp :let @+=expand("%")<CR>
 " Echo current buffer's Filename (tail) + Line number to the vim command line or clipboard
 nnoremap <leader>elp :echo expand("%:t") . ':' . line(".")<CR>
 nnoremap <leader>clp :let @+=expand("%:t") . ':' . line(".")<CR>
+" Echo current buffer's Filename (tail)
+nnoremap <leader>enp :echo expand("%:t")<CR>
+nnoremap <leader>cnp :let @+=expand("%:t")<CR>
 
 set nobackup		" no backup files
 set noswapfile		" nor swapfiles
