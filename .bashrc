@@ -123,7 +123,7 @@ add_to_path ()
 
 
 
-PERSISTENT_HISTORY=~/Dropbox/persistent_history
+PERSISTENT_HISTORY=/home/assafb/Drive/assaf758@gmail.com/persistent_history
 
 function hgrep () {
   cat ${PERSISTENT_HISTORY} | grep $1
