@@ -2,7 +2,7 @@
 
 # worksapce vars management
 
-igset_ws_root ()
+igset_traget ()
 {
     [ $# -eq 0 ] && { echo "Usage: ${FUNCNAME} target // target = [Debug | Fiu | Release]"; return 1; }
     local target="$1"
@@ -26,7 +26,7 @@ igc ()
 check_IGZ_WS ()
 {
     local result=0
-    if [ -z ${IGZ_WS+x} ]; then echo "IGZ_WS is unset. Please set it to workspace root (for ex. ~/iguazio/ws). igset_ws_root() can be used"; local result=1;  fi
+    if [ -z ${IGZ_WS+x} ]; then echo "IGZ_WS is unset. Please set it to workspace root (for ex. ~/iguazio/ws). igset_traget() can be used"; local result=1;  fi
     return ${result}
 }
 
@@ -40,8 +40,10 @@ igtmux ()
 
 igws ()
 {
-    if [ $# -lt 1 ] ; then echo "plese provide workspace name to run (ex. resync)"; return 1; fi
-    cd ~/iguazio/$1 && igset_ws_root Debug && export DISPLAY="" && igtmux
+    if [[ $# < 1  || $# > 2 ]] ; then echo "usage: igws <workspace> [<target>]. for example igws resync Release"; return 1; fi
+    target="Debug"
+    if [ $2 ] ; then target=$(echo $2) ; fi
+    cd ~/iguazio/$1 && igset_traget "${target}" && export DISPLAY="" && igtmux
 }
 
 

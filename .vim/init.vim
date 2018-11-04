@@ -15,7 +15,9 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'machakann/vim-highlightedyank'
 
+Plug 'rbgrouleff/bclose.vim' " required by ranger.vim
 Plug 'francoiscabrol/ranger.vim'
+
 Plug 'tpope/vim-vinegar'
 Plug 'wesleyche/SrcExpl'
 
@@ -433,12 +435,18 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+" disable mapping of bclose (blcose is only needed for ranger plugin)
+let g:bclose_no_plugin_maps = 1
 " Provide buffer delete which does not close the window
 nnoremap <leader>Bd :Bdelete<CR>
 nnoremap <leader>BD :Bdelete!<CR>
 
+
+nnoremap <leader>bF :%!fgrep '<c-r>=expand("<cword>")<cr>'
+nnoremap <leader>bf :%!fgrep '<c-r>+'<CR>
+
 " Fast buffer selection
-nnoremap <leader>B :ls<CR>:pwd<CR>:b<Space>
+" nnoremap <leader>B :ls<CR>:pwd<CR>:b<Space>
 
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
@@ -727,7 +735,8 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " nnoremap <silent> <leader>b :Buffers<cr> :call FzfWA()<CR>
 " nnoremap <silent> <leader>f :execute 'Files' <bar> :call !FzfWA()<CR>
 " let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
-nnoremap <leader>b :Buffers<cr>
+
+" nnoremap <leader>b :Buffers<cr> " disabled for now, using history <leader>h
 nnoremap <leader>F :Files ../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
@@ -800,7 +809,7 @@ endif
 nmap <leader>a  <Plug>(altr-forward)
 nmap <leader>A  <Plug>(altr-back)
 " iguazio 'classes in c' pattern
-call altr#define('%.c','%.h','%_prv.h')
+call altr#define('%.c','%.h','%_prv.h','%_nv.h')
 
 " " expand_region 
 " call expand_region#custom_text_objects({ 
