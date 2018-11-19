@@ -15,8 +15,9 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'machakann/vim-highlightedyank'
 
-Plug 'rbgrouleff/bclose.vim'
+Plug 'rbgrouleff/bclose.vim' " required by ranger.vim
 Plug 'francoiscabrol/ranger.vim'
+
 Plug 'tpope/vim-vinegar'
 Plug 'wesleyche/SrcExpl'
 
@@ -113,6 +114,15 @@ Plug 'kynan/dokuvimki', {'on': 'DokuVimKi'}
 " disabled due to bug in ruby interation (i raised on neovim)
 " Plug 'LustyJuggler'
 
+
+function! RunPython(match)
+  python print vim.eval("a:match")*3
+  return ""
+endfunction
+" the below will run the python function on every line mathing aaa
+" :%s/aaa\(.*\)/\=submatch(0) . RunPython(submatch(1))
+
+
 call plug#end()
 endfun
 
@@ -138,8 +148,12 @@ function! LayoutCoding()
     set noscrollbind
     set virtualedit=
     set startofline
+    set number
+    set relativenumber
     copen
     resize 10
+    set norelativenumber
+    set number
     wincmd k
 endfunction
 command! -bar LayoutCoding call LayoutCoding()
@@ -342,7 +356,9 @@ else
 nnoremap ; :
 :imap jk <Esc>
 " Use K in normal mode to add blank line above the current line
-nnoremap <silent>K wincmd O<Esc>
+"nnoremap <silent>K call feedkeys("O\<Ctrl-[>")
+let @o="O"
+nnoremap <silent>K @o
 
 " easier navigation between split windows
 nnoremap <c-j> <c-w>j
@@ -360,9 +376,9 @@ nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
 
-nnoremap <silent> <leader>h :LayoutCoding<CR>
-nnoremap <silent> <leader>h1 :copen \| :resize 10 \| :wincmd k<cr>
-nnoremap <silent> <leader>h2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
+nnoremap <silent> <leader>H :LayoutCoding<CR>
+nnoremap <silent> <leader>H1 :copen \| :resize 10 \| :wincmd k<cr>
+nnoremap <silent> <leader>H2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
 nnoremap <Leader>log :LayoutLog<CR>
 
 
@@ -409,7 +425,7 @@ nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 
 " Toggle hex mode
-nnoremap <Leader>H :Hexmode<CR>
+nnoremap <Leader>qm :Hexmode<CR>
 
 "Copy & paste to system clipboard with <Space>p and <Space>y:
 vmap <Leader>y "+y
@@ -419,12 +435,18 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+" disable mapping of bclose (blcose is only needed for ranger plugin)
+let g:bclose_no_plugin_maps = 1
 " Provide buffer delete which does not close the window
-nnoremap <leader>bd :Bdelete<CR>
-nnoremap <leader>Bd :Bdelete!<CR>
+nnoremap <leader>Bd :Bdelete<CR>
+nnoremap <leader>BD :Bdelete!<CR>
+
+
+nnoremap <leader>bF :%!fgrep '<c-r>=expand("<cword>")<cr>'
+nnoremap <leader>bf :%!fgrep '<c-r>+'<CR>
 
 " Fast buffer selection
-nnoremap <leader>B :ls<CR>:pwd<CR>:b<Space>
+" nnoremap <leader>B :ls<CR>:pwd<CR>:b<Space>
 
 " tab-completion similar to bash.
 " When you type the first tab hit will complete as much as possible, the second
@@ -494,8 +516,7 @@ set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr
 
 " Viewing  *******************************************************************
 " turn on line numbers, relative
-set number
-set relativenumber " default is relative
+call LayoutCoding()
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 nnoremap <silent> <leader>n0 :set nonumber \| set nornu <cr>
@@ -509,7 +530,7 @@ hi link markdownError Normal
 vnoremap <silent> <leader>ya+ :call Append_register_clipboard()<cr>
 
 " turn on spell-checker for md files
-autocmd BufRead,BufNewFile *.c,*.h setlocal spell
+autocmd BufRead,BufNewFile *.c,*.h,*.py setlocal spell
 " complete from speller when doing ctrl-p/n 
 set complete+=kspell
 " ignore words that looks like code symbol
@@ -617,7 +638,7 @@ nnoremap <leader>crp :let @+=expand("%")<CR>
 " Echo current buffer's Filename (tail) + Line number to the vim command line or clipboard
 nnoremap <leader>elp :echo expand("%:t") . ':' . line(".")<CR>
 nnoremap <leader>clp :let @+=expand("%:t") . ':' . line(".")<CR>
-" Echo current buffer's Filename (tail)
+" Echo current buffer's Filename (tail) to the vim command line or clipboard
 nnoremap <leader>enp :echo expand("%:t")<CR>
 nnoremap <leader>cnp :let @+=expand("%:t")<CR>
 
@@ -714,10 +735,12 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " nnoremap <silent> <leader>b :Buffers<cr> :call FzfWA()<CR>
 " nnoremap <silent> <leader>f :execute 'Files' <bar> :call !FzfWA()<CR>
 " let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
-nnoremap <leader>b :Buffers<cr>
+
+" nnoremap <leader>b :Buffers<cr> " disabled for now, using history <leader>h
 nnoremap <leader>F :Files ../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
+nnoremap <leader>h :History<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
 
 
@@ -758,7 +781,7 @@ let g:grepper = {
     \ 'tools': ['pss','ag', 'pcregrep'],
     \ 'pss': {
     \   'grepprg':    'pss',
-    \   'grepprgbuf': 'pss $* $.',
+    \   'grepprgbuf': 'pss --nocolor --nobreak --noheading -u $* $.',
     \   'grepformat': '%f:%l:%m',
     \   'escape':     '\+*^$()[]',
     \ },
@@ -786,7 +809,7 @@ endif
 nmap <leader>a  <Plug>(altr-forward)
 nmap <leader>A  <Plug>(altr-back)
 " iguazio 'classes in c' pattern
-call altr#define('%.c','%.h','%_prv.h')
+call altr#define('%.c','%.h','%_prv.h','%_nv.h')
 
 " " expand_region 
 " call expand_region#custom_text_objects({ 

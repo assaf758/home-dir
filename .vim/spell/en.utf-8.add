@@ -155,3 +155,6 @@ restorable
 rcval
 naipi
 unsuspend
+teardown
+auth_sd
+enqueuing

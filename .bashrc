@@ -210,6 +210,13 @@ function ssh_settings () {
     eval `keychain --eval id_rsa`
 }
 
+function my_prompt () {
+    local target=""
+    if [[ $ROOT_BIN_DIR =~ .*Release$ ]] ; then target="Release"; fi
+    if [[ $ROOT_BIN_DIR =~ .*Debug$ ]] ; then target="Debug"; fi
+    echo "$(date +%Y.%m.%d\ %H:%M); {${target}}"
+}
+
 
 #################### main
 
@@ -304,7 +311,7 @@ case "`cat ~/hostname.txt`" in
         PS1="\[\e[0;31m\][\u@\h \W]\$ \[\e[m\] "
         ;;
     'iguazio' )
-        PS1="\n>>\$(date +%Y.%m.%d\ %H:%M); \h:\w\n$ "
+        PS1="\n>>\$(my_prompt); \h:\w\n$ "
         source ~/scripts/iguazio_common.sh
 	    add_to_path "~/.local/share/junest/bin"
         if [ -n "${JUNEST_ENV}" ]; then
