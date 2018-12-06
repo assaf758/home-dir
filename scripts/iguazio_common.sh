@@ -140,3 +140,21 @@ cdtesting ()
     cd ${IGZ_ZEEK}/testing/integration
 }
 
+set_lemonade()
+{
+    local info_str
+    local orig_port
+    local new_port
+    if [[ ${SSH_CONNECTION} =~ 192.168. ]] ; then
+       info_str='connecting from office wlinux'
+       orig_port='2490'
+       new_port='2489'
+    else
+       info_str='connecting from home hlinux'
+       orig_port='2489'
+       new_port='2490'
+    fi
+    sed -i  "s/${orig_port}/${new_port}/g" ~/.config/lemonade.toml && echo y | lemonade copy 
+    printf "%s, %s->%s, paste=" "${info_str}" $orig_port $new_port 
+    lemonade paste
+}
