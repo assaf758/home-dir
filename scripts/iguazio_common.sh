@@ -142,19 +142,32 @@ cdtesting ()
 
 set_lemonade()
 {
+    tmup
+
     local info_str
     local orig_port
     local new_port
-    if [[ ${SSH_CONNECTION} =~ 192.168. ]] ; then
-       info_str='connecting from office wlinux'
-       orig_port='2490'
-       new_port='2489'
-    else
+
+    printf "SSH_CLIENT = %s\n" "${SSH_CLIENT}"
+    if [[ ${SSH_CLIENT} =~ 192.168.106 ]] ; then
        info_str='connecting from home hlinux'
        orig_port='2489'
        new_port='2490'
+    else
+       info_str='connecting from office wlinux'
+       orig_port='2490'
+       new_port='2489'
     fi
-    sed -i  "s/${orig_port}/${new_port}/g" ~/.config/lemonade.toml && echo y | lemonade copy 
-    printf "%s, %s->%s, paste=" "${info_str}" $orig_port $new_port 
-    lemonade paste
+
+    printf "%s, %s->%s\n" "${info_str}" $orig_port $new_port
+    sed -i  "s/${orig_port}/${new_port}/g" ~/.config/lemonade.toml
+
+    echo y | lemonade copy
+    if [ $? -ne 0 ] ; then
+        printf "lemonade test FAIL\n"
+    else
+        printf "lemonade test OK\n"
+    fi
+    # if can't connect:
+    # sudo netstat -apn|grep -w 2490  | awk '{print $7}' | cut -d '/' -f 1 | xargs kill -9
 }
