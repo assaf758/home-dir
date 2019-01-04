@@ -85,6 +85,12 @@ $if Bash
   # Note Ctrl-o toggles panes on and off in mc
   "\e[21~": "mc\C-M"
 
+  # F8 to edit the command line in the $EDITOR
+  "\e[19~": edit-and-execute-command
+
+  # F7 to echo the command line to clipboard
+  "\e[18~": "\C-a\C-kecho \'\C-y\' | lemonade copy\n"
+
   #do history expansion when space entered
   Space: magic-space
 $endif

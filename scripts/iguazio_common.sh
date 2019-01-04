@@ -149,7 +149,7 @@ set_lemonade()
     local new_port
 
     printf "SSH_CLIENT = %s\n" "${SSH_CLIENT}"
-    if [[ ${SSH_CLIENT} =~ 192.168.106 ]] ; then
+    if [[ ${SSH_CLIENT} =~ 192.168.10[16] ]] ; then
        info_str='connecting from home hlinux'
        orig_port='2489'
        new_port='2490'

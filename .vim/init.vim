@@ -809,7 +809,7 @@ endif
 nmap <leader>a  <Plug>(altr-forward)
 nmap <leader>A  <Plug>(altr-back)
 " iguazio 'classes in c' pattern
-call altr#define('%.c','%.h','%_prv.h','%_nv.h')
+call altr#define('%.c','%.h','%_prv.h','%_nv.h', '%_nv_prv.h')
 
 " " expand_region 
 " call expand_region#custom_text_objects({ 
