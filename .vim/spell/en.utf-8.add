@@ -158,3 +158,5 @@ unsuspend
 teardown
 auth_sd
 enqueuing
+persistency
+tmpfs
