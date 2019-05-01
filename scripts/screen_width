@@ -1,0 +1,6 @@
+#!/bin/python2
+from screeninfo import get_monitors
+
+m = get_monitors()[0]
+
+print (m.width-600)

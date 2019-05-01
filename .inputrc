@@ -78,7 +78,7 @@ set bind-tty-special-chars off
 
 # uses the !! operator to repeat the last command, then pipes the result to fzf,
 # returning the result of my selection to whatever command I’ve prefixed
-"\e\\": '"$(!!|fzf)"\C-a \C-m\'
+# "\e\\": '"$(!!|fzf)"\C-a \C-m\'
 
 $if Bash
   # F10 toggles mc on and off
