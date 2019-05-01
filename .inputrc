@@ -89,7 +89,7 @@ $if Bash
   "\e[19~": edit-and-execute-command
 
   # F7 to echo the command line to clipboard
-  "\e[18~": "\C-a\C-kecho \'\C-y\' | lemonade copy\n"
+  "\e[18~": "\C-e\C-u lemonade copy <<"EOF"\n\C-y\nEOF\n\C-y"
 
   #do history expansion when space entered
   Space: magic-space

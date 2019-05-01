@@ -381,6 +381,7 @@ nnoremap <silent> <leader>H1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>H2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
 nnoremap <Leader>log :LayoutLog<CR>
 
+nnoremap <Leader>tab :Tabularize \,<CR>
 
 nnoremap Y y$
 
@@ -741,6 +742,7 @@ nnoremap <leader>F :Files ../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
 nnoremap <leader>h :History<cr>
+nnoremap <leader>l :Lines<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
 
 
