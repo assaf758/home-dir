@@ -82,6 +82,8 @@ igkillall ()
     kill -9 `pidof -x run_node_services.sh` `pidof valgrind` >& /dev/null
     pkill -9  >& /dev/null
     ps axu | awk '/integration\.sh/ {print $2}' | xargs kill -9 >& /dev/null
+    ps axu | awk '/integration\/run\.py/ {print $2}' | xargs kill -9 >& /dev/null
+    ps axu | awk '/testing\/integration\/tests/ {print $2}' | xargs kill -9 >& /dev/null
     kill -9 `pidof fio` >& /dev/null
     pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files
@@ -138,6 +140,11 @@ cdtesting ()
     check_IGZ_WS
     if [ $? -ne 0 ] ; then return 1; fi
     cd ${IGZ_ZEEK}/testing/integration
+}
+
+ig_format ()
+{
+    (cdzeek && docker run -it -u assafb -w $(pwd) --rm --name test -v ~/iguazio:/home/assafb/iguazio assafb/ubuntu-16.04-clang-3.6 ./etc/scripts/format_code)
 }
 
 set_lemonade()
