@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple  
 WorkingDirectory=/home/assafb/Dropbox/tiddly_wiki
-ExecStart=/usr/bin/tiddlywiki --server 
+ExecStart=/usr/bin/tiddlywiki --listen host=0.0.0.0
 Restart=on-abort
 
 [Install]
