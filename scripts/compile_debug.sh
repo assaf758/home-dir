@@ -13,4 +13,6 @@ mkdir -p build/x86_64/Debug/
 cd build/x86_64/Debug/
 make -i clean
 cmake ${IGZ_ZEEK} -DCMAKE_BUILD_TYPE=Debug
-make -j10
+
+# make VERBOSE=1 -j 6
+make -j 6

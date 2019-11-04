@@ -43,7 +43,7 @@ igws ()
     if [[ $# < 1  || $# > 2 ]] ; then echo "usage: igws <workspace> [<target>]. for example igws resync Release"; return 1; fi
     target="Debug"
     if [ $2 ] ; then target=$(echo $2) ; fi
-    cd ~/iguazio/$1 && igset_traget "${target}" && export DISPLAY="" && igtmux
+    cd ~/iguazio/$1 && igset_traget "${target}" && unset DISPLAY && igtmux
 }
 
 
@@ -66,7 +66,7 @@ igrun_test ()
         printf "running iteration #%d/%d\n" ${i} ${iter}
         LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
         result=$?
-        if (($result!=0)); then printf "test number %d failed rc=%d" ${i} ${result}; break; fi
+        if ((${result}!=0)); then printf "test number %d failed rc=%d" ${i} ${result}; break; fi
     done
     deactivate 
     return ${result}
@@ -87,7 +87,8 @@ igkillall ()
     kill -9 `pidof fio` >& /dev/null
     pkill -9 node_runner* >& /dev/null
     rm -f /dev/shm/*_stats_* # remove old stats files
-    rm -rf /tmp/fuse_mount /tmp_fuse_mount_all
+    rm -rf /tmp/fuse_mount /tmp_fuse_mount_all /tmp/bridge_*
+    rm -rf /tmp/igzfs/
     find /tmp -name 'data_policy_container_*' -delete
 }
 

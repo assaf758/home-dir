@@ -5,7 +5,7 @@ import subprocess
 import os
 from six.moves import input
 
-build_matcher = re.compile('(?:^\[ {0,2}\d{1,3}\%\] |^(Scanning dependencies of target|Essential files are checked|Writing|Removing|running|--|make\[3\]: warning: jobserver unavailable:))')
+build_matcher = re.compile('(?:^\[ {0,2}\d{1,3}\%\] |^(.*All modifications are handled by modifiers.*|WARNING:|Generating LALR tables|Scanning dependencies of target|Essential files are checked|Writing|Removing|running|--|gmake\[3\]: warning: jobserver unavailable:))')
 
 while True:
     rows, columns = os.popen('stty size', 'r').read().split()

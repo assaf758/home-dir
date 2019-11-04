@@ -47,12 +47,9 @@ Plug 'wincent/terminus'
 Plug 'kopischke/vim-fetch'
 Plug 'lambdalisue/suda.vim'
 
-" Plug 'airblade/vim-rooter'
+Plug 'SirVer/ultisnips'
 
-"trying to use ncm2 instead
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'Shougo/neoinclude.vim'
-" Plug 'zchee/deoplete-clang'
+" Plug 'airblade/vim-rooter'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -60,8 +57,8 @@ Plug 'ncm2/ncm2-pyclang'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
 
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
@@ -158,6 +155,31 @@ function! LayoutCoding()
 endfunction
 command! -bar LayoutCoding call LayoutCoding()
 
+" fun! ShowMaps2()
+" redir! > ~/vim_maps.txt
+" verbose map
+" verbose map!
+" redir END
+" e ~/vim_maps.txt
+" endfun!
+
+function! ShowMaps()
+  let old_reg = getreg("a")          " save the current content of register a
+  let old_reg_type = getregtype("a") " save the type of the register as well
+  try
+      redir @a                           " redirect output to register a
+      " Get the list of all key mappings silently, satisfy "Press ENTER to continue"
+      silent map | call feedkeys("\<CR>")    
+      redir END                          " end output redirection
+      vnew                               " new buffer in vertical window
+      put a                              " put content of register
+      " Sort on columns 1-14 as keys
+      %!sort --key=1,14                  
+  finally                                " Execute even if exception is raised
+      call setreg("a", old_reg, old_reg_type) " restore register a
+  endtry
+endfunction
+command! -bar ShowMaps call ShowMaps()
 
 function! SetMarkdownOptions()
     setlocal ts=2
@@ -285,14 +307,6 @@ let hostname = system("cat ~/hostname.txt")
 return hostname
 endfun!
 
-fun! My_mappings()
-redir! > ~/vim_maps.txt
-verbose map
-verbose map!
-redir END
-e ~/vim_maps.txt
-endfun!
-
 function! s:get_visual_selection()
 " Why is this not a built-in Vim script function?!
 let [lnum1, col1] = getpos("'<")[1:2]
@@ -371,11 +385,12 @@ nnoremap <silent> <leader>Ev :e $MYVIMRC<cr>
 nnoremap <silent> <leader>Ed :e ~/Dropbox/Draft/vim.txt<cr>
 nnoremap <silent> <leader>Eb :e ~/.bashrc<cr>
 nnoremap <silent> <leader>Sv :source $MYVIMRC<cr>
-nnoremap <silent> <leader>map :silent call My_mappings()<cr>
+nnoremap <silent> <leader>map :silent call ShowMaps()<cr>
 nnoremap <silent> <leader>w :w<cr>
 nnoremap <silent> <leader>4 :resize 40<cr>
 nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
 
+nnoremap <silent> <leader>cd :cd $IGZ_ZEEK \| :pwd<cr>
 nnoremap <silent> <leader>H :LayoutCoding<CR>
 nnoremap <silent> <leader>H1 :copen \| :resize 10 \| :wincmd k<cr>
 nnoremap <silent> <leader>H2 :copen \| :resize 10 \| :wincmd k \| :vsplit<cr>
@@ -503,16 +518,11 @@ set background=dark
 set cursorline 	" highlight current line
 highlight Cursor guifg=white guibg=black
 highlight iCursor guifg=white guibg=steelblue
-set guicursor=n-v-c:block-Cursor
-set guicursor+=i:block-Cursor
-set guicursor+=n-v-c:blinkon0
-set guicursor+=i:blinkwait10
 
 " turn on 24bit colors
 set termguicolors
 " cursor shape at input mode
-set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-
+set guicursor=n-v:block-Cursor/lCursor-blinkon0,i-ci-c:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 
 " Viewing  *******************************************************************
@@ -696,6 +706,8 @@ let g:vimwiki_list = [{
 :nmap <Leader>sD <Plug>VimwikiDeleteLink
 :nmap <Leader>sR <Plug>VimwikiRenameLink
 :nmap <Leader>sz <Plug>VimwikiTabIndex
+:nmap <Leader>sxxx1 <Plug>VimwikiUISelect
+:nmap <Leader>sxxx2 <Plug>VimwikiGoto
 let vimwiki_prevent_cr_remap = 1
 let g:vimwiki_global_ext = 0
 let g:vimwiki_folding = 'expr'
@@ -741,7 +753,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 nnoremap <leader>F :Files ../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
-nnoremap <leader>h :History<cr>
+nnoremap <leader>e :History<cr>
 nnoremap <leader>l :Lines<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -f --skip-vcs-ignores  -l -g ""'
 
@@ -811,7 +823,8 @@ endif
 nmap <leader>a  <Plug>(altr-forward)
 nmap <leader>A  <Plug>(altr-back)
 " iguazio 'classes in c' pattern
-call altr#define('%.c','%.h','%_prv.h','%_nv.h', '%_nv_prv.h')
+call altr#remove_all()
+call altr#define('%.c','%.h','%_prv.h','%_nv.h', '%_nv_prv.h', '%.cc','%.hh')
 
 " " expand_region 
 " call expand_region#custom_text_objects({ 
