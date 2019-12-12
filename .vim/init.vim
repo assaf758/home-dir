@@ -47,18 +47,22 @@ Plug 'wincent/terminus'
 Plug 'kopischke/vim-fetch'
 Plug 'lambdalisue/suda.vim'
 
-Plug 'SirVer/ultisnips'
-
 " Plug 'airblade/vim-rooter'
 
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-pyclang'
-Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2'
+" Plug 'ncm2/ncm2-pyclang'
+" Plug 'ncm2/ncm2-jedi'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
+" Plug 'natebosch/vim-lsc'
+" Plug 'ajh17/VimCompletesMe'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'm-pilia/vim-ccls'
 
 Plug 'vim-scripts/renamer.vim'
 Plug 'Olical/vim-enmasse'
@@ -402,7 +406,7 @@ nnoremap Y y$
 
 " Once you select one or more files, press enter and ranger will quit again and vim will open the selected files.
 let g:ranger_map_keys = 0
-nnoremap <silent> <leader>r :Ranger<CR>
+nnoremap <silent> <leader>ra :Ranger<CR>
 
 " Return indent (all whitespace at start of a line), converted from
 " tabs to spaces if what = 1, or from spaces to tabs otherwise.
@@ -616,8 +620,6 @@ set tabstop=4     " size of a hard tabstop char
 nnoremap <leader>qsp :set list! list?<cr>
 set listchars=tab:→\ ,trail:·,nbsp:·,eol:¬
 
-set hidden	" allow switching from unsaved buffer
-
 """""""""""""""""""""
 " edit config
 """""""""""""""""""""
@@ -653,11 +655,14 @@ nnoremap <leader>clp :let @+=expand("%:t") . ':' . line(".")<CR>
 nnoremap <leader>enp :echo expand("%:t")<CR>
 nnoremap <leader>cnp :let @+=expand("%:t")<CR>
 
-set nobackup		" no backup files
-set noswapfile		" nor swapfiles
+set nobackup            " no backup files
+set nowritebackup
+set noswapfile		    " nor swapfiles
 set history=1000        " remember more commands and search history
 set undolevels=1000     " use many muchos levels of undo
 set title               " change the terminal's title (no effect under tmux / gui)
+set hidden	" allow switching from unsaved buffer
+set cmdheight=2 " Better display for messages
 
 " Allow calling sudo (to make file writeable) *after* you have edited the file
 cmap w!! w !sudo tee % >/dev/null
@@ -750,7 +755,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " let g:fzf_layout = { 'window': 'execute (tabpagenr()-1)."tabnew"' }
 
 " nnoremap <leader>b :Buffers<cr> " disabled for now, using history <leader>h
-nnoremap <leader>F :Files ../..<cr>
+nnoremap <leader>F :Files ../../..<cr>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>T :Tags<cr>
 nnoremap <leader>e :History<cr>
@@ -836,26 +841,57 @@ call altr#define('%.c','%.h','%_prv.h','%_nv.h', '%_nv_prv.h', '%.cc','%.hh')
 "       \ 'ai' :0, 
 "       \ })
 
-" ncm2
+" coc config
 
-" Completion menu IMPORTANTE: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-" ncm2-pyclang
-let g:ncm2_pyclang#library_path = "/usr/lib64/llvm/libclang.so"
-let g:ncm2_pyclang#database_path = [
-            \ 'build/x86_64/Debug/compile_commands.json'
-            \ ]
-autocmd FileType c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-" Use <TAB> to select the popup menu:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+" don't give |ins-completion-menu| messages.
 set shortmess+=c
+" always show signcolumns
+"
+set signcolumn=yes
 
-" ultisnip
-let g:UltiSnipsExpandTrigger="<Tab>"
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+"Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+		  \ pumvisible() ? "\<C-n>" :
+		  \ <SID>check_back_space() ? "\<TAB>" :
+		  \ coc#refresh()
+" <CR> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" Remap keys for gotos
+
+" conflicts with my config K N
+nnoremap <silent> gaa :call <SID>show_documentation()<CR> 
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gre <Plug>(coc-references)
+
+nmap <silent> gcch :CclsCallHierarchy<CR>
+nmap <silent> gceh :CclsCalleeHierarchy<CR>
+" configured by default:
+" nmap <silent> <buffer> o    <Plug>(yggdrasil-toggle-node)
+" nmap <silent> <buffer> <cr> <Plug>(yggdrasil-execute-node)
+nnoremap <silent> <buffer> q :q<cr>nmap <silent> O <Plug>(yggdrasil-close-node)
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " rtags
 let g:rtagsUseLocationList = 0
@@ -867,10 +903,10 @@ let g:magit_discard_untracked_do_delete = 1
 let g:VimuxRunnerType = "window"
 let g:VimuxUseNearest = 0
 
-"deoplete config
-let g:deoplete#enable_at_startup = 0
-let g:deoplete#sources#clang#libclang_path="/usr/lib64/llvm/libclang.so"
-let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
+""deoplete config
+"let g:deoplete#enable_at_startup = 0
+"let g:deoplete#sources#clang#libclang_path="/usr/lib64/llvm/libclang.so"
+"let g:deoplete#sources#clang#clang_header="/usr/include/clang/"
 
 " rooter
 let g:rooter_patterns = ['proj_file_list.in']
