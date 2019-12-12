@@ -51,7 +51,7 @@ igrun_test ()
 {
     check_IGZ_WS
     if [ $# -lt 1 ] ; then echo "plese provide path for test to run (and optional params to it)"; return 1; fi
-    igkillall
+    igc
     test=$1
     shift
     cd ${IGZ_ZEEK}
@@ -63,7 +63,7 @@ igrun_test ()
     do
         igkillall
         # rm ${ROOT_BIN_DIR}/valgrind_results/*
-        printf "running iteration #%d/%d\n" ${i} ${iter}
+        printf "running iteration #%d/%d of test %s\n" ${i} ${iter} ${test}
         LD_LIBRARY_PATH=${ROOT_BIN_DIR}/v3io python "$test" ${ROOT_SRC_DIR} ${ROOT_BIN_DIR} "$@"
         result=$?
         if ((${result}!=0)); then printf "test number %d failed rc=%d" ${i} ${result}; break; fi

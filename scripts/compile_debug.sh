@@ -12,7 +12,8 @@ cd ${IGZ_ZEEK}
 mkdir -p build/x86_64/Debug/
 cd build/x86_64/Debug/
 make -i clean
+rm -rf * .*
 cmake ${IGZ_ZEEK} -DCMAKE_BUILD_TYPE=Debug
 
 # make VERBOSE=1 -j 6
-make -j 6
+make -l $(nproc)
